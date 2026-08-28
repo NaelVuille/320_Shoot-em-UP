@@ -41,11 +41,11 @@
       "id": "4112812d-bb32-4688-818d-1ca5c21fd66c",
       "type": "commitless",
       "author": "NaelVuille",
-      "date": "2026-08-28T13:55:00.000Z",
-      "name": "meat(projet): Ecouter les instruction de projet",
+      "date": "2026-08-28T11:10:00.000Z",
+      "name": "meet(projet): Ecouter les instruction de projet",
       "description": "-Cahier des charges\r\n-Project Handbook\r\n-Convention Technique\r\n-Outils",
       "duration": 90,
-      "status": ""
+      "status": "DONE"
     }
   ]
 }
