@@ -46,6 +46,39 @@
       "description": "-Cahier des charges\r\n-Project Handbook\r\n-Convention Technique\r\n-Outils",
       "duration": 90,
       "status": "DONE"
+    },
+    {
+      "id": "3301ff11-6e67-4c9f-a3de-d356177d9f04",
+      "type": "commitless",
+      "author": "NaelVuille",
+      "date": "2026-09-04T11:10:00.000Z",
+      "name": "meet(Rapport): discussion sur le contenu du rapport",
+      "description": "-Introduction\r\n-User Story\r\n-Planification",
+      "duration": 20,
+      "status": "DONE"
+    },
+    {
+      "id": "ff14856f-bc60-4323-90c5-3ee002846f9a",
+      "type": "commitless",
+      "author": "NaelVuille",
+      "date": "2026-09-04T11:30:00.000Z",
+      "name": "chore(User story): créations des user story",
+      "description": "'ai crée les différente user story",
+      "duration": 70,
+      "status": "DONE"
+    },
+    {
+      "id": "1dd8e6aa-1600-41a3-9c23-c56ae451a431",
+      "type": "commitpatch",
+      "sha": "87bdd3e8a47c6e98cf430bf7c5a79dabfff40365",
+      "url": "https://github.com/NaelVuille/320_Shoot-em-UP/commit/87bdd3e8a47c6e98cf430bf7c5a79dabfff40365",
+      "author": "NaelVuille",
+      "patch": true,
+      "date": "2026-08-28T12:40:00.000Z",
+      "name": "chore(assets,maquette): que je visualise mon jeu",
+      "description": "",
+      "duration": 120,
+      "status": "DONE"
     }
   ]
 }
