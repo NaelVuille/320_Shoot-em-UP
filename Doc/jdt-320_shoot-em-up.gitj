@@ -79,6 +79,29 @@
       "description": "",
       "duration": 120,
       "status": "DONE"
+    },
+    {
+      "id": "9fa5a831-7d77-406d-863f-9dd1729a770c",
+      "type": "commitpatch",
+      "sha": "b83c9603b7eaddfd741fefdd73b4cfb4511f71b4",
+      "url": "https://github.com/NaelVuille/320_Shoot-em-UP/commit/b83c9603b7eaddfd741fefdd73b4cfb4511f71b4",
+      "author": "NaelVuille",
+      "patch": true,
+      "date": "2026-09-04T12:40:00.000Z",
+      "name": "Doc (Rapport): j'ai crée et remplis le rapport",
+      "description": "",
+      "duration": 110,
+      "status": "DONE"
+    },
+    {
+      "id": "3cc739fe-1091-40d9-8ec2-f46dd54c5b1d",
+      "type": "commitless",
+      "author": "NaelVuille",
+      "date": "2026-09-04T14:35:00.000Z",
+      "name": "Chore(github):realease github",
+      "description": "",
+      "duration": 5,
+      "status": "DONE"
     }
   ]
 }
