@@ -94,13 +94,23 @@
       "status": "DONE"
     },
     {
-      "id": "3cc739fe-1091-40d9-8ec2-f46dd54c5b1d",
+      "id": "812bacde-c916-46d2-939a-554222acce16",
       "type": "commitless",
       "author": "NaelVuille",
-      "date": "2026-09-04T14:35:00.000Z",
-      "name": "Chore(github):realease github",
+      "date": "2026-09-11T11:29:00.000Z",
+      "name": "Doc(rapport): ajout des point a aborder pour le rendu final",
       "description": "",
-      "duration": 5,
+      "duration": 20,
+      "status": "DONE"
+    },
+    {
+      "id": "d0d1802d-0be3-4444-acc0-242bc7469fb9",
+      "type": "commitless",
+      "author": "NaelVuille",
+      "date": "2026-09-11T12:16:00.000Z",
+      "name": "meet (release V1):disscuter sur le premier rendu",
+      "description": "",
+      "duration": 20,
       "status": "DONE"
     }
   ]
