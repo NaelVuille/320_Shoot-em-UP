@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Drones.Properties {
+namespace Joueurs.Properties {
     using System;
     
     

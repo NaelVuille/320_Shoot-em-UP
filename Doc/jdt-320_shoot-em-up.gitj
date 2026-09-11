@@ -112,6 +112,19 @@
       "description": "",
       "duration": 20,
       "status": "DONE"
+    },
+    {
+      "id": "dcb173c3-1c67-4bf3-9b15-102c7fe304c1",
+      "type": "commitpatch",
+      "sha": "01f3ad2b17c20f0b53f2aa06bfee336beab6e708",
+      "url": "https://github.com/NaelVuille/320_Shoot-em-UP/commit/01f3ad2b17c20f0b53f2aa06bfee336beab6e708",
+      "author": "NaelVuille",
+      "patch": true,
+      "date": "2026-09-11T13:21:00.000Z",
+      "name": "feat(code): j'ai ajouté les fonctionnalité de la US9",
+      "description": "affiche le joueur,le joueur tourne avec selon la possition de la souris",
+      "duration": 65,
+      "status": "DONE"
     }
   ]
 }

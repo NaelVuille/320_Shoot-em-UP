@@ -1,24 +1,27 @@
-﻿using Drones.Helpers;
-using Drones.Properties;
+﻿using Joueurs.Helpers;
+using Joueurs.Properties;
 using System.Windows.Forms;
 
-namespace Drones
+namespace Joueurs
 {
     // Cette partie de la classe Drone définit ce qu'est un drone par un modèle numérique
-    public class joueur
+    public class Joueur
     {
         public int charge;                            // La charge actuelle de la batterie
         public string name;                           // Un nom
-        public int x;                                 // Position en X depuis la gauche de l'espace aérien
+        public int x { get; set;}                                 // Position en X depuis la gauche de l'espace aérien
         public int y;                                 // Position en Y depuis le haut de l'espace aérien
         public int speed_x;                           // Déplacement horizontal
         public int speed_y;                           // Déplacement vertical
+
         private float angle = 0f;                     // Variable pour stocker l'angle
+
+
 
         private Random _alea = new Random();
 
         // Constructeur
-        public joueur(int x, int y, string name)
+        public Joueur(int x, int y, string name)
         {
             Random alea = new Random();
             this.x = x;
@@ -28,10 +31,20 @@ namespace Drones
             ChangeDirection();
         }
 
+        public void Mouvement(KeyEventArgs e)
+        {
+
+        }
+
         // Cette méthode calcule le nouvel état dans lequel le joueur se trouve après
         // que 'interval' millisecondes se sont écoulées
         public void Update(int interval)
         {
+            //déplacement
+                      
+            
+
+
             // Récupère la position de la souris relative à la fenêtre active
             Point mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
 
@@ -63,6 +76,9 @@ namespace Drones
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
+            
+
+            //rotation
             Graphics g = drawingSpace.Graphics;
             var state = g.Save();
 

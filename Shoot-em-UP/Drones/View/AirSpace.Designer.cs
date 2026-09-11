@@ -1,4 +1,4 @@
-﻿namespace Drones
+﻿namespace Joueurs
 {
     partial class AirSpace
     {
@@ -44,7 +44,6 @@
             ClientSize = new Size(284, 261);
             Name = "AirSpace";
             Text = "AirSpace";
-            KeyDown += AirSpace_KeyDown;
             ResumeLayout(false);
 
         }

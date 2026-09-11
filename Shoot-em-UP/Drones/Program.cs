@@ -1,4 +1,4 @@
-namespace Drones
+namespace Joueurs
 {
     internal static class Program
     {
@@ -13,7 +13,7 @@ namespace Drones
             ApplicationConfiguration.Initialize();
 
             // Démarrage
-            Application.Run(new AirSpace(new joueur(AirSpace.WIDTH / 2, AirSpace.HEIGHT / 2, "Larbin")));
+            Application.Run(new AirSpace(new Joueur(AirSpace.WIDTH / 2, AirSpace.HEIGHT / 2, "Larbin")));
         }
     }
 }
