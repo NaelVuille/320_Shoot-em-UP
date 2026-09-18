@@ -1,5 +1,6 @@
 ﻿using Joueurs.Helpers;
 using Joueurs.Properties;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace Joueurs
@@ -9,7 +10,7 @@ namespace Joueurs
     {
         public int charge;                            // La charge actuelle de la batterie
         public string name;                           // Un nom
-        public int x { get; set;}                                 // Position en X depuis la gauche de l'espace aérien
+        public int x;                                 // Position en X depuis la gauche de l'espace aérien
         public int y;                                 // Position en Y depuis le haut de l'espace aérien
         public int speed_x;                           // Déplacement horizontal
         public int speed_y;                           // Déplacement vertical
@@ -28,23 +29,15 @@ namespace Joueurs
             this.y = y;
             this.name = name;
             charge = alea.Next(1000); // La charge initiale de la batterie est choisie aléatoirement
-            ChangeDirection();
+            
         }
 
-        public void Mouvement(KeyEventArgs e)
-        {
-
-        }
 
         // Cette méthode calcule le nouvel état dans lequel le joueur se trouve après
         // que 'interval' millisecondes se sont écoulées
         public void Update(int interval)
         {
-            //déplacement
-                      
-            
-
-
+          
             // Récupère la position de la souris relative à la fenêtre active
             Point mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
 
@@ -56,11 +49,39 @@ namespace Joueurs
             angle = (float)(Math.Atan2(dy, dx) * 180.0 / Math.PI);
         }
 
-        // Choisit une nouvelle vitesse aléatoirement
-        public void ChangeDirection()
+        // déplacement
+        public void ChangeDirection(object sender, KeyEventArgs e)
         {
-            speed_x = _alea.Next(-3, 4);
-            speed_y = _alea.Next(-3, 4);
+            int barrierrd = 210;
+            int barrierlu = 0;
+            
+                switch (e.KeyCode)
+                {
+                    case Keys.D:
+                    case Keys.Right:
+                        if (x >= AirSpace.WIDTH - barrierrd) break;
+                        x += Helpers.Config.Speed; 
+                        break;
+
+                    case Keys.A:
+                    case Keys.Left:
+                        if (x <= barrierlu) break;
+                        x -= Helpers.Config.Speed;
+                        break;
+
+                    case Keys.W:
+                    case Keys.Up:
+                        if (y <= barrierlu) break;
+                        y -= Helpers.Config.Speed;
+                        break;
+
+                    case Keys.S:
+                    case Keys.Down:
+                        if (y >= AirSpace.HEIGHT-barrierrd) break;
+                        y += Helpers.Config.Speed;
+                        break;
+                }
+            
         }
 
         /// //////////////////////////////////////////////////////////////////////////////
@@ -110,11 +131,7 @@ namespace Joueurs
             g.Restore(state);
         }
 
-        // De manière textuelle
-        public override string ToString()
-        {
-            return $"{name} ({((int)((double)charge / 1000 * 100)).ToString()}%)";
-        }
+        
 
 
     }
