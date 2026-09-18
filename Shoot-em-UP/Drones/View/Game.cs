@@ -4,21 +4,21 @@ namespace Joueurs
     // Il s'agit d'un formulaire (une fenêtre) qui montre une vue 2D depuis en dessus
     // Il n'y a donc pas de notion d'altitude qui intervient
 
-    public partial class AirSpace : Form
+    public partial class Game : Form
     {
 
 
-        public static readonly int WIDTH = 1280;        // Dimensions of the airspace
-        public static readonly int HEIGHT = 720;
+        public static readonly int WIDTH = Helpers.Config.WIDTH;        // Dimensions
+        public static readonly int HEIGHT = Helpers.Config.HEIGHT;
 
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         private Joueur _joueur;
 
         BufferedGraphicsContext currentContext;
-        BufferedGraphics airspace;
+        BufferedGraphics game;
 
         // Initialisation de l'espace aérien avec un certain nombre de drones
-        public AirSpace(Joueur joueur)
+        public Game(Joueur joueur)
         {
             InitializeComponent();
             ClientSize = new Size(WIDTH, HEIGHT);
@@ -27,18 +27,18 @@ namespace Joueurs
             currentContext = BufferedGraphicsManager.Current;
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
-            airspace = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
-            _joueur = new Joueur(WIDTH/2,HEIGHT/10*7,"Larbin");
+            game = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
+            _joueur = new Joueur(WIDTH/2,HEIGHT/10*7,"Mr. Meeseeks");
         }
 
         // Affichage de la situation actuelle
         private void Render()
         {
-            airspace.Graphics.Clear(Color.AliceBlue);
+            game.Graphics.Clear(Color.Black);
 
-            _joueur.Render(airspace);
+            _joueur.Render(game);
 
-            airspace.Render();
+            game.Render();
         }
 
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
@@ -54,7 +54,7 @@ namespace Joueurs
             this.Render();
         }
 
-        private void AirSpace_KeyDown(object sender, KeyEventArgs e)
+        private void Game_KeyDown(object sender, KeyEventArgs e)
         {
             _joueur.ChangeDirection(sender, e);
             

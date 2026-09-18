@@ -1,7 +1,4 @@
-﻿using Joueurs.Helpers;
-using Joueurs.Properties;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
+﻿using Shoot_em_up.Properties;
 
 namespace Joueurs
 {
@@ -59,7 +56,7 @@ namespace Joueurs
                 {
                     case Keys.D:
                     case Keys.Right:
-                        if (x >= AirSpace.WIDTH - barrierrd) break;
+                        if (x >= Helpers.Config.WIDTH - barrierrd) break;
                         x += Helpers.Config.Speed; 
                         break;
 
@@ -77,7 +74,7 @@ namespace Joueurs
 
                     case Keys.S:
                     case Keys.Down:
-                        if (y >= AirSpace.HEIGHT-barrierrd) break;
+                        if (y >= Helpers.Config.HEIGHT - barrierrd) break;
                         y += Helpers.Config.Speed;
                         break;
                 }

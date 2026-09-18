@@ -1,6 +1,6 @@
 ﻿namespace Joueurs
 {
-    partial class AirSpace
+    partial class Game
     {
         /// <summary>
         ///  Required designer variable.
@@ -37,14 +37,15 @@
             ticker.Enabled = true;
             ticker.Tick += NewFrame;
             // 
-            // AirSpace
+            // Game
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Black;
             ClientSize = new Size(284, 261);
-            Name = "AirSpace";
-            Text = "AirSpace";
-            KeyDown += AirSpace_KeyDown;
+            Name = "Game";
+            Text = "Game";
+            KeyDown += Game_KeyDown;
             ResumeLayout(false);
 
         }

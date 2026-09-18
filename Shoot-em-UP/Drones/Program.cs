@@ -1,3 +1,5 @@
+using Drones.View;
+
 namespace Joueurs
 {
     internal static class Program
@@ -13,7 +15,8 @@ namespace Joueurs
             ApplicationConfiguration.Initialize();
 
             // Démarrage
-            Application.Run(new AirSpace(new Joueur(AirSpace.WIDTH / 2, AirSpace.HEIGHT / 2, "Larbin")));
+            Application.Run(new Accueil());
+            Application.Run(new Game(new Joueur(Game.WIDTH / 2, Game.HEIGHT / 2, "Larbin")));
         }
     }
 }
