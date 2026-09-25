@@ -125,6 +125,19 @@
       "description": "affiche le joueur,le joueur tourne avec selon la possition de la souris",
       "duration": 65,
       "status": "DONE"
+    },
+    {
+      "id": "1e48d507-e415-4932-bbc5-90d6e420760a",
+      "type": "commitpatch",
+      "sha": "f964ada0fff8238a706abcf500057220b4a4884d",
+      "url": "https://github.com/NaelVuille/320_Shoot-em-UP/commit/f964ada0fff8238a706abcf500057220b4a4884d",
+      "author": "NaelVuille",
+      "patch": true,
+      "date": "2026-09-25T13:35:00.000Z",
+      "name": "feat(code): ajout de la US7",
+      "description": "j'ai fait la page d'acceuil avec l'importation de la police mais pas mis en place l'affichage du meilleure score pour continué le jeu principale",
+      "duration": 108,
+      "status": "PAUSED"
     }
   ]
 }

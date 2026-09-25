@@ -1,4 +1,8 @@
-﻿using Shoot_em_up.Properties;
+﻿using Joueurs.Helpers;
+using Shoot_em_up.Model;
+using Shoot_em_up.Properties;
+using System.Runtime.InteropServices;
+using System.Security.Policy;
 
 namespace Joueurs
 {
@@ -11,7 +15,7 @@ namespace Joueurs
         public int speed_x;                           // Déplacement horizontal
         public int speed_y;                           // Déplacement vertical
 
-        private float angle = 0f;                     // Variable pour stocker l'angle
+        private int angle = 0;                     // Variable pour stocker l'angle
 
 
         // Constructeur
@@ -36,11 +40,19 @@ namespace Joueurs
             float dy = mousePos.Y - (y + 100);
 
             // Calcul de l'angle en degrés
-            angle = (float)(Math.Atan2(dy, dx) * 180.0 / Math.PI);
+            angle = (int)(Math.Atan2(dy, dx) * 180.0 / Math.PI);
+        }
+
+        public void Shoot(List<Bullet> bullets)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                bullets.Add(new Bullet(x, y, angle - 1 + i));
+            }
         }
 
         // déplacement
-        public void ChangeDirection(object sender, KeyEventArgs e)
+        public void Action(object sender, KeyEventArgs e,List<Bullet> bullet)
         {
             int barrierrd = 210;
             int barrierlu = 0;
@@ -50,27 +62,32 @@ namespace Joueurs
                     case Keys.D:
                     case Keys.Right:
                         if (x >= Helpers.Config.WIDTH - barrierrd) break;
-                        x += Helpers.Config.Speed; 
+                        x += Helpers.Config.SPEED; 
                         break;
 
                     case Keys.A:
                     case Keys.Left:
                         if (x <= barrierlu) break;
-                        x -= Helpers.Config.Speed;
+                        x -= Helpers.Config.SPEED;
                         break;
 
                     case Keys.W:
                     case Keys.Up:
                         if (y <= barrierlu) break;
-                        y -= Helpers.Config.Speed;
+                        y -= Helpers.Config.SPEED;
                         break;
 
                     case Keys.S:
                     case Keys.Down:
                         if (y >= Helpers.Config.HEIGHT - barrierrd) break;
-                        y += Helpers.Config.Speed;
+                        y += Helpers.Config.SPEED;
                         break;
-                }
+
+                    case Keys.Space:
+                    case Keys.LButton:
+                        Shoot(bullet);
+                    break;
+            }
             
         }
 

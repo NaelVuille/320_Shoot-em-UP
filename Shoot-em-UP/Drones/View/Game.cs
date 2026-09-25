@@ -1,3 +1,5 @@
+using Shoot_em_up.Model;
+
 namespace Joueurs
 {
     // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
@@ -13,6 +15,8 @@ namespace Joueurs
 
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         private Joueur _joueur;
+
+        public List<Bullet> bullets = new List<Bullet>();
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics game;
@@ -56,7 +60,7 @@ namespace Joueurs
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            _joueur.ChangeDirection(sender, e);
+            _joueur.Move(sender, e);
             
         }
     }

@@ -11,6 +11,7 @@ namespace Joueurs.Helpers
         private static PrivateFontCollection pfc = new PrivateFontCollection();
         public static Font BigFont;
         public static Font MediumFont;
+        public static Font SmallFont;
         public static void Init()
         {
             string fontPath = Path.Combine(Application.StartupPath, "Resources", "game_over.ttf");
@@ -20,6 +21,7 @@ namespace Joueurs.Helpers
                 pfc.AddFontFile(fontPath);
                 BigFont = new Font(pfc.Families[0], 148F, FontStyle.Regular, GraphicsUnit.Point);
                 MediumFont = new Font(pfc.Families[0], 100F, FontStyle.Regular, GraphicsUnit.Point);
+                SmallFont = new Font(pfc.Families[0], 50F, FontStyle.Regular, GraphicsUnit.Point);
             }
         }
     }
