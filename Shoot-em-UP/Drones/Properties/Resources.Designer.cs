@@ -63,6 +63,16 @@ namespace Shoot_em_up.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap contour_bouton {
+            get {
+                object obj = ResourceManager.GetObject("contour bouton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ExitButton {
             get {
                 object obj = ResourceManager.GetObject("ExitButton", resourceCulture);

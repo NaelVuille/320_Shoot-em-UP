@@ -28,7 +28,7 @@ namespace Joueurs
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
             game = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
-            _joueur = new Joueur(WIDTH/2,HEIGHT/10*7,"Mr. Meeseeks");
+            _joueur = new Joueur(WIDTH/2,HEIGHT/10*7);
         }
 
         // Affichage de la situation actuelle

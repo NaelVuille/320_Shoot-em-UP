@@ -6,7 +6,6 @@ namespace Joueurs
     public class Joueur
     {
         public int charge;                            // La charge actuelle de la batterie
-        public string name;                           // Un nom
         public int x;                                 // Position en X depuis la gauche de l'espace aérien
         public int y;                                 // Position en Y depuis le haut de l'espace aérien
         public int speed_x;                           // Déplacement horizontal
@@ -15,17 +14,11 @@ namespace Joueurs
         private float angle = 0f;                     // Variable pour stocker l'angle
 
 
-
-        private Random _alea = new Random();
-
         // Constructeur
-        public Joueur(int x, int y, string name)
+        public Joueur(int x, int y)
         {
-            Random alea = new Random();
             this.x = x;
             this.y = y;
-            this.name = name;
-            charge = alea.Next(1000); // La charge initiale de la batterie est choisie aléatoirement
             
         }
 
@@ -97,11 +90,11 @@ namespace Joueurs
             
 
             //rotation
-            Graphics g = drawingSpace.Graphics;
-            var state = g.Save();
+            
+            var state = drawingSpace.Graphics.Save();
 
             // 1. Déplace le pivot au centre du joueur
-            g.TranslateTransform(x + 100, y + 100);
+            drawingSpace.Graphics.TranslateTransform(x + 100, y + 100);
 
             // 2. Vérifie si la souris pointe vers la gauche
             bool flipHorizontal = Math.Abs(angle) > 90;
@@ -109,23 +102,23 @@ namespace Joueurs
             if (flipHorizontal)
             {
                 // Inverse l'axe X (effet miroir)
-                g.ScaleTransform(-1, 1);
+                drawingSpace.Graphics.ScaleTransform(-1, 1);
 
                 // Ajuste l'angle pour compenser le miroir (évite d'avoir la tête en bas)
                 float mirroredAngle = angle > 0 ? 180 - angle : -180 - angle;
-                g.RotateTransform(mirroredAngle);
+                drawingSpace.Graphics.RotateTransform(mirroredAngle);
             }
             else
             {
                 // Rotation normale vers la droite
-                g.RotateTransform(angle);
+                drawingSpace.Graphics.RotateTransform(angle);
             }
 
             // 3. Dessin centré
-            g.DrawImage(Resources.joueur, -100, -100, 200, 200);
+            drawingSpace.Graphics.DrawImage(Resources.joueur, -100, -100, 200, 200);
 
             // 4. Restaure le repère
-            g.Restore(state);
+            drawingSpace.Graphics.Restore(state);
         }
 
         

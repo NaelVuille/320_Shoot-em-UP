@@ -16,7 +16,6 @@ namespace Joueurs
 
             // Démarrage
             Application.Run(new Accueil());
-            Application.Run(new Game(new Joueur(Game.WIDTH / 2, Game.HEIGHT / 2, "Larbin")));
         }
     }
 }
