@@ -16,8 +16,6 @@ namespace Shoot_em_up.Model
         private int _y;
         private int _angle;
 
-        private int _mouseX;
-        private int _mouseY;
 
         public Bullet(int x, int y,int angle)
         {
@@ -25,12 +23,12 @@ namespace Shoot_em_up.Model
             _y = y;
             _angle = angle;
         }
-        public void Update(int interval)
+        public void Update(int interval, Point mousePos)
         {
-            double distance = MathHelpers.Distance(_x, _y, _mouseX, _mouseY);
+            double distance = MathHelpers.Distance(_x, _y, mousePos.X, mousePos.Y);
 
-            double dx = _mouseX - _x;
-            double dy = _mouseY - _y;
+            double dx = mousePos.X - _x;
+            double dy = mousePos.Y - _y;
             _x += (int)(dx / distance * Config.SPEED * interval / 1000);
             _y += (int)(dy / distance * Config.SPEED * interval / 1000);
         }

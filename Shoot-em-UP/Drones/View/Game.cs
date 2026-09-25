@@ -8,7 +8,8 @@ namespace Joueurs
 
     public partial class Game : Form
     {
-
+        // Récupère la position de la souris relative à la fenêtre active
+        Point mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
 
         public static readonly int WIDTH = Helpers.Config.WIDTH;        // Dimensions
         public static readonly int HEIGHT = Helpers.Config.HEIGHT;
@@ -48,7 +49,7 @@ namespace Joueurs
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
-            _joueur.Update(interval);
+            _joueur.Update(interval,mousePos);
         }
 
         // Méthode appelée à chaque frame
@@ -60,7 +61,7 @@ namespace Joueurs
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            _joueur.Move(sender, e);
+            _joueur.Action(sender, e,bullets);
             
         }
     }

@@ -29,11 +29,9 @@ namespace Joueurs
 
         // Cette méthode calcule le nouvel état dans lequel le joueur se trouve après
         // que 'interval' millisecondes se sont écoulées
-        public void Update(int interval)
+        public void Update(int interval,Point mousePos)
         {
           
-            // Récupère la position de la souris relative à la fenêtre active
-            Point mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
 
             // Vecteur entre le centre du joueur (x + 100, y + 100) et la souris
             float dx = mousePos.X - (x + 100);
