@@ -41,28 +41,49 @@ namespace Joueurs
         {
             game.Graphics.Clear(Color.Black);
 
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.Render(game);
+            }
             _joueur.Render(game);
 
             game.Render();
+
+            
         }
 
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
             _joueur.Update(interval,mousePos);
+
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.Update();
+            }
+            
         }
 
         // Méthode appelée à chaque frame
         private void NewFrame(object sender, EventArgs e)
         {
+            mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
             this.Update(ticker.Interval);
             this.Render();
+            
         }
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            _joueur.Action(sender, e,bullets);
+            _joueur.Action(sender, e,bullets,mousePos, ticker.Interval);
             
+        }
+        private void Game_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                _joueur.Shoot(bullets,mousePos, ticker.Interval);
+            }
         }
     }
 }

@@ -14,28 +14,37 @@ namespace Shoot_em_up.Model
     {
         private int _x;
         private int _y;
-        private int _angle;
+        private float _angle;
+        private int _incrX;
+        private int _incrY;
 
 
-        public Bullet(int x, int y,int angle)
+
+        public Bullet(int x, int y, float angle, int interval)
         {
             _x = x;
             _y = y;
             _angle = angle;
-        }
-        public void Update(int interval, Point mousePos)
-        {
-            double distance = MathHelpers.Distance(_x, _y, mousePos.X, mousePos.Y);
 
-            double dx = mousePos.X - _x;
-            double dy = mousePos.Y - _y;
-            _x += (int)(dx / distance * Config.SPEED * interval / 1000);
-            _y += (int)(dy / distance * Config.SPEED * interval / 1000);
+            double rad = angle * Math.PI / 180.0;
+            _incrX = (int)Math.Round(Math.Cos(rad) * Config.SPEED*100 * interval / 1000.0);
+            _incrY = (int)Math.Round(Math.Sin(rad) * Config.SPEED*100 * interval / 1000.0);
+        }
+
+        public void Update()
+        {
+
+
+            _x += _incrX;
+            _y += _incrY;
         }
         public void Render(BufferedGraphics drawingSpace)
         {
+            var state = drawingSpace.Graphics.Save();
+            drawingSpace.Graphics.TranslateTransform(_x, _y);
             drawingSpace.Graphics.RotateTransform(_angle);
-            drawingSpace.Graphics.DrawImage(Resources.Bullet, _x, _y, 5, 5);
+            drawingSpace.Graphics.DrawImage(Resources.Bullet, -15, -15, 30, 30);
+            drawingSpace.Graphics.Restore(state);
         }
     }
 }

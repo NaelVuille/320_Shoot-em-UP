@@ -46,6 +46,7 @@
             Name = "Game";
             Text = "Game";
             KeyDown += Game_KeyDown;
+            this.MouseDown += Game_MouseDown;
             ResumeLayout(false);
 
         }

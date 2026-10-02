@@ -14,8 +14,8 @@ namespace Joueurs
         public int y;                                 // Position en Y depuis le haut de l'espace aérien
         public int speed_x;                           // Déplacement horizontal
         public int speed_y;                           // Déplacement vertical
-
-        private int angle = 0;                     // Variable pour stocker l'angle
+        public int timer = 10;
+        private float _angle = 0;                     // Variable pour stocker l'angle
 
 
         // Constructeur
@@ -23,70 +23,91 @@ namespace Joueurs
         {
             this.x = x;
             this.y = y;
-            
+
         }
 
 
         // Cette méthode calcule le nouvel état dans lequel le joueur se trouve après
         // que 'interval' millisecondes se sont écoulées
-        public void Update(int interval,Point mousePos)
+        public void Update(int interval, Point mousePos)
         {
-          
+
 
             // Vecteur entre le centre du joueur (x + 100, y + 100) et la souris
             float dx = mousePos.X - (x + 100);
             float dy = mousePos.Y - (y + 100);
 
             // Calcul de l'angle en degrés
-            angle = (int)(Math.Atan2(dy, dx) * 180.0 / Math.PI);
+            _angle = (float)(Math.Atan2(dy, dx) * 180.0 / Math.PI);
         }
 
-        public void Shoot(List<Bullet> bullets)
+        public void Shoot(List<Bullet> bullets, Point mousePos, int interval)
         {
-            for(int i = 0; i < 3; i++)
+            timer++;
+            if (timer <= 10) return;
+            timer = 0;
+
+            // Réduis cette valeur pour que la balle apparaisse près du canon et non au milieu de nulle part
+            float distanceDuCanon = 45.0f;
+
+            float[] angleOffsets = { -5f, -0f, 5f };
+
+            for (int i = 0; i < 3; i++)
             {
-                bullets.Add(new Bullet(x, y, angle - 1 + i));
+                float bulletAngle = _angle + angleOffsets[i];
+                double angleRadians = bulletAngle * Math.PI / 180.0;
+
+                // Calcul du décalage par rapport au centre (x + 100, y + 100)
+                double offsetX = Math.Cos(angleRadians) * distanceDuCanon;
+                double offsetY = Math.Sin(angleRadians) * distanceDuCanon;
+
+                int pointDepartX = (int)(this.x + 100 + offsetX);
+                int pointDepartY = (int)(this.y + 100 + offsetY);
+
+                bullets.Add(new Bullet(pointDepartX, pointDepartY, bulletAngle, interval));
             }
         }
 
         // déplacement
-        public void Action(object sender, KeyEventArgs e,List<Bullet> bullet)
+        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, Point mousePos, int interval)
         {
             int barrierrd = 210;
             int barrierlu = 0;
             
-                switch (e.KeyCode)
-                {
-                    case Keys.D:
-                    case Keys.Right:
-                        if (x >= Helpers.Config.WIDTH - barrierrd) break;
-                        x += Helpers.Config.SPEED; 
-                        break;
 
-                    case Keys.A:
-                    case Keys.Left:
-                        if (x <= barrierlu) break;
-                        x -= Helpers.Config.SPEED;
-                        break;
+            switch (e.KeyCode)
+            {
+                case Keys.D:
+                case Keys.Right:
+                    if (x >= Helpers.Config.WIDTH - barrierrd) break;
+                    x += Helpers.Config.SPEED;
+                    break;
 
-                    case Keys.W:
-                    case Keys.Up:
-                        if (y <= barrierlu) break;
-                        y -= Helpers.Config.SPEED;
-                        break;
+                case Keys.A:
+                case Keys.Left:
+                    if (x <= barrierlu) break;
+                    x -= Helpers.Config.SPEED;
+                    break;
 
-                    case Keys.S:
-                    case Keys.Down:
-                        if (y >= Helpers.Config.HEIGHT - barrierrd) break;
-                        y += Helpers.Config.SPEED;
-                        break;
+                case Keys.W:
+                case Keys.Up:
+                    if (y <= barrierlu) break;
+                    y -= Helpers.Config.SPEED;
+                    break;
 
-                    case Keys.Space:
-                    case Keys.LButton:
-                        Shoot(bullet);
+                case Keys.S:
+                case Keys.Down:
+                    if (y >= Helpers.Config.HEIGHT - barrierrd) break;
+                    y += Helpers.Config.SPEED;
+                    break;
+
+                case Keys.Space:
+                    
+                    Shoot(bullet, mousePos, interval);
+                    
                     break;
             }
-            
+
         }
 
         /// //////////////////////////////////////////////////////////////////////////////
@@ -97,22 +118,22 @@ namespace Joueurs
         //  
         /// //////////////////////////////////////////////////////////////////////////////
 
-        private Pen droneBrush = new Pen(new SolidBrush(Color.Purple), 3);
+
 
         // De manière graphique
         public void Render(BufferedGraphics drawingSpace)
         {
-            
+
 
             //rotation
-            
+
             var state = drawingSpace.Graphics.Save();
 
             // 1. Déplace le pivot au centre du joueur
             drawingSpace.Graphics.TranslateTransform(x + 100, y + 100);
 
             // 2. Vérifie si la souris pointe vers la gauche
-            bool flipHorizontal = Math.Abs(angle) > 90;
+            bool flipHorizontal = Math.Abs(_angle) > 90;
 
             if (flipHorizontal)
             {
@@ -120,13 +141,13 @@ namespace Joueurs
                 drawingSpace.Graphics.ScaleTransform(-1, 1);
 
                 // Ajuste l'angle pour compenser le miroir (évite d'avoir la tête en bas)
-                float mirroredAngle = angle > 0 ? 180 - angle : -180 - angle;
+                float mirroredAngle = (_angle > 0 ? 180 - _angle : -180 - _angle);
                 drawingSpace.Graphics.RotateTransform(mirroredAngle);
             }
             else
             {
                 // Rotation normale vers la droite
-                drawingSpace.Graphics.RotateTransform(angle);
+                drawingSpace.Graphics.RotateTransform(_angle);
             }
 
             // 3. Dessin centré
@@ -136,7 +157,7 @@ namespace Joueurs
             drawingSpace.Graphics.Restore(state);
         }
 
-        
+
 
 
     }

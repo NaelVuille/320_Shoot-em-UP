@@ -15,7 +15,9 @@ namespace Joueurs
             ApplicationConfiguration.Initialize();
 
             // Démarrage
-            Application.Run(new Accueil());
+            //Application.Run(new Accueil());
+           Joueur joueur = new Joueur(100, 100);
+           Application.Run(new Game(joueur));
         }
     }
 }
