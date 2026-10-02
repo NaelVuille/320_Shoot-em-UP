@@ -14,7 +14,6 @@ namespace Joueurs
         public int y;                                 // Position en Y depuis le haut de l'espace aérien
         public int speed_x;                           // Déplacement horizontal
         public int speed_y;                           // Déplacement vertical
-        public int timer = 10;
         private float _angle = 0;                     // Variable pour stocker l'angle
 
 
@@ -43,10 +42,11 @@ namespace Joueurs
 
         public void Shoot(List<Bullet> bullets, Point mousePos, int interval)
         {
-            timer++;
-            if (timer <= 10) return;
-            timer = 0;
-
+           
+            
+            
+            
+            
             // Réduis cette valeur pour que la balle apparaisse près du canon et non au milieu de nulle part
             float distanceDuCanon = 45.0f;
 
@@ -65,11 +65,13 @@ namespace Joueurs
                 int pointDepartY = (int)(this.y + 100 + offsetY);
 
                 bullets.Add(new Bullet(pointDepartX, pointDepartY, bulletAngle, interval));
+                
             }
+            
         }
 
         // déplacement
-        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, Point mousePos, int interval)
+        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, Point mousePos, int interval,int timer)
         {
             int barrierrd = 210;
             int barrierlu = 0;
@@ -102,7 +104,12 @@ namespace Joueurs
                     break;
 
                 case Keys.Space:
-                    
+
+                    timer++;
+                    if (timer <= 10)
+                    {
+                        return;
+                    }
                     Shoot(bullet, mousePos, interval);
                     
                     break;

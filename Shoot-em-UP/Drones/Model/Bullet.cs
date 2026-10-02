@@ -17,6 +17,7 @@ namespace Shoot_em_up.Model
         private float _angle;
         private int _incrX;
         private int _incrY;
+     
 
 
 
@@ -27,14 +28,13 @@ namespace Shoot_em_up.Model
             _angle = angle;
 
             double rad = angle * Math.PI / 180.0;
-            _incrX = (int)Math.Round(Math.Cos(rad) * Config.SPEED*100 * interval / 1000.0);
-            _incrY = (int)Math.Round(Math.Sin(rad) * Config.SPEED*100 * interval / 1000.0);
+            _incrX = (int)Math.Round(Math.Cos(rad) * Config.SPEED*10 * interval / 1000.0);
+            _incrY = (int)Math.Round(Math.Sin(rad) * Config.SPEED*10 * interval / 1000.0);
         }
 
-        public void Update()
+        public void Update(List<Bullet> bullets)
         {
-
-
+            
             _x += _incrX;
             _y += _incrY;
         }

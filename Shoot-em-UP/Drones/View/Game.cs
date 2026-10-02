@@ -19,6 +19,8 @@ namespace Joueurs
 
         public List<Bullet> bullets = new List<Bullet>();
 
+        private int _timer = 0;
+
         BufferedGraphicsContext currentContext;
         BufferedGraphics game;
 
@@ -33,7 +35,7 @@ namespace Joueurs
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
             game = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
-            _joueur = new Joueur(WIDTH/2,HEIGHT/10*7);
+            _joueur = new Joueur(WIDTH / 2, HEIGHT / 10 * 7);
         }
 
         // Affichage de la situation actuelle
@@ -49,19 +51,27 @@ namespace Joueurs
 
             game.Render();
 
-            
+
         }
 
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
-            _joueur.Update(interval,mousePos);
+
+            _joueur.Update(interval, mousePos);
+
+            if (bullets.Count != 0) _timer++;
 
             foreach (Bullet bullet in bullets)
             {
-                bullet.Update();
+                bullet.Update(bullets);
             }
-            
+            if (_timer >= 200)
+            {
+                bullets.Clear();
+                _timer = 0;
+            }
+
         }
 
         // Méthode appelée à chaque frame
@@ -70,20 +80,23 @@ namespace Joueurs
             mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
             this.Update(ticker.Interval);
             this.Render();
-            
+
         }
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            _joueur.Action(sender, e,bullets,mousePos, ticker.Interval);
-            
+            _joueur.Action(sender, e, bullets, mousePos, ticker.Interval,_timer);
+
         }
         private void Game_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            _timer++;
+            if (_timer <= 200)
             {
-                _joueur.Shoot(bullets,mousePos, ticker.Interval);
+                return;
             }
+                _joueur.Shoot(bullets, mousePos, ticker.Interval);
+            
         }
     }
 }
