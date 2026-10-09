@@ -138,6 +138,19 @@
       "description": "j'ai fait la page d'acceuil avec l'importation de la police mais pas mis en place l'affichage du meilleure score pour continué le jeu principale",
       "duration": 108,
       "status": "PAUSED"
+    },
+    {
+      "id": "027cf767-8641-45ef-bf03-6051df709a05",
+      "type": "commitpatch",
+      "sha": "4b793d665391bb284213a2201f24b28074003f0e",
+      "url": "https://github.com/NaelVuille/320_Shoot-em-UP/commit/4b793d665391bb284213a2201f24b28074003f0e",
+      "author": "NaelVuille",
+      "patch": true,
+      "date": "2026-10-09T11:51:00.000Z",
+      "name": "feat(Code):au bout de 0.3 sec les balles disparaissent",
+      "description": "passé de 2 sec a 0.3 sec car ct trop long",
+      "duration": 26,
+      "status": "DONE"
     }
   ]
 }

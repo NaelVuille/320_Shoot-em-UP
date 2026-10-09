@@ -5,7 +5,8 @@
     {
         public const int SPEED = 10;
 
-        public static int WIDTH = 1280;        // Dimensions
-        public static int HEIGHT = 720;
+        public const int WIDTH = 1280;        // Dimensions
+        public const int HEIGHT = 720;
+        
     }
 }

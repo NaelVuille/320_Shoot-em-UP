@@ -9,20 +9,25 @@ namespace Joueurs
     // Cette partie de la classe Drone définit ce qu'est un drone par un modèle numérique
     public class Joueur
     {
-        public int charge;                            // La charge actuelle de la batterie
-        public int x;                                 // Position en X depuis la gauche de l'espace aérien
-        public int y;                                 // Position en Y depuis le haut de l'espace aérien
-        public int speed_x;                           // Déplacement horizontal
-        public int speed_y;                           // Déplacement vertical
+        private const int _PLAYERSIZE = 150;
+
+        private static int _x;                                 // Position en X depuis la gauche de l'affichage
+        private static int _y;                                 // Position en Y depuis le haut de l'affichage
         private float _angle = 0;                     // Variable pour stocker l'angle
 
-        
+
+        public static int X { get => _x; set => _x = value; }
+        public static int Y { get => _y; set => _y = value; }
+
+        public static int PLAYERSIZE => _PLAYERSIZE;
+
+
 
         // Constructeur
         public Joueur(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            _x = x;
+            _y = y;
 
         }
 
@@ -32,8 +37,8 @@ namespace Joueurs
         public void Update(int interval, Point mousePos)
         {
             // Vecteur entre le centre du joueur (x + 100, y + 100) et la souris
-            float dx = mousePos.X - (x + 100);
-            float dy = mousePos.Y - (y + 100);
+            float dx = mousePos.X - (_x + 100);
+            float dy = mousePos.Y - (_y + 100);
 
             // Calcul de l'angle en degrés
             _angle = (float)(Math.Atan2(dy, dx) * 180.0 / Math.PI);
@@ -60,8 +65,8 @@ namespace Joueurs
                 double offsetX = Math.Cos(angleRadians) * distanceDuCanon;
                 double offsetY = Math.Sin(angleRadians) * distanceDuCanon;
 
-                int pointDepartX = (int)(this.x + 100 + offsetX);
-                int pointDepartY = (int)(this.y + 100 + offsetY);
+                int pointDepartX = (int)(_x + 100 + offsetX);
+                int pointDepartY = (int)(_y + 100 + offsetY);
 
                 bullets.Add(new Bullet(pointDepartX, pointDepartY, bulletAngle, interval));
                 
@@ -80,26 +85,26 @@ namespace Joueurs
             {
                 case Keys.D:
                 case Keys.Right:
-                    if (x >= Helpers.Config.WIDTH - barrierrd) break;
-                    x += Helpers.Config.SPEED;
+                    if (_x >= Helpers.Config.WIDTH - barrierrd) break;
+                    _x += Helpers.Config.SPEED;
                     break;
 
                 case Keys.A:
                 case Keys.Left:
-                    if (x <= barrierlu) break;
-                    x -= Helpers.Config.SPEED;
+                    if (_x <= barrierlu) break;
+                    _x -= Helpers.Config.SPEED;
                     break;
 
                 case Keys.W:
                 case Keys.Up:
-                    if (y <= barrierlu) break;
-                    y -= Helpers.Config.SPEED;
+                    if (_y <= barrierlu) break;
+                    _y -= Helpers.Config.SPEED;
                     break;
 
                 case Keys.S:
                 case Keys.Down:
-                    if (y >= Helpers.Config.HEIGHT - barrierrd) break;
-                    y += Helpers.Config.SPEED;
+                    if (_y >= Helpers.Config.HEIGHT - barrierrd) break;
+                    _y += Helpers.Config.SPEED;
                     break;
 
                 case Keys.Space:
@@ -136,7 +141,7 @@ namespace Joueurs
             var state = drawingSpace.Graphics.Save();
 
             // 1. Déplace le pivot au centre du joueur
-            drawingSpace.Graphics.TranslateTransform(x + 100, y + 100);
+            drawingSpace.Graphics.TranslateTransform(_x + _PLAYERSIZE/2, _y + _PLAYERSIZE/2);
 
             // 2. Vérifie si la souris pointe vers la gauche
             bool flipHorizontal = Math.Abs(_angle) > 90;
@@ -157,7 +162,7 @@ namespace Joueurs
             }
 
             // 3. Dessin centré
-            drawingSpace.Graphics.DrawImage(Resources.joueur, -100, -100, 200, 200);
+            drawingSpace.Graphics.DrawImage(Resources.joueur, -_PLAYERSIZE/2, -_PLAYERSIZE/2, _PLAYERSIZE, _PLAYERSIZE);
 
             // 4. Restaure le repère
             drawingSpace.Graphics.Restore(state);

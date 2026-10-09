@@ -19,7 +19,8 @@ namespace Shoot_em_up.Model
         private int _incrY;
         private int _timer;
 
-
+        public int X { get => _x; set => _x = value; }
+        public int Y { get => _y; set => _y = value; }
 
         public Bullet(int x, int y, float angle, int interval)
         {
@@ -37,7 +38,7 @@ namespace Shoot_em_up.Model
         public void Update(List<Bullet> bullets)
         {
             _timer++;
-            if(_timer >= 4)
+            if(_timer >= 3)
             {
                 bullets.Clear();
                 return;

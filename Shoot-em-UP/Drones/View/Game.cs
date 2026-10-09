@@ -1,4 +1,7 @@
+using Ennemie_name;
+using Shoot_em_up.Helpers;
 using Shoot_em_up.Model;
+using System.Windows.Forms;
 
 namespace Joueurs
 {
@@ -17,14 +20,19 @@ namespace Joueurs
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         private Joueur _joueur;
 
-        public List<Bullet> bullets = new List<Bullet>();
+        private static List<Bullet> _bullets = new List<Bullet>();
 
         private static int _timer = 10;
+
+        private static int _ennemiesSpawn;
+
+        private List<Ennemie> _ennemies = new List<Ennemie>();
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics game;
 
         public static int Timer { get => _timer; set => _timer = value; }
+        public static List<Bullet> bullets { get => _bullets; set => _bullets = value; }
 
         // Initialisation de l'espace aérien avec un certain nombre de drones
         public Game(Joueur joueur)
@@ -45,7 +53,16 @@ namespace Joueurs
         {
             game.Graphics.Clear(Color.Black);
 
-            foreach (Bullet bullet in bullets)
+            for (int i = 0; i < _ennemies.Count; i++)
+            {
+                _ennemies[i].Render(game);
+                if (_ennemies[i].Vie <= 0)
+                {
+                    _ennemies.RemoveAt(i);
+                }
+            }
+
+            foreach (Bullet bullet in _bullets)
             {
                 bullet.Render(game);
             }
@@ -60,11 +77,24 @@ namespace Joueurs
         private void Update(int interval)
         {
             _timer++;
+            _ennemiesSpawn++;
+           
+            if(_ennemiesSpawn >= 50)
+            {
+                _ennemies.Add(new Ennemie(MathHelpers.alea.Next(WIDTH), 0, 2));
+                _ennemiesSpawn = 0;
+            }
+
+           for(int i = 0;i < _ennemies.Count; i++)
+           {
+                _ennemies[i].Update(interval,_ennemies);
+           }
+
             _joueur.Update(interval, mousePos);
 
-            for(int i = 0;i < bullets.Count;i++)
+            for(int i = 0;i < _bullets.Count;i++)
             {
-                bullets[i].Update(bullets);
+                _bullets[i].Update(_bullets);
             }
 
         }
@@ -80,7 +110,7 @@ namespace Joueurs
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            _joueur.Action(sender, e, bullets, mousePos, ticker.Interval);
+            _joueur.Action(sender, e, _bullets, mousePos, ticker.Interval);
 
         }
         private void Game_MouseDown(object sender, MouseEventArgs e)
@@ -89,7 +119,7 @@ namespace Joueurs
             if (_timer >= 10)
             {
                 _timer = 0;
-                _joueur.Shoot(bullets, mousePos, ticker.Interval);
+                _joueur.Shoot(_bullets, mousePos, ticker.Interval);
             }
 
         }
