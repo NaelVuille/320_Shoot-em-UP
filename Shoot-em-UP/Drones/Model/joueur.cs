@@ -16,6 +16,7 @@ namespace Joueurs
         public int speed_y;                           // Déplacement vertical
         private float _angle = 0;                     // Variable pour stocker l'angle
 
+        
 
         // Constructeur
         public Joueur(int x, int y)
@@ -30,8 +31,6 @@ namespace Joueurs
         // que 'interval' millisecondes se sont écoulées
         public void Update(int interval, Point mousePos)
         {
-
-
             // Vecteur entre le centre du joueur (x + 100, y + 100) et la souris
             float dx = mousePos.X - (x + 100);
             float dy = mousePos.Y - (y + 100);
@@ -71,7 +70,7 @@ namespace Joueurs
         }
 
         // déplacement
-        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, Point mousePos, int interval,int timer)
+        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, Point mousePos, int interval)
         {
             int barrierrd = 210;
             int barrierlu = 0;
@@ -105,13 +104,13 @@ namespace Joueurs
 
                 case Keys.Space:
 
-                    timer++;
-                    if (timer <= 10)
+                    if (Game.Timer >= 10)
                     {
-                        return;
+                        Game.Timer = 0;
+                        Shoot(bullet, mousePos, interval);
                     }
-                    Shoot(bullet, mousePos, interval);
                     
+
                     break;
             }
 

@@ -19,10 +19,12 @@ namespace Joueurs
 
         public List<Bullet> bullets = new List<Bullet>();
 
-        private int _timer = 0;
+        private static int _timer = 10;
 
         BufferedGraphicsContext currentContext;
         BufferedGraphics game;
+
+        public static int Timer { get => _timer; set => _timer = value; }
 
         // Initialisation de l'espace aérien avec un certain nombre de drones
         public Game(Joueur joueur)
@@ -57,19 +59,12 @@ namespace Joueurs
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
-
+            _timer++;
             _joueur.Update(interval, mousePos);
 
-            if (bullets.Count != 0) _timer++;
-
-            foreach (Bullet bullet in bullets)
+            for(int i = 0;i < bullets.Count;i++)
             {
-                bullet.Update(bullets);
-            }
-            if (_timer >= 200)
-            {
-                bullets.Clear();
-                _timer = 0;
+                bullets[i].Update(bullets);
             }
 
         }
@@ -85,18 +80,18 @@ namespace Joueurs
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            _joueur.Action(sender, e, bullets, mousePos, ticker.Interval,_timer);
+            _joueur.Action(sender, e, bullets, mousePos, ticker.Interval);
 
         }
         private void Game_MouseDown(object sender, MouseEventArgs e)
         {
-            _timer++;
-            if (_timer <= 200)
-            {
-                return;
-            }
-                _joueur.Shoot(bullets, mousePos, ticker.Interval);
             
+            if (_timer >= 10)
+            {
+                _timer = 0;
+                _joueur.Shoot(bullets, mousePos, ticker.Interval);
+            }
+
         }
     }
 }
