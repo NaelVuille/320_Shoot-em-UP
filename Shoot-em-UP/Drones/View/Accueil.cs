@@ -14,7 +14,6 @@ namespace Drones.View
         public static readonly int WIDTH = Joueurs.Helpers.Config.WIDTH;        // Dimensions
         public static readonly int HEIGHT = Joueurs.Helpers.Config.HEIGHT;
 
-        string bestPlayerName = File.ReadAllText(@"..\..\..\Resources\BestName.txt");
         string bestScore = File.ReadAllText(@"..\..\..\Resources\BestScore.txt");
 
         public Accueil()
@@ -29,8 +28,8 @@ namespace Drones.View
             lblTitle.Location = new Point(Config.WIDTH / 2 - lblTitle.Size.Width / 2, 50);
             lblHighScore.Location = new Point(Config.WIDTH / 2 - lblHighScore.Size.Width / 2, 170);
             btnPlay.Location = new Point(Config.WIDTH / 2 - btnPlay.Size.Width / 2, 450);
-            btnQuit.Location = new Point(Config.WIDTH / 2 - btnPlay.Size.Width / 2, 560);
-            lblHighScore.Text = "Best Score\n"+bestPlayerName+"\nScore : "+bestScore;
+            btnQuit.Location = new Point(Config.WIDTH / 2 - btnQuit.Size.Width / 2, 560);
+            lblHighScore.Text = "Best Score\n" + bestScore;
         }
 
 
@@ -52,6 +51,11 @@ namespace Drones.View
         }
 
         private void Accueil_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
         {
 
         }

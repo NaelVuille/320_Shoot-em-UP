@@ -46,14 +46,16 @@ namespace Drones.View
             lblTitle.Location = new Point(-167, 50);
             lblTitle.Margin = new Padding(0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(500, 50);
+            lblTitle.Size = new Size(467, 54);
             lblTitle.TabIndex = 3;
             lblTitle.Text = "MR. MEESEEKS SHOOTER";
             lblTitle.TextAlign = ContentAlignment.TopCenter;
+            lblTitle.Click += lblTitle_Click;
             // 
             // btnPlay
             // 
             btnPlay.Anchor = AnchorStyles.Top;
+            btnPlay.BackColor = SystemColors.ActiveCaptionText;
             btnPlay.BackgroundImage = Shoot_em_up.Properties.Resources.contour_bouton;
             btnPlay.BackgroundImageLayout = ImageLayout.Zoom;
             btnPlay.FlatStyle = FlatStyle.Popup;
@@ -85,7 +87,7 @@ namespace Drones.View
             btnQuit.UseVisualStyleBackColor = false;
             btnQuit.Click += button2_Click;
             // 
-            // label1
+            // lblHighScore
             // 
             lblHighScore.Anchor = AnchorStyles.Top;
             lblHighScore.AutoSize = true;
@@ -93,8 +95,8 @@ namespace Drones.View
             lblHighScore.ForeColor = Color.White;
             lblHighScore.Location = new Point(109, 225);
             lblHighScore.Margin = new Padding(0);
-            lblHighScore.Name = "label1";
-            lblHighScore.Size = new Size(500, 50);
+            lblHighScore.Name = "lblHighScore";
+            lblHighScore.Size = new Size(217, 162);
             lblHighScore.TabIndex = 6;
             lblHighScore.Text = "Best Score\nPlayer1\nScore : 000";
             lblHighScore.TextAlign = ContentAlignment.TopCenter;

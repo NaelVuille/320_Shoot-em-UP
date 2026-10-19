@@ -1,4 +1,5 @@
 using Drones.View;
+using Shoot_em_up.View;
 
 namespace Joueurs
 {
@@ -16,8 +17,9 @@ namespace Joueurs
 
             // Démarrage
             Application.Run(new Accueil());
-           /*Joueur joueur = new Joueur(100, 100);
-           Application.Run(new Game(joueur));*/
+            /*Joueur joueur = new Joueur(100, 100);
+            Application.Run(new Game(joueur));
+            Application.Run(new End_Game(300));*/
         }
     }
 }
