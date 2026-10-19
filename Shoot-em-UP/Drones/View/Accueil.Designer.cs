@@ -34,23 +34,24 @@ namespace Drones.View
             lblTitle = new Label();
             btnPlay = new Button();
             btnQuit = new Button();
+            lblHighScore = new Label();
             SuspendLayout();
             // 
-            // label1
+            // lblTitle
             // 
             lblTitle.Anchor = AnchorStyles.Top;
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 30F);
             lblTitle.ForeColor = Color.Aqua;
-            lblTitle.Location = new Point(-167, 9);
+            lblTitle.Location = new Point(-167, 50);
             lblTitle.Margin = new Padding(0);
-            lblTitle.Name = "label1";
-            lblTitle.Size = new Size(467, 54);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(500, 50);
             lblTitle.TabIndex = 3;
             lblTitle.Text = "MR. MEESEEKS SHOOTER";
             lblTitle.TextAlign = ContentAlignment.TopCenter;
             // 
-            // button1
+            // btnPlay
             // 
             btnPlay.Anchor = AnchorStyles.Top;
             btnPlay.BackgroundImage = Shoot_em_up.Properties.Resources.contour_bouton;
@@ -59,15 +60,15 @@ namespace Drones.View
             btnPlay.ForeColor = SystemColors.ControlLightLight;
             btnPlay.Location = new Point(164, 224);
             btnPlay.Margin = new Padding(10);
-            btnPlay.Name = "button1";
-            btnPlay.Size = new Size(384, 109);
+            btnPlay.Name = "btnPlay";
+            btnPlay.Size = new Size(400, 100);
             btnPlay.TabIndex = 4;
             btnPlay.Text = "PLAY";
             btnPlay.UseMnemonic = false;
             btnPlay.UseVisualStyleBackColor = false;
             btnPlay.Click += button1_Click;
             // 
-            // button2
+            // btnQuit
             // 
             btnQuit.Anchor = AnchorStyles.Top;
             btnQuit.BackgroundImage = Shoot_em_up.Properties.Resources.contour_bouton;
@@ -76,13 +77,27 @@ namespace Drones.View
             btnQuit.ForeColor = SystemColors.ControlLightLight;
             btnQuit.Location = new Point(164, 353);
             btnQuit.Margin = new Padding(10);
-            btnQuit.Name = "button2";
-            btnQuit.Size = new Size(384, 109);
+            btnQuit.Name = "btnQuit";
+            btnQuit.Size = new Size(400, 100);
             btnQuit.TabIndex = 5;
             btnQuit.Text = "QUIT";
             btnQuit.UseMnemonic = false;
             btnQuit.UseVisualStyleBackColor = false;
             btnQuit.Click += button2_Click;
+            // 
+            // label1
+            // 
+            lblHighScore.Anchor = AnchorStyles.Top;
+            lblHighScore.AutoSize = true;
+            lblHighScore.Font = new Font("Segoe UI", 30F);
+            lblHighScore.ForeColor = Color.White;
+            lblHighScore.Location = new Point(109, 225);
+            lblHighScore.Margin = new Padding(0);
+            lblHighScore.Name = "label1";
+            lblHighScore.Size = new Size(500, 50);
+            lblHighScore.TabIndex = 6;
+            lblHighScore.Text = "Best Score\nPlayer1\nScore : 000";
+            lblHighScore.TextAlign = ContentAlignment.TopCenter;
             // 
             // Accueil
             // 
@@ -90,6 +105,7 @@ namespace Drones.View
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(684, 504);
+            Controls.Add(lblHighScore);
             Controls.Add(btnQuit);
             Controls.Add(btnPlay);
             Controls.Add(lblTitle);
@@ -104,5 +120,6 @@ namespace Drones.View
         private Label lblTitle;
         private Button btnPlay;
         private Button btnQuit;
+        private Label lblHighScore;
     }
 }

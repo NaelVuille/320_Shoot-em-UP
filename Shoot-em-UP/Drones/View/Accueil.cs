@@ -4,6 +4,8 @@ using System.Drawing.Text;
 using System.Runtime.InteropServices;
 using Shoot_em_up.Properties;
 using Shoot_em_up.Helpers;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Drones.View
 {
@@ -12,14 +14,23 @@ namespace Drones.View
         public static readonly int WIDTH = Joueurs.Helpers.Config.WIDTH;        // Dimensions
         public static readonly int HEIGHT = Joueurs.Helpers.Config.HEIGHT;
 
+        string bestPlayerName = File.ReadAllText(@"..\..\..\Resources\BestName.txt");
+        string bestScore = File.ReadAllText(@"..\..\..\Resources\BestScore.txt");
+
         public Accueil()
         {
             InitializeComponent();
             TextHelpers.Init();
             lblTitle.Font = TextHelpers.BigFont;
+            lblHighScore.Font = TextHelpers.MediumFont;
             ButtonHelper.Configure(btnPlay);
             ButtonHelper.Configure(btnQuit);
             ClientSize = new Size(WIDTH, HEIGHT);
+            lblTitle.Location = new Point(Config.WIDTH / 2 - lblTitle.Size.Width / 2, 50);
+            lblHighScore.Location = new Point(Config.WIDTH / 2 - lblHighScore.Size.Width / 2, 170);
+            btnPlay.Location = new Point(Config.WIDTH / 2 - btnPlay.Size.Width / 2, 450);
+            btnQuit.Location = new Point(Config.WIDTH / 2 - btnPlay.Size.Width / 2, 560);
+            lblHighScore.Text = "Best Score\n"+bestPlayerName+"\nScore : "+bestScore;
         }
 
 
