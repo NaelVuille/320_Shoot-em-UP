@@ -15,8 +15,8 @@ namespace Ennemie_name
     public class Ennemie
     {
         private const int _ENNEMIESIZE = 100;
-        private int _x;                                 // Position en X depuis la gauche de l'affichage
-        private int _y;                                 // Position en Y depuis le haut de l'affichage
+        private int _x;                             // Position en X (coin supérieur gauche)
+        private int _y;                             // Position en Y (coin supérieur gauche)
         private int _vie;
         private List<Bullet> bullets = Game.bullets;
 
@@ -26,61 +26,107 @@ namespace Ennemie_name
             _x = x;
             _y = y;
             _vie = vie;
-
         }
 
         public int Vie { get => _vie; set => _vie = value; }
+        public int X { get => _x; set => _x = value; }
+        public int Y { get => _y; set => _y = value; }
 
         public static int ENNEMIESIZE => _ENNEMIESIZE;
 
-        public void Update(int interval, List<Ennemie> ennemies)
+        public void Update(int interval, List<Ennemie> ennemies, List<Protection> protections)
         {
-
-            for (int i = 0; i < bullets.Count - 1; i++)
+            for (int i = 0; i < bullets.Count; i++)
             {
-                if (MathHelpers.Distance(_x, _y, bullets[i].X, bullets[i].Y) <= _ENNEMIESIZE)
+                if (bullets[i].X >= _x && bullets[i].X <= _x + _ENNEMIESIZE &&
+                    bullets[i].Y >= _y && bullets[i].Y <= _y + _ENNEMIESIZE)
                 {
                     _vie--;
                 }
             }
 
+            int targetX = Joueur.X + Joueur.PLAYERSIZE / 2;
+            int targetY = Joueur.Y + Joueur.PLAYERSIZE / 2;
 
-            int targetX = Joueur.X + 50;
-            int targetY = Joueur.Y + 50;
-            double distance = MathHelpers.Distance(_x, _y, targetX, targetY);
-            if (distance <= Config.SPEED * 5 * interval / 1000)                 // L'objectif est atteint (ou tout proche)
+            int enemyCenterX = _x + _ENNEMIESIZE / 2;
+            int enemyCenterY = _y + _ENNEMIESIZE / 2;
+
+            double distance = MathHelpers.Distance(enemyCenterX, enemyCenterY, targetX, targetY);
+
+            int deltaX = 0;
+            int deltaY = 0;
+
+            if (distance <= Config.SPEED * 5 * interval / 1000)
             {
-                _x = targetX;
-                _y = targetY;
+                deltaX = targetX - _ENNEMIESIZE / 2 - _x;
+                deltaY = targetY - _ENNEMIESIZE / 2 - _y;
+            }
+            else if (distance > 0)
+            {
+                float dx = targetX - enemyCenterX;
+                float dy = targetY - enemyCenterY;
+                deltaX = (int)(dx / distance * Config.SPEED * 5 * interval / 1000);
+                deltaY = (int)(dy / distance * Config.SPEED * 5 * interval / 1000);
             }
 
+            
+            int nextX = _x + deltaX;
+            int nextY = _y + deltaY;
 
-            float dx = targetX - _x;
-            float dy = targetY - _y;
-            _x += (int)(dx / distance * Config.SPEED * 5 * interval / 1000);
-            _y += (int)(dy / distance * Config.SPEED * 5 * interval / 1000);
+            bool canMoveX = true;
+            bool canMoveY = true;
+
+            foreach (Protection protection in protections)
+            {
+                int protSize = Protection.PROTECTIONSIZE;
+                int protLeft = protection.X - protSize / 2;
+                int protRight = protection.X + protSize / 2;
+                int protTop = protection.Y - protSize / 2;
+                int protBottom = protection.Y + protSize / 2;
+
+                // Test axe X
+                int enemyRightX = nextX + _ENNEMIESIZE;
+                int enemyBottomY = _y + _ENNEMIESIZE;
+                if (enemyRightX >= protLeft && nextX <= protRight &&
+                    enemyBottomY >= protTop && _y <= protBottom)
+                {
+                    canMoveX = false;
+                }
+
+                // Test axe Y
+                int enemyRightX2 = _x + _ENNEMIESIZE;
+                int enemyBottomY2 = nextY + _ENNEMIESIZE;
+                if (enemyRightX2 >= protLeft && _x <= protRight &&
+                    enemyBottomY2 >= protTop && nextY <= protBottom)
+                {
+                    canMoveY = false;
+                }
+            }
+
+            
+            if (canMoveX) _x = nextX;
+            if (canMoveY) _y = nextY;
         }
+
         public void Render(BufferedGraphics drawingSpace)
         {
-            
             var state = drawingSpace.Graphics.Save();
 
-            if (_x - Joueur.X > 0)
+            
+            if (_x > Joueur.X)
             {
+                
                 drawingSpace.Graphics.TranslateTransform(_x + _ENNEMIESIZE, _y);
                 drawingSpace.Graphics.ScaleTransform(-1, 1);
                 drawingSpace.Graphics.DrawImage(Resources.ennemie, 0, 0, _ENNEMIESIZE, _ENNEMIESIZE);
             }
             else
             {
+                
                 drawingSpace.Graphics.DrawImage(Resources.ennemie, _x, _y, _ENNEMIESIZE, _ENNEMIESIZE);
             }
 
             drawingSpace.Graphics.Restore(state);
-
-
-            
         }
-
     }
 }

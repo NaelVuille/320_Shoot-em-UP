@@ -30,12 +30,16 @@ namespace Joueurs
 
         private List<Ennemie> _ennemies = new List<Ennemie>();
 
+        private List<Protection> _protections = new List<Protection>();
+
         BufferedGraphicsContext currentContext;
         BufferedGraphics game;
 
         public static int Timer { get => _timer; set => _timer = value; }
         public static List<Bullet> bullets { get => _bullets; set => _bullets = value; }
 
+        
+        
         // Initialisation de l'espace aérien avec un certain nombre de drones
         public Game(Joueur joueur)
         {
@@ -47,7 +51,14 @@ namespace Joueurs
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
             game = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
-            _joueur = new Joueur(WIDTH / 2, HEIGHT / 10 * 7);
+            _joueur = new Joueur(WIDTH / 2, HEIGHT - 30 - Joueur.PLAYERSIZE);
+
+            const int _NOMBREPROTECTION = 5;
+            for (int i = 0;i < _NOMBREPROTECTION; i++)
+            {
+                _protections.Add(new Protection(125 +WIDTH/_NOMBREPROTECTION*i, 450));
+            }
+            
         }
 
         // Affichage de la situation actuelle
@@ -68,10 +79,15 @@ namespace Joueurs
             {
                 bullet.Render(game);
             }
+
             _joueur.Render(game);
 
-            game.Render();
+            foreach (Protection protection in _protections)
+            {
+                protection.Render(game);
+            }
 
+            game.Render();
 
         }
 
@@ -90,16 +106,17 @@ namespace Joueurs
                 _ennemiesSpawn = 0;
             }
 
-           for(int i = 0;i < _ennemies.Count; i++)
-           {
-                _ennemies[i].Update(interval,_ennemies);
-           }
+            for (int i = 0; i < _ennemies.Count; i++)
+            {
+                _ennemies[i].Update(interval, _ennemies,_protections);
+            }
 
             _joueur.Update(interval, mousePos);
 
-            for(int i = 0;i < _bullets.Count;i++)
+
+            for (int i = 0;i < _bullets.Count;i++)
             {
-                _bullets[i].Update(_bullets);
+                _bullets[i].Update(_bullets,_protections);
             }
 
         }
@@ -115,7 +132,7 @@ namespace Joueurs
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            _joueur.Action(sender, e, _bullets, mousePos, ticker.Interval);
+            _joueur.Action(sender, e, _bullets, mousePos, ticker.Interval,_protections);
 
         }
         private void Game_MouseDown(object sender, MouseEventArgs e)

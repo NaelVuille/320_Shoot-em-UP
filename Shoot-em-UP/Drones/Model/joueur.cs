@@ -4,13 +4,13 @@ using Shoot_em_up.Model;
 using Shoot_em_up.Properties;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
+using System.Threading;
 
 namespace Joueurs
 {
-    // Cette partie de la classe Drone définit ce qu'est un drone par un modèle numérique
     public class Joueur
     {
-        private const int _PLAYERSIZE = 150;
+        private const int _PLAYERSIZE = 125;
 
         private static int _x;                                 // Position en X depuis la gauche de l'affichage
         private static int _y;                                 // Position en Y depuis le haut de l'affichage
@@ -21,8 +21,6 @@ namespace Joueurs
         public static int Y { get => _y; set => _y = value; }
 
         public static int PLAYERSIZE => _PLAYERSIZE;
-
-
 
         // Constructeur
         public Joueur(int x, int y)
@@ -37,18 +35,16 @@ namespace Joueurs
         // que 'interval' millisecondes se sont écoulées
         public void Update(int interval, Point mousePos)
         {
-            // Vecteur entre le centre du joueur (x + 100, y + 100) et la souris
-            float dx = mousePos.X - (_x + 100);
-            float dy = mousePos.Y - (_y + 100);
+            // Vecteur entre le centre du joueur et la souris
+            float dx = mousePos.X - (_x + _PLAYERSIZE/2);
+            float dy = mousePos.Y - (_y + _PLAYERSIZE / 2);
 
-            // Calcul de l'angle en degrés
+            
             _angle = (float)(Math.Atan2(dy, dx) * 180.0 / Math.PI);
         }
 
         public void Shoot(List<Bullet> bullets, Point mousePos, int interval)
-        {
-            
-            // Réduis cette valeur pour que la balle apparaisse près du canon et non au milieu de nulle part
+        { 
             float distanceDuCanon = 45.0f;
 
             float[] angleOffsets = { -5f, -0f, 5f };
@@ -58,7 +54,6 @@ namespace Joueurs
                 float bulletAngle = _angle + angleOffsets[i];
                 double angleRadians = bulletAngle * Math.PI / 180.0;
 
-                // Calcul du décalage par rapport au centre (x + 100, y + 100)
                 double offsetX = Math.Cos(angleRadians) * distanceDuCanon;
                 double offsetY = Math.Sin(angleRadians) * distanceDuCanon;
 
@@ -72,50 +67,84 @@ namespace Joueurs
         }
 
         // déplacement
-        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, Point mousePos, int interval)
+        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, Point mousePos, int interval, List<Protection> protections)
         {
-            int barrierrd = 210;
-            int barrierlu = 0;
-            
-
+ 
             switch (e.KeyCode)
             {
                 case Keys.D:
                 case Keys.Right:
-                    if (_x >= Helpers.Config.WIDTH - barrierrd) break;
-                    _x += Helpers.Config.SPEED;
+                    MovePlayer(Helpers.Config.SPEED, 0, protections);
                     break;
 
                 case Keys.A:
                 case Keys.Left:
-                    if (_x <= barrierlu) break;
-                    _x -= Helpers.Config.SPEED;
+                    MovePlayer(-Helpers.Config.SPEED, 0,protections);
                     break;
 
                 case Keys.W:
                 case Keys.Up:
-                    if (_y <= barrierlu) break;
-                    _y -= Helpers.Config.SPEED;
+                    MovePlayer(0, -Helpers.Config.SPEED, protections);
                     break;
 
                 case Keys.S:
                 case Keys.Down:
-                    if (_y >= Helpers.Config.HEIGHT - barrierrd) break;
-                    _y += Helpers.Config.SPEED;
+                    MovePlayer(0, Helpers.Config.SPEED, protections);
                     break;
 
                 case Keys.Space:
-
                     if (Game.Timer >= 10)
                     {
                         Game.Timer = 0;
                         Shoot(bullet, mousePos, interval);
                     }
-                    
-
                     break;
             }
 
+        }
+        private void MovePlayer(int deltaX, int deltaY, List<Protection> protections)
+        {
+            int barrierrd = 0;
+            int barrierlu = 0;
+
+            int nextX = _x + deltaX;
+            int nextY = _y + deltaY;
+
+            if (nextX < barrierlu || nextX + _PLAYERSIZE > Helpers.Config.WIDTH - barrierrd) return;
+            if (nextY < barrierlu || nextY + _PLAYERSIZE > Helpers.Config.HEIGHT - barrierrd) return;
+
+            bool canMove = true;
+
+            foreach (Protection protection in protections)
+            {
+                int protSize = Protection.PROTECTIONSIZE;
+
+                
+                int protLeft = protection.X - protSize / 2;
+                int protRight = protection.X + protSize / 2;
+                int protTop = protection.Y - protSize / 4;
+                int protBottom = protection.Y + protSize / 4;
+
+                
+                int playerLeft = nextX;
+                int playerRight = nextX + _PLAYERSIZE;
+                int playerTop = nextY;
+                int playerBottom = nextY + _PLAYERSIZE;
+
+                
+                if (playerRight >= protLeft && playerLeft <= protRight &&
+                    playerBottom >= protTop && playerTop <= protBottom)
+                {
+                    canMove = false;
+                    break;
+                }
+            }
+
+            if (canMove)
+            {
+                _x = nextX;
+                _y = nextY;
+            }
         }
 
         /// //////////////////////////////////////////////////////////////////////////////
@@ -161,7 +190,7 @@ namespace Joueurs
             // 3. Dessin centré
             drawingSpace.Graphics.DrawImage(Resources.joueur, -_PLAYERSIZE/2, -_PLAYERSIZE/2, _PLAYERSIZE, _PLAYERSIZE);
 
-            // 4. Restaure le repère
+            // 50. Restaure le repère
             drawingSpace.Graphics.Restore(state);
         }
 

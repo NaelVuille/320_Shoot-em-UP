@@ -35,7 +35,7 @@ namespace Shoot_em_up.Model
             _incrY = (int)Math.Round(Math.Sin(rad) * Config.SPEED*100 * interval / 1000.0);
         }
 
-        public void Update(List<Bullet> bullets)
+        public void Update(List<Bullet> bullets,List<Protection> protections)
         {
             _timer++;
             if(_timer >= 3)
@@ -43,6 +43,15 @@ namespace Shoot_em_up.Model
                 bullets.Clear();
                 return;
             }
+
+            foreach (Protection protection in protections) 
+            {
+                if ((_x > protection.X - Protection.PROTECTIONSIZE / 2 && _x < protection.X + Protection.PROTECTIONSIZE / 2) && (_y > protection.Y - Protection.PROTECTIONSIZE / 4 && _y < protection.Y + Protection.PROTECTIONSIZE / 4))
+                {
+                    bullets.Remove(this);
+                }
+            }
+
             _x += _incrX;
             _y += _incrY;
         }
@@ -51,7 +60,7 @@ namespace Shoot_em_up.Model
             var state = drawingSpace.Graphics.Save();
             drawingSpace.Graphics.TranslateTransform(_x, _y);
             drawingSpace.Graphics.RotateTransform(_angle);
-            drawingSpace.Graphics.DrawImage(Resources.Bullet, -15, -15, 30, 30);
+            drawingSpace.Graphics.DrawImage(Resources.Bullet, -10, -10, 20, 20);
             drawingSpace.Graphics.Restore(state);
         }
     }
