@@ -1,4 +1,5 @@
 ﻿using Joueurs.Helpers;
+using Shoot_em_up.Helpers;
 using Shoot_em_up.Model;
 using Shoot_em_up.Properties;
 using System.Runtime.InteropServices;
@@ -46,10 +47,6 @@ namespace Joueurs
 
         public void Shoot(List<Bullet> bullets, Point mousePos, int interval)
         {
-           
-            
-            
-            
             
             // Réduis cette valeur pour que la balle apparaisse près du canon et non au milieu de nulle part
             float distanceDuCanon = 45.0f;
@@ -65,8 +62,8 @@ namespace Joueurs
                 double offsetX = Math.Cos(angleRadians) * distanceDuCanon;
                 double offsetY = Math.Sin(angleRadians) * distanceDuCanon;
 
-                int pointDepartX = (int)(_x + 100 + offsetX);
-                int pointDepartY = (int)(_y + 100 + offsetY);
+                int pointDepartX = (int)(_x + Joueur.PLAYERSIZE /2 + offsetX);
+                int pointDepartY = (int)(_y  + Joueur.PLAYERSIZE/2 + offsetY);
 
                 bullets.Add(new Bullet(pointDepartX, pointDepartY, bulletAngle, interval));
                 

@@ -24,7 +24,9 @@ namespace Joueurs
 
         private static int _timer = 10;
 
-        private static int _ennemiesSpawn;
+        private static int _numberEnnemis = 1;
+
+        private static int _ennemiesSpawn = 30;
 
         private List<Ennemie> _ennemies = new List<Ennemie>();
 
@@ -78,10 +80,13 @@ namespace Joueurs
         {
             _timer++;
             _ennemiesSpawn++;
+
            
             if(_ennemiesSpawn >= 50)
             {
-                _ennemies.Add(new Ennemie(MathHelpers.alea.Next(WIDTH), 0, 2));
+                _numberEnnemis = MathHelpers.alea.Next(1, 3);
+                for (int i = 0; i <_numberEnnemis; i++)
+                    _ennemies.Add(new Ennemie(MathHelpers.alea.Next(WIDTH), 0, 2));
                 _ennemiesSpawn = 0;
             }
 
