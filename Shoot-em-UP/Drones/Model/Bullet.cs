@@ -18,6 +18,7 @@ namespace Shoot_em_up.Model
         private int _incrX;
         private int _incrY;
         private int _timer;
+        private const int _BULLETSIZE = 20;
 
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }
@@ -44,26 +45,17 @@ namespace Shoot_em_up.Model
                 return;
             }
 
-            foreach (Protection protection in protections) 
-            {
-                if ((_x > protection.X - Protection.PROTECTIONSIZE / 2 &&
-                    _x < protection.X + Protection.PROTECTIONSIZE / 2) &&
-                    (_y > protection.Y - Protection.PROTECTIONSIZE / 4 &&
-                    _y < protection.Y + Protection.PROTECTIONSIZE / 4))
-                {
-                    bullets.Remove(this);
-                }
-            }
+            (_x,_y) = CollisionHelpers.VerifBullet(_x,_y,protections,this,bullets,_incrX,_incrY);
+            
 
-            _x += _incrX;
-            _y += _incrY;
+            
         }
         public void Render(BufferedGraphics drawingSpace)
         {
             var state = drawingSpace.Graphics.Save();
             drawingSpace.Graphics.TranslateTransform(_x, _y);
             drawingSpace.Graphics.RotateTransform(_angle);
-            drawingSpace.Graphics.DrawImage(Resources.Bullet, -10, -10, 20, 20);
+            drawingSpace.Graphics.DrawImage(Resources.Bullet, -_BULLETSIZE/2, -_BULLETSIZE/2, _BULLETSIZE, _BULLETSIZE);
             drawingSpace.Graphics.Restore(state);
         }
     }

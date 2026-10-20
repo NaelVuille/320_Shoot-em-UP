@@ -118,7 +118,7 @@ namespace Joueurs
             if (nextX < barrierlu || nextX + _PLAYERSIZE > Helpers.Config.WIDTH - barrierrd) return;
             if (nextY < barrierlu || nextY + _PLAYERSIZE > Helpers.Config.HEIGHT - barrierrd) return;
 
-            (_x,_y)= MathHelpers.CanMove(_x, _y, deltaX, deltaY, protections, _PLAYERSIZE, nextX, nextY);
+            (_x,_y)= CollisionHelpers.JoueurMove(_x, _y, deltaX, deltaY, protections, _PLAYERSIZE, nextX, nextY);
         }
 
         /// //////////////////////////////////////////////////////////////////////////////
