@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             ticker = new System.Windows.Forms.Timer(components);
+            lblScore = new Label();
             SuspendLayout();
             // 
             // ticker
@@ -37,22 +38,37 @@
             ticker.Enabled = true;
             ticker.Tick += NewFrame;
             // 
+            // lblScore
+            // 
+            lblScore.AutoSize = true;
+            lblScore.BackColor = Color.Transparent;
+            lblScore.FlatStyle = FlatStyle.Flat;
+            lblScore.ForeColor = Color.White;
+            lblScore.Image = Shoot_em_up.Properties.Resources.contour_bouton;
+            lblScore.Location = new Point(20, 20);
+            lblScore.Name = "lblScore";
+            lblScore.Size = new Size(48, 15);
+            lblScore.TabIndex = 0;
+            lblScore.Text = "Score: 0";
+            // 
             // Game
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(284, 261);
+            Controls.Add(lblScore);
             Name = "Game";
             Text = "Game";
             KeyDown += Game_KeyDown;
-            this.MouseDown += Game_MouseDown;
+            MouseDown += Game_MouseDown;
             ResumeLayout(false);
-
+            PerformLayout();
         }
 
         #endregion
 
         private System.Windows.Forms.Timer ticker;
+        private Label lblScore;
     }
 }

@@ -1,4 +1,5 @@
 using Ennemie_name;
+using Joueurs.Helpers;
 using Shoot_em_up.Helpers;
 using Shoot_em_up.Model;
 using System.Windows.Forms;
@@ -20,6 +21,8 @@ namespace Joueurs
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         private Joueur _joueur;
 
+        private Int128 _score = 0;
+
         private static List<Bullet> _bullets = new List<Bullet>();
 
         private static int _timer = 10;
@@ -37,14 +40,18 @@ namespace Joueurs
 
         public static int Timer { get => _timer; set => _timer = value; }
         public static List<Bullet> bullets { get => _bullets; set => _bullets = value; }
+        public Int128 Score { get => _score; set => _score = value; }
 
-        
-        
+
+
         // Initialisation de l'espace aérien avec un certain nombre de drones
         public Game(Joueur joueur)
         {
             InitializeComponent();
             ClientSize = new Size(WIDTH, HEIGHT);
+
+            lblScore.Font = TextHelpers.MediumFont;
+            lblScore.Text = "Score: \n" + _score;
 
             // Gets a reference to the current BufferedGraphicsContext
             currentContext = BufferedGraphicsManager.Current;
@@ -72,6 +79,7 @@ namespace Joueurs
                 if (_ennemies[i].Vie <= 0)
                 {
                     _ennemies.RemoveAt(i);
+                    _score += 125;
                 }
             }
 
@@ -94,6 +102,8 @@ namespace Joueurs
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval)
         {
+            lblScore.Text = "Score: " + _score;
+
             _timer++;
             _ennemiesSpawn++;
 
