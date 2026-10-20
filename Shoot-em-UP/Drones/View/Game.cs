@@ -55,7 +55,8 @@ namespace Joueurs
             lblScore.Text = "Score: \n" + _score;
 
             lblLife.Location = new Point(WIDTH-20-lblLife.Size.Width/2, 5);
-            
+
+            _score = 0;
 
             // Gets a reference to the current BufferedGraphicsContext
             currentContext = BufferedGraphicsManager.Current;

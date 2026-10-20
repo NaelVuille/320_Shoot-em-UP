@@ -2,6 +2,8 @@
 using Shoot_em_up.Helpers;
 using Shoot_em_up.Model;
 using Shoot_em_up.Properties;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Threading;
@@ -116,38 +118,7 @@ namespace Joueurs
             if (nextX < barrierlu || nextX + _PLAYERSIZE > Helpers.Config.WIDTH - barrierrd) return;
             if (nextY < barrierlu || nextY + _PLAYERSIZE > Helpers.Config.HEIGHT - barrierrd) return;
 
-            bool canMove = true;
-
-            foreach (Protection protection in protections)
-            {
-                int protSize = Protection.PROTECTIONSIZE;
-
-                
-                int protLeft = protection.X - protSize / 2;
-                int protRight = protection.X + protSize / 2;
-                int protTop = protection.Y - protSize / 4;
-                int protBottom = protection.Y + protSize / 4;
-
-                
-                int playerLeft = nextX;
-                int playerRight = nextX + _PLAYERSIZE;
-                int playerTop = nextY;
-                int playerBottom = nextY + _PLAYERSIZE;
-
-                
-                if (playerRight >= protLeft && playerLeft <= protRight &&
-                    playerBottom >= protTop && playerTop <= protBottom)
-                {
-                    canMove = false;
-                    break;
-                }
-            }
-
-            if (canMove)
-            {
-                _x = nextX;
-                _y = nextY;
-            }
+            (_x,_y)= MathHelpers.CanMove(_x, _y, deltaX, deltaY, protections, _PLAYERSIZE, nextX, nextY);
         }
 
         /// //////////////////////////////////////////////////////////////////////////////

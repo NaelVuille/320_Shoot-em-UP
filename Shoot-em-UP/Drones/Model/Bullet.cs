@@ -46,7 +46,10 @@ namespace Shoot_em_up.Model
 
             foreach (Protection protection in protections) 
             {
-                if ((_x > protection.X - Protection.PROTECTIONSIZE / 2 && _x < protection.X + Protection.PROTECTIONSIZE / 2) && (_y > protection.Y - Protection.PROTECTIONSIZE / 4 && _y < protection.Y + Protection.PROTECTIONSIZE / 4))
+                if ((_x > protection.X - Protection.PROTECTIONSIZE / 2 &&
+                    _x < protection.X + Protection.PROTECTIONSIZE / 2) &&
+                    (_y > protection.Y - Protection.PROTECTIONSIZE / 4 &&
+                    _y < protection.Y + Protection.PROTECTIONSIZE / 4))
                 {
                     bullets.Remove(this);
                 }

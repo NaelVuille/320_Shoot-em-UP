@@ -69,43 +69,7 @@ namespace Ennemie_name
                 deltaY = (int)(dy / distance * Config.SPEED * 5 * interval / 1000);
             }
 
-            
-            int nextX = _x + deltaX;
-            int nextY = _y + deltaY;
-
-            bool canMoveX = true;
-            bool canMoveY = true;
-
-            foreach (Protection protection in protections)
-            {
-                int protSize = Protection.PROTECTIONSIZE;
-                int protLeft = protection.X - protSize / 2;
-                int protRight = protection.X + protSize / 2;
-                int protTop = protection.Y - protSize / 2;
-                int protBottom = protection.Y + protSize / 2;
-
-                // Test axe X
-                int enemyRightX = nextX + _ENNEMIESIZE;
-                int enemyBottomY = _y + _ENNEMIESIZE;
-                if (enemyRightX >= protLeft && nextX <= protRight &&
-                    enemyBottomY >= protTop && _y <= protBottom)
-                {
-                    canMoveX = false;
-                }
-
-                // Test axe Y
-                int enemyRightX2 = _x + _ENNEMIESIZE;
-                int enemyBottomY2 = nextY + _ENNEMIESIZE;
-                if (enemyRightX2 >= protLeft && _x <= protRight &&
-                    enemyBottomY2 >= protTop && nextY <= protBottom)
-                {
-                    canMoveY = false;
-                }
-            }
-
-            
-            if (canMoveX) _x = nextX;
-            if (canMoveY) _y = nextY;
+            (_x,_y) = MathHelpers.CanMove(_x, _y,deltaX,deltaY,protections,_ENNEMIESIZE);
         }
 
         public void Render(BufferedGraphics drawingSpace)
