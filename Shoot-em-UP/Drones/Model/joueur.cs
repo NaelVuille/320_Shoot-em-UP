@@ -15,18 +15,21 @@ namespace Joueurs
         private static int _x;                                 // Position en X depuis la gauche de l'affichage
         private static int _y;                                 // Position en Y depuis le haut de l'affichage
         private float _angle = 0;                     // Variable pour stocker l'angle
-
+        private static int _vie = 3;
 
         public static int X { get => _x; set => _x = value; }
         public static int Y { get => _y; set => _y = value; }
 
         public static int PLAYERSIZE => _PLAYERSIZE;
 
+        public static int Vie { get => _vie; set => _vie = value; }
+
         // Constructeur
         public Joueur(int x, int y)
         {
             _x = x;
             _y = y;
+            _vie = 3;
 
         }
 

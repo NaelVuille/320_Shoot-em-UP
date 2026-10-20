@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             ticker = new System.Windows.Forms.Timer(components);
             lblScore = new Label();
+            lblLife = new Label();
             SuspendLayout();
             // 
             // ticker
@@ -51,12 +52,25 @@
             lblScore.TabIndex = 0;
             lblScore.Text = "Score: 0";
             // 
+            // lblLife
+            // 
+            lblLife.AutoSize = true;
+            lblLife.Font = new Font("Segoe UI", 60F);
+            lblLife.ForeColor = Color.Maroon;
+            lblLife.Location = new Point(219, 141);
+            lblLife.Name = "lblLife";
+            lblLife.Size = new Size(375, 106);
+            lblLife.TabIndex = 1;
+            lblLife.Text = "❤️❤️❤️";
+            // 
             // Game
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
+            BackgroundImageLayout = ImageLayout.Zoom;
             ClientSize = new Size(284, 261);
+            Controls.Add(lblLife);
             Controls.Add(lblScore);
             Name = "Game";
             Text = "Game";
@@ -70,5 +84,6 @@
 
         private System.Windows.Forms.Timer ticker;
         private Label lblScore;
+        private Label lblLife;
     }
 }

@@ -1,27 +1,28 @@
-using Ennemie_name;
+ï»¿using Ennemie_name;
 using Joueurs.Helpers;
 using Shoot_em_up.Helpers;
 using Shoot_em_up.Model;
+using Shoot_em_up.View;
 using System.Windows.Forms;
 
 namespace Joueurs
 {
-    // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
-    // Il s'agit d'un formulaire (une fenêtre) qui montre une vue 2D depuis en dessus
+    // La classe AirSpace reprÃ©sente le territoire au dessus duquel les drones peuvent voler
+    // Il s'agit d'un formulaire (une fenÃªtre) qui montre une vue 2D depuis en dessus
     // Il n'y a donc pas de notion d'altitude qui intervient
 
     public partial class Game : Form
     {
-        // Récupère la position de la souris relative à la fenêtre active
+        // RÃ©cupÃ¨re la position de la souris relative Ã  la fenÃªtre active
         Point mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
 
         public static readonly int WIDTH = Helpers.Config.WIDTH;        // Dimensions
         public static readonly int HEIGHT = Helpers.Config.HEIGHT;
 
-        // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
+        // La flotte est l'ensemble des drones qui Ã©voluent dans notre espace aÃ©rien
         private Joueur _joueur;
 
-        private Int128 _score = 0;
+        private static int _score = 0;
 
         private static List<Bullet> _bullets = new List<Bullet>();
 
@@ -40,11 +41,11 @@ namespace Joueurs
 
         public static int Timer { get => _timer; set => _timer = value; }
         public static List<Bullet> bullets { get => _bullets; set => _bullets = value; }
-        public Int128 Score { get => _score; set => _score = value; }
+        public static int Score { get => _score; set => _score = value; }
 
 
 
-        // Initialisation de l'espace aérien avec un certain nombre de drones
+        // Initialisation de l'espace aÃ©rien avec un certain nombre de drones
         public Game(Joueur joueur)
         {
             InitializeComponent();
@@ -52,6 +53,9 @@ namespace Joueurs
 
             lblScore.Font = TextHelpers.MediumFont;
             lblScore.Text = "Score: \n" + _score;
+
+            lblLife.Location = new Point(WIDTH-20-lblLife.Size.Width/2, 5);
+            
 
             // Gets a reference to the current BufferedGraphicsContext
             currentContext = BufferedGraphicsManager.Current;
@@ -99,10 +103,11 @@ namespace Joueurs
 
         }
 
-        // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
+        // Calcul du nouvel Ã©tat aprÃ¨s que 'interval' millisecondes se sont Ã©coulÃ©es
         private void Update(int interval)
         {
             lblScore.Text = "Score: " + _score;
+            lblLife.Text = string.Concat(Enumerable.Repeat("â™¥", Joueur.Vie));
 
             _timer++;
             _ennemiesSpawn++;
@@ -131,12 +136,20 @@ namespace Joueurs
 
         }
 
-        // Méthode appelée à chaque frame
+        // MÃ©thode appelÃ©e Ã  chaque frame
         private void NewFrame(object sender, EventArgs e)
         {
-            mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
-            this.Update(ticker.Interval);
-            this.Render();
+            if (Joueur.Vie <= 0)
+            {
+                this.Close();
+            }
+            else
+            {
+                mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
+                this.Update(ticker.Interval);
+                this.Render();
+            }
+            
 
         }
 

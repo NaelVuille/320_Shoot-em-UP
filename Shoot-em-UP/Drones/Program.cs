@@ -1,5 +1,6 @@
 using Drones.View;
 using Shoot_em_up.View;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Joueurs
 {
@@ -15,11 +16,17 @@ namespace Joueurs
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
+            
+
             // Démarrage
+            
             Application.Run(new Accueil());
-            /*Joueur joueur = new Joueur(100, 100);
-            Application.Run(new Game(joueur));
-            Application.Run(new End_Game(300));*/
+            while (Helpers.Config.play)
+            {
+                Application.Run(new Game(new Joueur(Helpers.Config.WIDTH / 2, Helpers.Config.HEIGHT / 10 * 9)));
+                Application.Run(new End_Game(Game.Score));
+            }
+
         }
     }
 }

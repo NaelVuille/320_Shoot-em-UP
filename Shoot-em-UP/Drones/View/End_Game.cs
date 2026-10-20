@@ -25,6 +25,8 @@ namespace Shoot_em_up.View
         {
             if (!int.TryParse(File.ReadAllText(BestScorePath), out BestScore)) BestScore = 0;
 
+            Config.play = false;
+
             InitializeComponent();
             TextHelpers.Init();
             lblTitle.Font = TextHelpers.BigFont;
@@ -33,9 +35,9 @@ namespace Shoot_em_up.View
             ButtonHelper.Configure(btnQuit);
             ClientSize = new Size(WIDTH, HEIGHT);
             lblTitle.Location = new Point(Config.WIDTH / 2 - lblTitle.Size.Width / 2, 50);
-            lblFinalScore.Location = new Point(Config.WIDTH / 2 - lblFinalScore.Size.Width / 2, 170);
-            btnReplay.Location = new Point(Config.WIDTH / 2 - btnReplay.Size.Width / 2, 450);
-            btnQuit.Location = new Point(Config.WIDTH / 2 - btnQuit.Size.Width / 2, 560);
+            lblFinalScore.Location = new Point(Config.WIDTH / 2 - btnReplay.Width / 2 , 170);
+            btnReplay.Location = new Point(Config.WIDTH / 2 - btnReplay.Width / 2, 450);
+            btnQuit.Location = new Point(Config.WIDTH / 2 - btnQuit.Width / 2, 560);
 
             if (score > BestScore)
             {
@@ -47,17 +49,13 @@ namespace Shoot_em_up.View
 
         private void btnReplay_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Joueur joueur = new Joueur(Game.WIDTH / 2, Game.HEIGHT / 2);
-            using (Game gameForm = new Game(joueur))
-            {
-                gameForm.ShowDialog();
-            }
+            Config.play = true;
             this.Close();
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
         {
+            
             this.Close();
         }
     }

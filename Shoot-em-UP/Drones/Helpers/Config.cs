@@ -7,6 +7,6 @@
 
         public const int WIDTH = 1280;        // Dimensions
         public const int HEIGHT = 720;
-        
+        public static bool play = true;
     }
 }

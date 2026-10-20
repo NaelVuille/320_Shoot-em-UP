@@ -18,6 +18,8 @@ namespace Drones.View
 
         public Accueil()
         {
+            Config.play = false;
+
             InitializeComponent();
             TextHelpers.Init();
             lblTitle.Font = TextHelpers.BigFont;
@@ -36,12 +38,7 @@ namespace Drones.View
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Joueur joueur = new Joueur(Game.WIDTH / 2, Game.HEIGHT / 2);
-            using (Game gameForm = new Game(joueur))
-            {
-                gameForm.ShowDialog();
-            }
+            Config.play = true;
             this.Close();
         }
 
