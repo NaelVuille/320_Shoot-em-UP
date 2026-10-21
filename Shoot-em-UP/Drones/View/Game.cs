@@ -3,7 +3,7 @@ using shootEmUp.Helpers;
 
 namespace shootEmUp
 {
-    // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
+   
     // Il s'agit d'un formulaire (une fenêtre) qui montre une vue 2D depuis en dessus
     // Il n'y a donc pas de notion d'altitude qui intervient
 
@@ -12,7 +12,7 @@ namespace shootEmUp
         // Récupère la position de la souris relative à la fenêtre active
         Point mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
 
-        // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
+
         private Joueur _joueur;
 
         private int _score = 0;
@@ -36,7 +36,7 @@ namespace shootEmUp
         BufferedGraphicsContext currentContext;
         BufferedGraphics game;
 
-        // Initialisation de l'espace aérien avec un certain nombre de drones
+
         public Game(Joueur joueur,List<Bullet>bullets)
         {
             InitializeComponent();
@@ -108,7 +108,6 @@ namespace shootEmUp
 
         }
 
-        // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
         private void Update(int interval,Joueur joueur, List<Bullet> bullets)
         {
             lblScore.Text = "Score: " + _score;

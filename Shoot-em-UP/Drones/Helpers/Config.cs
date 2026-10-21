@@ -1,7 +1,7 @@
 ﻿namespace shootEmUp.Helpers
 {
     // Outils pour écrire du texte dans un environnement graphique
-    internal static class Config
+    public static class Config
     {
         public const int SPEED = 10;
 
