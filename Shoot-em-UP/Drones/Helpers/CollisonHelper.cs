@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
@@ -24,7 +25,7 @@ namespace Shoot_em_up.Helpers
             return (protSize, protLeft, protRight, protTop, protBottom);
         }
 
-        public static (int,int) EnnemieMove(int x, int y,int deltaX,int deltaY,List<Protection> protections,int size)
+        public static (int,int) EnemyMove(int x, int y,int deltaX,int deltaY,List<Protection> protections,int size,List<Ennemie> enemys,Ennemie thisEnemy)
         {
             int nextX = x + deltaX;
             int nextY = y + deltaY;
@@ -52,6 +53,34 @@ namespace Shoot_em_up.Helpers
                     enemyBottomY2 >= protTop && nextY <= protBottom)
                 {
                     canMoveY = false;
+                }
+            }
+            foreach (Ennemie enemy in enemys)
+            {
+                if (thisEnemy != enemy)
+                {
+                    int enemyLeft = enemy.X;
+                    int enemyRight = enemy.X + size;
+                    int enemyTop = enemy.Y;
+                    int enemyBottom = enemy.Y + size;
+
+                    // Test axe X
+                    int enemyRightX = nextX + size;
+                    int enemyBottomY = y + size;
+                    if (enemyRightX >= enemyLeft && nextX <= enemyRight &&
+                        enemyBottomY >= enemyTop && y <= enemyBottom)
+                    {
+                        canMoveX = false;
+                    }
+
+                    // Test axe Y
+                    int enemyRightX2 = x + size;
+                    int enemyBottomY2 = nextY + size;
+                    if (enemyRightX2 >= enemyLeft && x <= enemyRight &&
+                        enemyBottomY2 >= enemyTop && nextY <= enemyBottom)
+                    {
+                        canMoveY = false;
+                    }
                 }
             }
 

@@ -69,7 +69,7 @@ namespace Ennemie_name
                 deltaY = (int)(dy / distance * Config.SPEED * 5 * interval / 1000);
             }
 
-            (_x,_y) = CollisionHelpers.EnnemieMove(_x, _y,deltaX,deltaY,protections,_ENNEMIESIZE);
+            (_x,_y) = CollisionHelpers.EnemyMove(_x, _y,deltaX,deltaY,protections,_ENNEMIESIZE,ennemies,this);
         }
 
         public void Render(BufferedGraphics drawingSpace)
