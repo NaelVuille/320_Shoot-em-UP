@@ -3,11 +3,11 @@
 
 namespace shootEmUp.View
 {
-    public partial class End_Game : Form
+    public partial class GameOver : Form
     {
         int highScore;
 
-        public End_Game(int score)
+        public GameOver(int score)
         {
             if (!int.TryParse(File.ReadAllText(Config.HIGHSCOREPATH), out highScore)) highScore = 0;
 

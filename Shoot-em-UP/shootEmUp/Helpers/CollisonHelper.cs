@@ -6,7 +6,7 @@ namespace shootEmUp.Helpers
 
     public static class CollisionHelpers
     {
-        public static (int, int, int, int, int) protCollision(Protection protection)
+        public static (int, int, int, int, int) GetProtectionBounds(Protection protection)
         {
             int protSize = Protection.PROTECTIONSIZE;
             int protLeft = protection.X - protSize / 2;
@@ -17,9 +17,9 @@ namespace shootEmUp.Helpers
             return (protSize, protLeft, protRight, protTop, protBottom);
         }
 
-        public static (int, int, int, int, int) EnemyCollision(Ennemie enemy)
+        public static (int, int, int, int, int) GetEnemyBounds(Enemy enemy)
         {
-            int enemySize = Ennemie.ENNEMIESIZE;
+            int enemySize = Enemy.ENEMYSIZE;
             int enemyLeft = enemy.X;
             int enemyRight = enemy.X + enemySize;
             int enemyTop = enemy.Y;
@@ -29,7 +29,7 @@ namespace shootEmUp.Helpers
         }
 
 
-        public static (int, int) EnemyMove(int x, int y, int deltaX, int deltaY, List<Protection> protections, int size, List<Ennemie> enemies, Ennemie thisEnemy)
+        public static (int, int) MoveEnemy(int x, int y, int deltaX, int deltaY, List<Protection> protections, int size, List<Enemy> enemies, Enemy thisEnemy)
         {
             int nextX = x + deltaX;
             int nextY = y + deltaY;
@@ -39,7 +39,7 @@ namespace shootEmUp.Helpers
 
             foreach (Protection protection in protections)
             {
-                (int protSize, int protLeft, int protRight, int protTop, int protBottom) = protCollision(protection);
+                (int protSize, int protLeft, int protRight, int protTop, int protBottom) = GetProtectionBounds(protection);
 
                 // Test axe X
                 int enemyRightX = nextX + size;
@@ -59,12 +59,12 @@ namespace shootEmUp.Helpers
                     canMoveY = false;
                 }
             }
-            foreach (Ennemie enemy in enemies)
+            foreach (Enemy enemy in enemies)
             {
                 if (thisEnemy != enemy)
                 {
 
-                    (int enemySize, int enemyLeft, int enemyRight, int enemyTop, int enemyBottom) = EnemyCollision(enemy);
+                    (int enemySize, int enemyLeft, int enemyRight, int enemyTop, int enemyBottom) = GetEnemyBounds(enemy);
 
                     // Test axe X
                     int enemyRightX = nextX + size;
@@ -92,14 +92,14 @@ namespace shootEmUp.Helpers
             return (x, y);
         }
 
-        public static (int, int) JoueurMove(int x, int y, int deltaX, int deltaY, List<Protection> protections, int size, int nextX, int nextY)
+        public static (int, int) MovePlayer(int x, int y, int deltaX, int deltaY, List<Protection> protections, int size, int nextX, int nextY)
         {
 
             bool canMove = true;
 
             foreach (Protection protection in protections)
             {
-                (int protSize, int protLeft, int protRight, int protTop, int protBottom) = protCollision(protection);
+                (int protSize, int protLeft, int protRight, int protTop, int protBottom) = GetProtectionBounds(protection);
 
 
                 int playerLeft = nextX;
@@ -123,7 +123,7 @@ namespace shootEmUp.Helpers
             }
             return (x, y);
         }
-        public static (int, int) VerifBullet(int x, int y, List<Protection> protections, Bullet bullet, List<Bullet> bullets, int incrX, int incrY, List<Ennemie> enemies)
+        public static (int, int) CheckBulletCollisions(int x, int y, List<Protection> protections, Bullet bullet, List<Bullet> bullets, int incrX, int incrY, List<Enemy> enemies)
         {
             bool CanMove = true;
 
@@ -135,7 +135,7 @@ namespace shootEmUp.Helpers
                 verifX = x;
                 verifY = y;
 
-                (int protSize, int protLeft, int protRight, int protTop, int protBottom) = protCollision(protection);
+                (int protSize, int protLeft, int protRight, int protTop, int protBottom) = GetProtectionBounds(protection);
 
                 for (int i = 0; i < 2; i++)
                 {
@@ -150,12 +150,12 @@ namespace shootEmUp.Helpers
                 }
 
             }
-            foreach (Ennemie enemy in enemies)
+            foreach (Enemy enemy in enemies)
             {
                 verifX = x;
                 verifY = y;
 
-                (int enemySize, int enemyLeft, int enemyRight, int enemyTop, int enemyBottom) = EnemyCollision(enemy);
+                (int enemySize, int enemyLeft, int enemyRight, int enemyTop, int enemyBottom) = GetEnemyBounds(enemy);
 
                 for (int i = 0; i < 2; i++)
                 {
@@ -185,7 +185,7 @@ namespace shootEmUp.Helpers
 
         }
 
-        public static (int, int) VerifEnemyBullet(int x, int y, List<Protection> protections, EnemyBullet enemyBullet, List<EnemyBullet> enemyBullets, int incrX, int incrY, Joueur joueur, List<Ennemie> enemies, Ennemie shooter)
+        public static (int, int) CheckEnemyBulletCollisions(int x, int y, List<Protection> protections, EnemyBullet enemyBullet, List<EnemyBullet> enemyBullets, int incrX, int incrY, Player player, List<Enemy> enemies, Enemy shooter)
         {
             bool CanMove = true;
 
@@ -197,7 +197,7 @@ namespace shootEmUp.Helpers
                 verifX = x;
                 verifY = y;
 
-                (int protSize, int protLeft, int protRight, int protTop, int protBottom) = protCollision(protection);
+                (int protSize, int protLeft, int protRight, int protTop, int protBottom) = GetProtectionBounds(protection);
 
                 for (int i = 0; i < 2; i++)
                 {
@@ -212,14 +212,14 @@ namespace shootEmUp.Helpers
                 }
 
             }
-            foreach (Ennemie enemy in enemies)
+            foreach (Enemy enemy in enemies)
             {
                 if (enemy != shooter)
                 {
                     verifX = x;
                     verifY = y;
 
-                    (int enemySize, int enemyLeft, int enemyRight, int enemyTop, int enemyBottom) = EnemyCollision(enemy);
+                    (int enemySize, int enemyLeft, int enemyRight, int enemyTop, int enemyBottom) = GetEnemyBounds(enemy);
 
                     for (int i = 0; i < 2; i++)
                     {
@@ -240,12 +240,12 @@ namespace shootEmUp.Helpers
             verifY = y;
 
 
-            int size = joueur.PLAYERSIZE;
+            int size = player.PLAYERSIZE;
 
-            int playerLeft = joueur.X;
-            int playerRight = joueur.X + size;
-            int playerTop = joueur.Y;
-            int playerBottom = joueur.Y + size;
+            int playerLeft = player.X;
+            int playerRight = player.X + size;
+            int playerTop = player.Y;
+            int playerBottom = player.Y + size;
 
 
             for (int i = 0; i < 2; i++)
@@ -254,7 +254,7 @@ namespace shootEmUp.Helpers
                     verifY >= playerTop && verifY <= playerBottom)
                 {
                     CanMove = false;
-                    joueur.Vie--;
+                    player.Vie--;
                     break;
                 }
                 verifX = x + incrX / 2;

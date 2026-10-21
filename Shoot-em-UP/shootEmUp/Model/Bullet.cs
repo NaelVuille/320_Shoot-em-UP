@@ -30,7 +30,7 @@ namespace shootEmUp.Model
             _incrY = (int)Math.Round(Math.Sin(rad) * Config.SPEED*100 * interval / 1000.0);
         }
 
-        public void Update(List<Bullet> bullets,List<Protection> protections,List<Ennemie> enemies)
+        public void Update(List<Bullet> bullets,List<Protection> protections,List<Enemy> enemies)
         {
             _timer++;
             if(_timer >= 3)
@@ -39,7 +39,7 @@ namespace shootEmUp.Model
                 return;
             }
 
-            (_x,_y) = CollisionHelpers.VerifBullet(_x,_y,protections,this,bullets,_incrX,_incrY,enemies);
+            (_x,_y) = CollisionHelpers.CheckBulletCollisions(_x,_y,protections,this,bullets,_incrX,_incrY,enemies);
             
 
             

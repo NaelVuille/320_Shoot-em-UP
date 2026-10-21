@@ -20,12 +20,12 @@ namespace shootEmUp
 
             // Démarrage
             
-            Application.Run(new Accueil());
+            Application.Run(new Main_Menu());
             while (Helpers.Config.play)
             {
-                Joueur joueur;
-                Application.Run(new Game(joueur = new Joueur(Helpers.Config.WIDTH / 2, Helpers.Config.HEIGHT - 150, 3), new List<Bullet>()));
-                Application.Run(new End_Game(joueur.Score));
+                Player player;
+                Application.Run(new Game(player = new Player(Helpers.Config.WIDTH / 2, Helpers.Config.HEIGHT - 150, 3), new List<Bullet>()));
+                Application.Run(new End_Game(player.Score));
             }
 
         }

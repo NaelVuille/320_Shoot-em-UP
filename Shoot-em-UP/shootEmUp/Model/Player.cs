@@ -3,39 +3,39 @@ using shootEmUp.Properties;
 
 namespace shootEmUp.Model
 {
-    public class Joueur
+    public class Player
     {
         private const int _PLAYERSIZE = 125;
 
         private int _x;                                 // Position en X depuis la gauche de l'affichage
         private int _y;                                 // Position en Y depuis le haut de l'affichage
         private float _angle = 0;                     // Variable pour stocker l'angle
-        private int _vie = 3;
+        private int _life = 3;
         private int _score;
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }
 
         public int PLAYERSIZE => _PLAYERSIZE;
 
-        public int Vie { get => _vie; set => _vie = value; }
+        public int Vie { get => _life; set => _life = value; }
         public int Score { get => _score; set => _score = value; }
 
         // Constructeur
-        public Joueur(int x, int y,int vie)
+        public Player(int x, int y,int vie)
         {
             _x = x;
             _y = y;
-            _vie = vie;
+            _life = vie;
         }
 
 
-        // Cette méthode calcule le nouvel état dans lequel le joueur se trouve après
+        // Cette méthode calcule le nouvel état dans lequel le player se trouve après
         // que 'interval' millisecondes se sont écoulées
         public void Update(int interval, Point mousePos,int score)
         {
             _score = score;
 
-            // Vecteur entre le centre du joueur et la souris
+            // Vecteur entre le centre du player et la souris
             float dx = mousePos.X - (_x + _PLAYERSIZE/2);
             float dy = mousePos.Y - (_y + _PLAYERSIZE / 2);
 
@@ -43,7 +43,7 @@ namespace shootEmUp.Model
             _angle = (float)(Math.Atan2(dy, dx) * 180.0 / Math.PI);
         }
 
-        public void Shoot(List<Bullet> bullets, int interval, Joueur joueur)
+        public void Shoot(List<Bullet> bullets, int interval, Player player)
         { 
             float distanceDuCanon = 45.0f;
 
@@ -57,8 +57,8 @@ namespace shootEmUp.Model
                 double offsetX = Math.Cos(angleRadians) * distanceDuCanon;
                 double offsetY = Math.Sin(angleRadians) * distanceDuCanon;
 
-                int pointDepartX = (int)(_x + joueur.PLAYERSIZE /2 + offsetX);
-                int pointDepartY = (int)(_y  + joueur.PLAYERSIZE/2 + offsetY);
+                int pointDepartX = (int)(_x + player.PLAYERSIZE /2 + offsetX);
+                int pointDepartY = (int)(_y  + player.PLAYERSIZE/2 + offsetY);
 
                 bullets.Add(new Bullet(pointDepartX, pointDepartY, bulletAngle, interval));
                 
@@ -67,42 +67,42 @@ namespace shootEmUp.Model
         }
 
         // déplacement
-        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, int interval, List<Protection> protections,Joueur joueur,int timer)
+        public void HandleInput(object sender, KeyEventArgs e, List<Bullet> bullet, int interval, List<Protection> protections,Player player,int timer)
         {
  
             switch (e.KeyCode)
             {
                 case Keys.D:
                 case Keys.Right:
-                    MovePlayer(Helpers.Config.SPEED, 0, protections);
+                    Move(Helpers.Config.SPEED, 0, protections);
                     break;
 
                 case Keys.A:
                 case Keys.Left:
-                    MovePlayer(-Helpers.Config.SPEED, 0,protections);
+                    Move(-Helpers.Config.SPEED, 0,protections);
                     break;
 
                 case Keys.W:
                 case Keys.Up:
-                    MovePlayer(0, -Helpers.Config.SPEED, protections);
+                    Move(0, -Helpers.Config.SPEED, protections);
                     break;
 
                 case Keys.S:
                 case Keys.Down:
-                    MovePlayer(0, Helpers.Config.SPEED, protections);
+                    Move(0, Helpers.Config.SPEED, protections);
                     break;
 
                 case Keys.Space:
                     if (timer >= 10)
                     {
                         timer = 0;
-                        Shoot(bullet, interval, joueur);
+                        Shoot(bullet, interval, player);
                     }
                     break;
             }
 
         }
-        private void MovePlayer(int deltaX, int deltaY, List<Protection> protections)
+        private void Move(int deltaX, int deltaY, List<Protection> protections)
         {
             int barrierrd = 0;
             int barrierlu = 0;
@@ -113,7 +113,7 @@ namespace shootEmUp.Model
             if (nextX < barrierlu || nextX + _PLAYERSIZE > Helpers.Config.WIDTH - barrierrd) return;
             if (nextY < barrierlu || nextY + _PLAYERSIZE > Helpers.Config.HEIGHT - barrierrd) return;
 
-            (_x,_y)= CollisionHelpers.JoueurMove(_x, _y, deltaX, deltaY, protections, _PLAYERSIZE, nextX, nextY);
+            (_x,_y)= CollisionHelpers.MovePlayer(_x, _y, deltaX, deltaY, protections, _PLAYERSIZE, nextX, nextY);
         }
 
         /// //////////////////////////////////////////////////////////////////////////////
@@ -135,7 +135,7 @@ namespace shootEmUp.Model
 
             var state = drawingSpace.Graphics.Save();
 
-            // 1. Déplace le pivot au centre du joueur
+            // 1. Déplace le pivot au centre du player
             drawingSpace.Graphics.TranslateTransform(_x + _PLAYERSIZE/2, _y + _PLAYERSIZE/2);
 
             // 2. Vérifie si la souris pointe vers la gauche
@@ -157,7 +157,7 @@ namespace shootEmUp.Model
             }
 
             // 3. Dessin centré
-            drawingSpace.Graphics.DrawImage(Resources.joueur, -_PLAYERSIZE/2, -_PLAYERSIZE/2, _PLAYERSIZE, _PLAYERSIZE);
+            drawingSpace.Graphics.DrawImage(Resources.player, -_PLAYERSIZE/2, -_PLAYERSIZE/2, _PLAYERSIZE, _PLAYERSIZE);
 
             // 50. Restaure le repère
             drawingSpace.Graphics.Restore(state);

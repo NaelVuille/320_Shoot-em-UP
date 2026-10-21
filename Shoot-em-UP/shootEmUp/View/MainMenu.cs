@@ -2,7 +2,7 @@
 
 namespace shootEmUp.View
 {
-    public partial class Accueil : Form
+    public partial class MainMenu : Form
     {
         
         string highScore = "0";
@@ -18,7 +18,7 @@ namespace shootEmUp.View
 
         private int _konamiIndex = 0;
 
-        public Accueil()
+        public MainMenu()
         {
             Config.play = false;
 
@@ -38,7 +38,7 @@ namespace shootEmUp.View
             btnPlay.Location = new Point(Config.WIDTH / 2 - btnPlay.Size.Width / 2, 450);
             btnQuit.Location = new Point(Config.WIDTH / 2 - btnQuit.Size.Width / 2, 560);
 
-            RefeshHighScore();
+            RefreshHighScore();
         }
 
         private void Accueil_KeyDown(object? sender, KeyEventArgs e)
@@ -62,15 +62,15 @@ namespace shootEmUp.View
 
         private void Reset()
         {
-            DialogResult result = MessageBox.Show("Reset de high score ?", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            DialogResult result = MessageBox.Show("Reset high score?", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (result == DialogResult.Yes)
             {
                 File.WriteAllText(Config.HIGHSCOREPATH, "0");
-                RefeshHighScore();
+                RefreshHighScore();
             }
         }
 
-        private void RefeshHighScore()
+        private void RefreshHighScore()
         {
             highScore = File.ReadAllText(Config.HIGHSCOREPATH);
             lblHighScore.Text = "Best Score\n" + highScore;

@@ -12,7 +12,7 @@ namespace TestShootEmUp
         public void TestShootMethodGeneratesBullets()
         {
             // Arrange
-            Joueur player = new Joueur(100, 100, 3);
+            Player player = new Player(100, 100, 3);
             List<Bullet> bullets = new List<Bullet>();
             int interval = 16;
 
@@ -28,7 +28,7 @@ namespace TestShootEmUp
             // Arrange
             List<Bullet> bullets = new List<Bullet>();
             List<Protection> protections = new List<Protection>();
-            List<Ennemie> enemies = new List<Ennemie>();
+            List<Enemy> enemies = new List<Enemy>();
             Bullet b = new Bullet(100, 100, 0f, 16);
             bullets.Add(b);
 
@@ -47,12 +47,12 @@ namespace TestShootEmUp
         {
             // Arrange
             int initialScore = 0;
-            List<Ennemie> enemies = new List<Ennemie>();
+            List<Enemy> enemies = new List<Enemy>();
             List<Bullet> bullets = new List<Bullet>();
-            enemies.Add(new Ennemie(50, 50, 0, bullets)); // Vie à 0 pour simuler sa mort immédiate
+            enemies.Add(new Enemy(50, 50, 0, bullets)); // Vie à 0 pour simuler sa mort immédiate
             List<Protection> protections = new List<Protection>();
             List<EnemyBullet> enemyBullets = new List<EnemyBullet>();
-            Joueur player = new Joueur(100, 100, 3);
+            Player player = new Player(100, 100, 3);
 
             // Act
             int newScore = enemies[0].Update(16, enemies, protections, enemyBullets, initialScore, player);
@@ -65,7 +65,7 @@ namespace TestShootEmUp
         public void TestPlayerMovementRespectsScreenBounds()
         {
             // Arrange
-            Joueur player = new Joueur(100, 100, 3);
+            Player player = new Player(100, 100, 3);
             List<Protection> protections = new List<Protection>();
 
             // Act
@@ -83,7 +83,7 @@ namespace TestShootEmUp
         public void TestGameOverCondition()
         {
             // Arrange
-            Joueur player = new Joueur(100, 100, 1);
+            Player player = new Player(100, 100, 1);
 
             // Act
             player.Vie -= 1;

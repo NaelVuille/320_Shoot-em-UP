@@ -13,14 +13,14 @@ namespace shootEmUp.Model
         private const int _BULLETSIZE = 20;
         private static int _targetX;
         private static int _targetY;
-        private Ennemie _shooter;
+        private Enemy _shooter;
 
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }
 
         public static int BULLETSIZE => _BULLETSIZE;
 
-        public EnemyBullet(int x, int y, int interval,int timer,Ennemie shooter,Joueur joueur)
+        public EnemyBullet(int x, int y, int interval,int timer,Enemy shooter,Player player)
         {
             _x = x;
             _y = y;
@@ -28,8 +28,8 @@ namespace shootEmUp.Model
 
             if (timer == 20)
             {
-                _targetX = joueur.X + joueur.PLAYERSIZE / 2;
-                _targetY = joueur.Y + joueur.PLAYERSIZE / 2;
+                _targetX = player.X + player.PLAYERSIZE / 2;
+                _targetY = player.Y + player.PLAYERSIZE / 2;
             }
 
             int bulletCenterX = _x + EnemyBullet.BULLETSIZE / 2;
@@ -47,10 +47,10 @@ namespace shootEmUp.Model
             _angle = (float)(Math.Atan2(dy, dx) * (180.0 / Math.PI));
         }
 
-        public void Update(List<EnemyBullet> enemyBullets, List<Protection> protections, Joueur joueurs,List<Ennemie> enemies)
+        public void Update(List<EnemyBullet> enemyBullets, List<Protection> protections, Player players,List<Enemy> enemies)
         {
 
-            (_x, _y) = CollisionHelpers.VerifEnemyBullet(_x, _y, protections, this, enemyBullets, _incrX, _incrY, joueurs,enemies, _shooter);
+            (_x, _y) = CollisionHelpers.CheckEnemyBulletCollisions(_x, _y, protections, this, enemyBullets, _incrX, _incrY, players,enemies, _shooter);
 
         }
         public void Render(BufferedGraphics drawingSpace)

@@ -2,7 +2,7 @@
 
 namespace shootEmUp.View
 {
-    partial class Accueil
+    partial class MainMenu
     {
         /// <summary>
         /// Required designer variable.

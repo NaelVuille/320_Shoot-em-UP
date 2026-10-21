@@ -1,6 +1,6 @@
 ﻿namespace shootEmUp.View
 {
-    partial class End_Game
+    partial class GameOver
     {
         /// <summary>
         /// Required designer variable.
