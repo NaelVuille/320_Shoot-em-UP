@@ -14,15 +14,15 @@ namespace shootEmUp.Model
         private bool _flip=false;
 
         // Constructeur
-        public Enemy(int x, int y, int vie,List<Bullet> bullets)
+        public Enemy(int x, int y, int life,List<Bullet> bullets)
         {
             _x = x;
             _y = y;
-            _life = vie;
+            _life = life;
             _bullets = bullets;
         }
 
-        public int Vie { get => _life; set => _life = value; }
+        public int Life { get => _life; set => _life = value; }
         public int X { get => _x; set => _x = value; }
         public int Y { get => _y; set => _y = value; }
 
@@ -111,26 +111,41 @@ namespace shootEmUp.Model
         public void Render(BufferedGraphics drawingSpace)
         {
             var state = drawingSpace.Graphics.Save();
-            Brush writingBrush = new SolidBrush(Color.Green);
-            Font font = new Font("Segoe UI", 30F);
-            string life = string.Concat(Enumerable.Repeat("♥", _life));
+
+            int imageSize = 25;
+            int heartsY = -imageSize - 10; // Au-dessus de l'ennemi
 
             if (_flip)
             {
                 
-                drawingSpace.Graphics.TranslateTransform(_x + _ENEMYSIZE, _y);
-                drawingSpace.Graphics.ScaleTransform(-1, 1);
-                drawingSpace.Graphics.DrawImage(Resources.enemy, 0, 0, _ENEMYSIZE, _ENEMYSIZE);
-                drawingSpace.Graphics.DrawString($"{life}",font , writingBrush, 0 , 0 - _ENEMYSIZE / 2);
 
+                drawingSpace.Graphics.TranslateTransform((_x + _ENEMYSIZE), _y);
+                drawingSpace.Graphics.ScaleTransform(-1, 1);
             }
             else
-            { 
-                drawingSpace.Graphics.DrawImage(Resources.enemy, _x, _y, _ENEMYSIZE, _ENEMYSIZE);
-                drawingSpace.Graphics.DrawString($"{life}", font, writingBrush, _x , _y - _ENEMYSIZE / 2);
-
+            {
+                // On place l'origine normalement sur le coin supérieur gauche de l'ennemi
+                drawingSpace.Graphics.TranslateTransform(_x, _y);
+                drawingSpace.Graphics.ScaleTransform(1, 1);
             }
-            
+
+
+            // Dessin de l'ennemi à l'origine (0, 0) de notre nouveau repère transformé
+            drawingSpace.Graphics.DrawImage(Resources.enemy, 0, 0, _ENEMYSIZE, _ENEMYSIZE);
+
+            // Largeur totale occupée par tous les cœurs
+            int totalHeartsWidth = _life * imageSize;
+
+            // Point de départ X pour centrer les cœurs au milieu de l'ennemi (par rapport à son centre _ENEMYSIZE / 2)
+            int startX = (_ENEMYSIZE / 2) - (totalHeartsWidth / 2);
+
+            // Boucle pour dessiner chaque cœur
+            for (int i = 0; i < _life; i++)
+            {
+                int heartX = startX + (i * imageSize);
+                drawingSpace.Graphics.DrawImage(Resources.enemyLifeHeart, heartX, heartsY, imageSize, imageSize);
+            }
+
             drawingSpace.Graphics.Restore(state);
         }
     }
