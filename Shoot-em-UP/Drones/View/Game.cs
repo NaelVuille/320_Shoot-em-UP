@@ -117,8 +117,8 @@ namespace Joueurs
             if(_ennemiesSpawn >= 50)
             {
                 _numberEnnemis = MathHelpers.alea.Next(1, 3);
-                for (int i = 0; i <_numberEnnemis; i++)
-                    _ennemies.Add(new Ennemie(MathHelpers.alea.Next(WIDTH), 0, 2));
+                for (int i = 1; i <=_numberEnnemis; i++)
+                    _ennemies.Add(new Ennemie(MathHelpers.alea.Next(-Ennemie.ENNEMIESIZE, WIDTH)/_numberEnnemis * i, -Ennemie.ENNEMIESIZE, 2));
                 _ennemiesSpawn = 0;
             }
 
