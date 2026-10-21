@@ -48,7 +48,7 @@ namespace Joueurs
             _angle = (float)(Math.Atan2(dy, dx) * 180.0 / Math.PI);
         }
 
-        public void Shoot(List<Bullet> bullets, Point mousePos, int interval)
+        public void Shoot(List<Bullet> bullets, int interval)
         { 
             float distanceDuCanon = 45.0f;
 
@@ -72,7 +72,7 @@ namespace Joueurs
         }
 
         // déplacement
-        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, Point mousePos, int interval, List<Protection> protections)
+        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, int interval, List<Protection> protections)
         {
  
             switch (e.KeyCode)
@@ -101,7 +101,7 @@ namespace Joueurs
                     if (Game.Timer >= 10)
                     {
                         Game.Timer = 0;
-                        Shoot(bullet, mousePos, interval);
+                        Shoot(bullet, interval);
                     }
                     break;
             }

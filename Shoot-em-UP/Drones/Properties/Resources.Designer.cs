@@ -83,6 +83,16 @@ namespace Shoot_em_up.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap EnemyBullet {
+            get {
+                object obj = ResourceManager.GetObject("EnemyBullet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ennemie {
             get {
                 object obj = ResourceManager.GetObject("ennemie", resourceCulture);

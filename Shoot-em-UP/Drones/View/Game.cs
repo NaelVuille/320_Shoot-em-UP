@@ -30,9 +30,11 @@ namespace Joueurs
 
         private static int _numberEnnemis = 1;
 
-        private static int _ennemiesSpawn = 30;
+        private static int _enemiesSpawn = 30;
 
-        private List<Ennemie> _ennemies = new List<Ennemie>();
+        private List<Ennemie> _enemies = new List<Ennemie>();
+
+        private List<EnemyBullet> _enemiesbullets = new List<EnemyBullet>();
 
         private List<Protection> _protections = new List<Protection>();
 
@@ -78,12 +80,12 @@ namespace Joueurs
         {
             game.Graphics.Clear(Color.Black);
 
-            for (int i = 0; i < _ennemies.Count; i++)
+            for (int i = 0; i < _enemies.Count; i++)
             {
-                _ennemies[i].Render(game);
-                if (_ennemies[i].Vie <= 0)
+                _enemies[i].Render(game);
+                if (_enemies[i].Vie <= 0)
                 {
-                    _ennemies.RemoveAt(i);
+                    _enemies.RemoveAt(i);
                     _score += 125;
                 }
             }
@@ -91,6 +93,11 @@ namespace Joueurs
             foreach (Bullet bullet in _bullets)
             {
                 bullet.Render(game);
+            }
+
+            foreach (EnemyBullet enemybullet in _enemiesbullets)
+            {
+                enemybullet.Render(game);
             }
 
             _joueur.Render(game);
@@ -111,20 +118,25 @@ namespace Joueurs
             lblLife.Text = string.Concat(Enumerable.Repeat("♥", Joueur.Vie));
 
             _timer++;
-            _ennemiesSpawn++;
+            _enemiesSpawn++;
 
            
-            if(_ennemiesSpawn >= 50)
+            if(_enemiesSpawn >= 50)
             {
                 _numberEnnemis = MathHelpers.alea.Next(1, 3);
                 for (int i = 1; i <=_numberEnnemis; i++)
-                    _ennemies.Add(new Ennemie(MathHelpers.alea.Next(-Ennemie.ENNEMIESIZE, WIDTH)/_numberEnnemis * i, -Ennemie.ENNEMIESIZE, 2));
-                _ennemiesSpawn = 0;
+                    _enemies.Add(new Ennemie(MathHelpers.alea.Next(-Ennemie.ENNEMIESIZE, WIDTH)/_numberEnnemis * i, -Ennemie.ENNEMIESIZE, 2));
+                _enemiesSpawn = 0;
             }
 
-            for (int i = 0; i < _ennemies.Count; i++)
+            for (int i = 0; i < _enemies.Count; i++)
             {
-                _ennemies[i].Update(interval, _ennemies,_protections);
+                _enemies[i].Update(interval, _enemies,_protections,_enemiesbullets);
+            }
+
+            for (int i = 0; i < _enemiesbullets.Count; i++) 
+            {
+                _enemiesbullets[i].Update(_enemiesbullets, _protections, _joueur,_enemies);
             }
 
             _joueur.Update(interval, mousePos);
@@ -132,7 +144,7 @@ namespace Joueurs
 
             for (int i = 0;i < _bullets.Count;i++)
             {
-                _bullets[i].Update(_bullets,_protections);
+                _bullets[i].Update(_bullets,_protections,_enemies);
             }
 
         }
@@ -156,7 +168,7 @@ namespace Joueurs
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            _joueur.Action(sender, e, _bullets, mousePos, ticker.Interval,_protections);
+            _joueur.Action(sender, e, _bullets, ticker.Interval,_protections);
 
         }
         private void Game_MouseDown(object sender, MouseEventArgs e)
@@ -165,7 +177,7 @@ namespace Joueurs
             if (_timer >= 10)
             {
                 _timer = 0;
-                _joueur.Shoot(_bullets, mousePos, ticker.Interval);
+                _joueur.Shoot(_bullets, ticker.Interval);
             }
 
         }

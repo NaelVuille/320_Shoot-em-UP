@@ -1,17 +1,21 @@
 ﻿using Ennemie_name;
+using Joueurs;
+using Joueurs.Helpers;
 using Shoot_em_up.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Shoot_em_up.Helpers
 {
-    
+
     public static class CollisionHelpers
     {
         public static (int, int, int, int, int) protCollision(Protection protection)
@@ -25,7 +29,19 @@ namespace Shoot_em_up.Helpers
             return (protSize, protLeft, protRight, protTop, protBottom);
         }
 
-        public static (int,int) EnemyMove(int x, int y,int deltaX,int deltaY,List<Protection> protections,int size,List<Ennemie> enemys,Ennemie thisEnemy)
+        public static (int, int, int, int, int) EnemyCollision(Ennemie enemy)
+        {
+            int enemySize = Ennemie.ENNEMIESIZE;
+            int enemyLeft = enemy.X;
+            int enemyRight = enemy.X + enemySize;
+            int enemyTop = enemy.Y;
+            int enemyBottom = enemy.Y + enemySize;
+
+            return (enemySize, enemyLeft, enemyRight, enemyTop, enemyBottom);
+        }
+
+
+        public static (int, int) EnemyMove(int x, int y, int deltaX, int deltaY, List<Protection> protections, int size, List<Ennemie> enemies, Ennemie thisEnemy)
         {
             int nextX = x + deltaX;
             int nextY = y + deltaY;
@@ -55,14 +71,12 @@ namespace Shoot_em_up.Helpers
                     canMoveY = false;
                 }
             }
-            foreach (Ennemie enemy in enemys)
+            foreach (Ennemie enemy in enemies)
             {
                 if (thisEnemy != enemy)
                 {
-                    int enemyLeft = enemy.X;
-                    int enemyRight = enemy.X + size;
-                    int enemyTop = enemy.Y;
-                    int enemyBottom = enemy.Y + size;
+
+                    (int enemySize, int enemyLeft, int enemyRight, int enemyTop, int enemyBottom) = EnemyCollision(enemy);
 
                     // Test axe X
                     int enemyRightX = nextX + size;
@@ -90,7 +104,7 @@ namespace Shoot_em_up.Helpers
             return (x, y);
         }
 
-        public static (int, int) JoueurMove(int x, int y, int deltaX, int deltaY, List<Protection> protections,int size,int nextX, int nextY)
+        public static (int, int) JoueurMove(int x, int y, int deltaX, int deltaY, List<Protection> protections, int size, int nextX, int nextY)
         {
 
             bool canMove = true;
@@ -121,7 +135,7 @@ namespace Shoot_em_up.Helpers
             }
             return (x, y);
         }
-        public static (int,int) VerifBullet(int x, int y, List<Protection> protections, Bullet bullet,List<Bullet> bullets,int incrX,int incrY)
+        public static (int, int) VerifBullet(int x, int y, List<Protection> protections, Bullet bullet, List<Bullet> bullets, int incrX, int incrY, List<Ennemie> enemies)
         {
             bool CanMove = true;
 
@@ -143,11 +157,32 @@ namespace Shoot_em_up.Helpers
                         CanMove = false;
                         break;
                     }
-                    verifX = x + incrX/2;
-                    verifY = y + incrY/2;
+                    verifX = x + incrX / 2;
+                    verifY = y + incrY / 2;
                 }
-                
+
             }
+            foreach (Ennemie enemy in enemies)
+            {
+                verifX = x;
+                verifY = y;
+
+                (int enemySize, int enemyLeft, int enemyRight, int enemyTop, int enemyBottom) = EnemyCollision(enemy);
+
+                for (int i = 0; i < 2; i++)
+                {
+                    if (verifX >= enemyLeft && verifX <= enemyRight &&
+                        verifY >= enemyTop && verifY <= enemyBottom)
+                    {
+                        enemy.Vie--;
+                        break;
+                    }
+                    verifX = x + incrX / 2;
+                    verifY = y + incrY / 2;
+                }
+
+            }
+
             if (CanMove)
             {
                 x += incrX;
@@ -157,16 +192,108 @@ namespace Shoot_em_up.Helpers
             {
                 bullets.Remove(bullet);
             }
-
             return (x, y);
-
-
-
-
-
 
 
         }
 
+        public static (int, int) VerifEnemyBullet(int x, int y, List<Protection> protections, EnemyBullet enemyBullet, List<EnemyBullet> enemyBullets, int incrX, int incrY, Joueur joueurs, List<Ennemie> enemies, Ennemie shooter)
+        {
+            bool CanMove = true;
+
+            float verifX = x;
+            float verifY = y;
+
+            foreach (Protection protection in protections)
+            {
+                verifX = x;
+                verifY = y;
+
+                (int protSize, int protLeft, int protRight, int protTop, int protBottom) = protCollision(protection);
+
+                for (int i = 0; i < 2; i++)
+                {
+                    if (verifX >= protLeft && verifX <= protRight &&
+                        verifY >= protTop && verifY <= protBottom)
+                    {
+                        CanMove = false;
+                        break;
+                    }
+                    verifX = x + incrX / 2;
+                    verifY = y + incrY / 2;
+                }
+
+            }
+            foreach (Ennemie enemy in enemies)
+            {
+                if (enemy != shooter)
+                {
+                    verifX = x;
+                    verifY = y;
+
+                    (int enemySize, int enemyLeft, int enemyRight, int enemyTop, int enemyBottom) = EnemyCollision(enemy);
+
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (verifX >= enemyLeft && verifX <= enemyRight &&
+                            verifY >= enemyTop && verifY <= enemyBottom)
+                        {
+                            enemy.Vie--;
+                            CanMove = false;
+                            break;
+                        }
+                        verifX = x + incrX / 2;
+                        verifY = y + incrY / 2;
+                    }
+                }
+            }
+
+            verifX = x;
+            verifY = y;
+
+
+            int size = Joueur.PLAYERSIZE;
+
+            int playerLeft = Joueur.X;
+            int playerRight = Joueur.X + size;
+            int playerTop = Joueur.Y;
+            int playerBottom = Joueur.Y + size;
+
+
+            for (int i = 0; i < 2; i++)
+            {
+                if (verifX >= playerLeft && verifX <= playerRight &&
+                    verifY >= playerTop && verifY <= playerBottom)
+                {
+                    CanMove = false;
+                    Joueur.Vie--;
+                    break;
+                }
+                verifX = x + incrX / 2;
+                verifY = y + incrY / 2;
+            }
+
+            verifX = x;
+            verifY = y;
+            
+            if(verifX >= Config.WIDTH || verifX <= 0 ||
+               verifY >= Config.HEIGHT || verifY <= 0)
+            {
+                CanMove = false;
+            }
+
+            if (CanMove)
+            {
+                x += incrX;
+                y += incrY;
+            }
+            else
+            {
+                enemyBullets.Remove(enemyBullet);
+            }
+
+            return (x, y);
+
+        }
     }
 }

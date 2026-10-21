@@ -7,6 +7,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Shoot_em_up.Helpers;
+using Ennemie_name;
 
 namespace Shoot_em_up.Model
 {
@@ -36,7 +37,7 @@ namespace Shoot_em_up.Model
             _incrY = (int)Math.Round(Math.Sin(rad) * Config.SPEED*100 * interval / 1000.0);
         }
 
-        public void Update(List<Bullet> bullets,List<Protection> protections)
+        public void Update(List<Bullet> bullets,List<Protection> protections,List<Ennemie> enemies)
         {
             _timer++;
             if(_timer >= 3)
@@ -45,7 +46,7 @@ namespace Shoot_em_up.Model
                 return;
             }
 
-            (_x,_y) = CollisionHelpers.VerifBullet(_x,_y,protections,this,bullets,_incrX,_incrY);
+            (_x,_y) = CollisionHelpers.VerifBullet(_x,_y,protections,this,bullets,_incrX,_incrY,enemies);
             
 
             

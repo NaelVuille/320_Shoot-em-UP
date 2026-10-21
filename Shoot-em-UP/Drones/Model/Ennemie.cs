@@ -19,6 +19,7 @@ namespace Ennemie_name
         private int _y;                             // Position en Y (coin supérieur gauche)
         private int _vie;
         private List<Bullet> bullets = Game.bullets;
+        private int _timer = 0;
 
         // Constructeur
         public Ennemie(int x, int y, int vie)
@@ -34,16 +35,41 @@ namespace Ennemie_name
 
         public static int ENNEMIESIZE => _ENNEMIESIZE;
 
-        public void Update(int interval, List<Ennemie> ennemies, List<Protection> protections)
+        public void Shoot(List<EnemyBullet> bullets,int interval)
         {
-            for (int i = 0; i < bullets.Count; i++)
+            int posStartX;
+            if (_x < Joueur.X)
             {
-                if (bullets[i].X >= _x && bullets[i].X <= _x + _ENNEMIESIZE &&
-                    bullets[i].Y >= _y && bullets[i].Y <= _y + _ENNEMIESIZE)
+                posStartX = _x + _ENNEMIESIZE;
+            }
+            else 
+            {
+                posStartX = _x;
+            }
+            
+            int posStartY = _y + _ENNEMIESIZE / 2;
+
+
+            if (_timer >= 20)
+            {
+                if (_timer == 20)
                 {
-                    _vie--;
+                    bullets.Add(new EnemyBullet(posStartX, posStartY, interval,_timer,this));
+                }
+                if (_timer >= 23)
+                {
+                    bullets.Add(new EnemyBullet(posStartX, posStartY, interval, _timer,this));
+                    _timer = 0;
                 }
             }
+
+        }
+
+        public void Update(int interval, List<Ennemie> ennemies, List<Protection> protections,List<EnemyBullet> bullets)
+        {
+            _timer++;
+            
+            Shoot(bullets,interval);
 
             int targetX = Joueur.X + Joueur.PLAYERSIZE / 2;
             int targetY = Joueur.Y + Joueur.PLAYERSIZE / 2;
