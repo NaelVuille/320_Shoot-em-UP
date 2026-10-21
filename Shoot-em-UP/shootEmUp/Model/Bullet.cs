@@ -49,7 +49,7 @@ namespace shootEmUp.Model
             var state = drawingSpace.Graphics.Save();
             drawingSpace.Graphics.TranslateTransform(_x, _y);
             drawingSpace.Graphics.RotateTransform(_angle);
-            drawingSpace.Graphics.DrawImage(Resources.Bullet, -_BULLETSIZE/2, -_BULLETSIZE/2, _BULLETSIZE, _BULLETSIZE);
+            drawingSpace.Graphics.DrawImage(Resources.bullet, -_BULLETSIZE/2, -_BULLETSIZE/2, _BULLETSIZE, _BULLETSIZE);
             drawingSpace.Graphics.Restore(state);
         }
     }

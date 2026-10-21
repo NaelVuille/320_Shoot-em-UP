@@ -56,7 +56,7 @@ namespace shootEmUp.View
             // 
             btnPlay.Anchor = AnchorStyles.Top;
             btnPlay.BackColor = SystemColors.ActiveCaptionText;
-            btnPlay.BackgroundImage = shootEmUp.Properties.Resources.contour_bouton;
+            btnPlay.BackgroundImage = shootEmUp.Properties.Resources.buttonFrame;
             btnPlay.BackgroundImageLayout = ImageLayout.Zoom;
             btnPlay.FlatStyle = FlatStyle.Popup;
             btnPlay.ForeColor = SystemColors.ControlLightLight;
@@ -73,7 +73,7 @@ namespace shootEmUp.View
             // btnQuit
             // 
             btnQuit.Anchor = AnchorStyles.Top;
-            btnQuit.BackgroundImage = shootEmUp.Properties.Resources.contour_bouton;
+            btnQuit.BackgroundImage = shootEmUp.Properties.Resources.buttonFrame;
             btnQuit.BackgroundImageLayout = ImageLayout.Zoom;
             btnQuit.FlatStyle = FlatStyle.Popup;
             btnQuit.ForeColor = SystemColors.ControlLightLight;

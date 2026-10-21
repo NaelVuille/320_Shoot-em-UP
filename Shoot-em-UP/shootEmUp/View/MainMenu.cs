@@ -9,10 +9,10 @@ namespace shootEmUp.View
 
         private readonly Keys[] _konamiCode = new Keys[]
         {
-            Keys.Up, Keys.Up,
-            Keys.Down, Keys.Down,
-            Keys.Left, Keys.Right,
-            Keys.Left, Keys.Right,
+            Keys.W, Keys.W,
+            Keys.S, Keys.S,
+            Keys.A, Keys.D,
+            Keys.A, Keys.D,
             Keys.B, Keys.A
         };
 
@@ -43,8 +43,13 @@ namespace shootEmUp.View
 
         private void Accueil_KeyDown(object? sender, KeyEventArgs e)
         {
-            
-            if (e.KeyCode == _konamiCode[_konamiIndex])
+            Keys currentKey = e.KeyCode;
+            if (currentKey == Keys.Up) currentKey = Keys.W;
+            if (currentKey == Keys.Down) currentKey = Keys.S;
+            if (currentKey == Keys.Left) currentKey = Keys.A;
+            if (currentKey == Keys.Right) currentKey = Keys.D;
+
+            if (currentKey == _konamiCode[_konamiIndex])
             {
                 _konamiIndex++;
 

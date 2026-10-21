@@ -30,38 +30,12 @@
         {
             components = new System.ComponentModel.Container();
             ticker = new System.Windows.Forms.Timer(components);
-            lblScore = new Label();
-            lblLife = new Label();
             SuspendLayout();
             // 
             // ticker
             // 
             ticker.Enabled = true;
             ticker.Tick += NewFrame;
-            // 
-            // lblScore
-            // 
-            lblScore.AutoSize = true;
-            lblScore.BackColor = Color.Transparent;
-            lblScore.FlatStyle = FlatStyle.Flat;
-            lblScore.ForeColor = Color.White;
-            lblScore.Image = shootEmUp.Properties.Resources.contour_bouton;
-            lblScore.Location = new Point(20, 20);
-            lblScore.Name = "lblScore";
-            lblScore.Size = new Size(48, 15);
-            lblScore.TabIndex = 0;
-            lblScore.Text = "Score: 0";
-            // 
-            // lblLife
-            // 
-            lblLife.AutoSize = true;
-            lblLife.Font = new Font("Segoe UI", 60F);
-            lblLife.ForeColor = Color.Maroon;
-            lblLife.Location = new Point(219, 141);
-            lblLife.Name = "lblLife";
-            lblLife.Size = new Size(375, 106);
-            lblLife.TabIndex = 1;
-            lblLife.Text = "❤️❤️❤️";
             // 
             // Game
             // 
@@ -70,20 +44,15 @@
             BackColor = Color.Black;
             BackgroundImageLayout = ImageLayout.Zoom;
             ClientSize = new Size(284, 261);
-            Controls.Add(lblLife);
-            Controls.Add(lblScore);
             Name = "Game";
             Text = "Game";
             KeyDown += Game_KeyDown;
             MouseDown += Game_MouseDown;
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private System.Windows.Forms.Timer ticker;
-        private Label lblScore;
-        private Label lblLife;
     }
 }

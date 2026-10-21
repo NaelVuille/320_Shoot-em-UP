@@ -23,7 +23,7 @@ namespace shootEmUp.Model
 
         public void Render(BufferedGraphics drawingSpace)
         {
-            drawingSpace.Graphics.DrawImage(Resources.Protection, _x - _PROTECTIONSIZE / 2, _y - _PROTECTIONSIZE / 2, _PROTECTIONSIZE, _PROTECTIONSIZE);
+            drawingSpace.Graphics.DrawImage(Resources.protection, _x - _PROTECTIONSIZE / 2, _y - _PROTECTIONSIZE / 2, _PROTECTIONSIZE, _PROTECTIONSIZE);
         }
     }
 }

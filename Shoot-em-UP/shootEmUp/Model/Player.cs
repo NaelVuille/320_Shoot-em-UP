@@ -1,5 +1,6 @@
 ﻿using shootEmUp.Helpers;
 using shootEmUp.Properties;
+using System.Numerics;
 
 namespace shootEmUp.Model
 {
@@ -17,7 +18,7 @@ namespace shootEmUp.Model
 
         public int PLAYERSIZE => _PLAYERSIZE;
 
-        public int Vie { get => _life; set => _life = value; }
+        public int Life { get => _life; set => _life = value; }
         public int Score { get => _score; set => _score = value; }
 
         // Constructeur
@@ -158,6 +159,8 @@ namespace shootEmUp.Model
 
             // 3. Dessin centré
             drawingSpace.Graphics.DrawImage(Resources.player, -_PLAYERSIZE/2, -_PLAYERSIZE/2, _PLAYERSIZE, _PLAYERSIZE);
+
+            
 
             // 50. Restaure le repère
             drawingSpace.Graphics.Restore(state);

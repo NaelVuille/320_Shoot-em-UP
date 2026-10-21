@@ -162,7 +162,7 @@ namespace shootEmUp.Helpers
                     if (verifX >= enemyLeft && verifX <= enemyRight &&
                         verifY >= enemyTop && verifY <= enemyBottom)
                     {
-                        enemy.Vie--;
+                        enemy.Life--;
                         break;
                     }
                     verifX = x + incrX / 2;
@@ -226,7 +226,7 @@ namespace shootEmUp.Helpers
                         if (verifX >= enemyLeft && verifX <= enemyRight &&
                             verifY >= enemyTop && verifY <= enemyBottom)
                         {
-                            enemy.Vie--;
+                            enemy.Life--;
                             CanMove = false;
                             break;
                         }
@@ -254,7 +254,7 @@ namespace shootEmUp.Helpers
                     verifY >= playerTop && verifY <= playerBottom)
                 {
                     CanMove = false;
-                    player.Vie--;
+                    player.Life--;
                     break;
                 }
                 verifX = x + incrX / 2;

@@ -86,10 +86,10 @@ namespace TestShootEmUp
             Player player = new Player(100, 100, 1);
 
             // Act
-            player.Vie -= 1;
+            player.Life -= 1;
 
             // Assert
-            bool isGameOver = (player.Vie <= 0);
+            bool isGameOver = (player.Life <= 0);
             Assert.IsTrue(isGameOver);
         }
     }

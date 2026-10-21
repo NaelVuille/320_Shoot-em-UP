@@ -9,14 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Bullet.png" />
-    <None Remove="Resources\EnemyBullet.png" />
-    <None Remove="Resources\game_over.ttf" />
+    <None Remove="Resources\bullet.png" />
+    <None Remove="Resources\enemyBullet.png" />
+    <None Remove="Resources\gameOver.ttf" />
     <None Remove="Resources\protection.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\game_over.ttf">
+    <Content Include="Resources\gameOver.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -25,7 +25,7 @@
     <EmbeddedResource Include="Resources\Bullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\EnemyBullet.png" />
+    <EmbeddedResource Include="Resources\enemyBullet.png" />
   </ItemGroup>
 
   <ItemGroup>

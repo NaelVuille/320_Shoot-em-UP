@@ -11,7 +11,7 @@ namespace shootEmUp.Helpers
         public static Font SmallFont = null!;
         public static void Init()
         {
-            string fontPath = Path.Combine(Application.StartupPath, "Resources", "game_over.ttf");
+            string fontPath = Path.Combine(Application.StartupPath, "Resources", "gameOver.ttf");
 
             if (File.Exists(fontPath))
             {

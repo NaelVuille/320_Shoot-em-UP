@@ -1,5 +1,7 @@
 ﻿using shootEmUp.Model;
 using shootEmUp.Helpers;
+using shootEmUp.Properties;
+using System.Drawing;
 
 namespace shootEmUp
 {
@@ -42,8 +44,8 @@ namespace shootEmUp
             InitializeComponent();
             ClientSize = new Size(Helpers.Config.WIDTH, Helpers.Config.HEIGHT); 
 
-            lblScore.Font = TextHelpers.MediumFont;
-            lblScore.Text = "Score: \n" + _score;
+            //lblScore.Font = TextHelpers.MediumFont;
+           // lblScore.Text = "Score: \n" + _score;
 
             _numberOfEnemies = 10;
 
@@ -54,7 +56,7 @@ namespace shootEmUp
                 _enemies.Add(new Enemy(_x * i , Enemy.ENEMYSIZE, Config.ENEMIESMAXLIFE, bullets));
             }
             
-            lblLife.Location = new Point(Helpers.Config.WIDTH - 20 - lblLife.Size.Width / 2, 5);
+           
 
             _score = 0;
 
@@ -104,14 +106,19 @@ namespace shootEmUp
                 protection.Render(game);
             }
 
-            game.Render();
+            int imageSize = 50;
 
+            for (int i = 1;i <= _player.Life;i++ )
+                game.Graphics.DrawImage(Resources.lifeHeart, Config.WIDTH - (10 + imageSize)*i, 10, imageSize, imageSize);
+            SolidBrush writingBrush = new SolidBrush(Color.White);
+            game.Graphics.DrawString($"Score: {_score}", TextHelpers.MediumFont, writingBrush, 10 , -10);
+            game.Render();
         }
 
         private void Update(int interval,Player player, List<Bullet> bullets)
         {
-            lblScore.Text = "Score: " + _score;
-            lblLife.Text = string.Concat(Enumerable.Repeat("♥", player.Vie));
+            //lblScore.Text = "Score: " + _score;
+            
 
             _timer++;
             _enemySpawnTimer++;
@@ -154,7 +161,7 @@ namespace shootEmUp
         // Méthode appelée à chaque frame
         private void NewFrame(object sender, EventArgs e)
         {
-            if (_player.Vie <= 0)
+            if (_player.Life <= 0)
             {
 
                 this.Close();

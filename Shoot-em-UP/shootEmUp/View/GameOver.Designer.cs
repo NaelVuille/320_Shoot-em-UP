@@ -66,7 +66,7 @@
             // 
             btnReplay.Anchor = AnchorStyles.Top;
             btnReplay.BackColor = SystemColors.ActiveCaptionText;
-            btnReplay.BackgroundImage = Properties.Resources.contour_bouton;
+            btnReplay.BackgroundImage = Properties.Resources.buttonFrame;
             btnReplay.BackgroundImageLayout = ImageLayout.Zoom;
             btnReplay.FlatStyle = FlatStyle.Popup;
             btnReplay.ForeColor = SystemColors.ControlLightLight;
@@ -83,7 +83,7 @@
             // btnQuit
             // 
             btnQuit.Anchor = AnchorStyles.Top;
-            btnQuit.BackgroundImage = Properties.Resources.contour_bouton;
+            btnQuit.BackgroundImage = Properties.Resources.buttonFrame;
             btnQuit.BackgroundImageLayout = ImageLayout.Zoom;
             btnQuit.FlatStyle = FlatStyle.Popup;
             btnQuit.ForeColor = SystemColors.ControlLightLight;
@@ -97,7 +97,7 @@
             btnQuit.UseVisualStyleBackColor = false;
             btnQuit.Click += btnQuit_Click;
             // 
-            // End_Game
+            // GameOver
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -107,7 +107,7 @@
             Controls.Add(btnReplay);
             Controls.Add(lblFinalScore);
             Controls.Add(lblTitle);
-            Name = "End_Game";
+            Name = "GameOver";
             Text = "End_Game";
             ResumeLayout(false);
             PerformLayout();
