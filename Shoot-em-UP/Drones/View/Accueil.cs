@@ -4,30 +4,77 @@ namespace shootEmUp.View
 {
     public partial class Accueil : Form
     {
-        public static readonly int WIDTH = shootEmUp.Helpers.Config.WIDTH;        // Dimensions
-        public static readonly int HEIGHT = shootEmUp.Helpers.Config.HEIGHT;
+        
+        string highScore = "0";
 
-        string bestScore = File.ReadAllText(@"..\..\..\Resources\BestScore.txt");
+        private readonly Keys[] _konamiCode = new Keys[]
+        {
+            Keys.Up, Keys.Up,
+            Keys.Down, Keys.Down,
+            Keys.Left, Keys.Right,
+            Keys.Left, Keys.Right,
+            Keys.B, Keys.A
+        };
+
+        private int _konamiIndex = 0;
 
         public Accueil()
         {
             Config.play = false;
 
             InitializeComponent();
+
+            this.KeyPreview = true;
+            this.KeyDown += Accueil_KeyDown;
+
             TextHelpers.Init();
             lblTitle.Font = TextHelpers.BigFont;
             lblHighScore.Font = TextHelpers.MediumFont;
             ButtonHelper.Configure(btnPlay);
             ButtonHelper.Configure(btnQuit);
-            ClientSize = new Size(WIDTH, HEIGHT);
+            ClientSize = new Size(Helpers.Config.WIDTH, Helpers.Config.HEIGHT);
             lblTitle.Location = new Point(Config.WIDTH / 2 - lblTitle.Size.Width / 2, 50);
             lblHighScore.Location = new Point(Config.WIDTH / 2 - lblHighScore.Size.Width / 2, 170);
             btnPlay.Location = new Point(Config.WIDTH / 2 - btnPlay.Size.Width / 2, 450);
             btnQuit.Location = new Point(Config.WIDTH / 2 - btnQuit.Size.Width / 2, 560);
-            lblHighScore.Text = "Best Score\n" + bestScore;
+
+            RefeshHighScore();
         }
 
+        private void Accueil_KeyDown(object? sender, KeyEventArgs e)
+        {
+            
+            if (e.KeyCode == _konamiCode[_konamiIndex])
+            {
+                _konamiIndex++;
 
+                if (_konamiIndex == _konamiCode.Length)
+                {
+                    Reset();
+                    _konamiIndex = 0;
+                }
+            }
+            else
+            {
+                _konamiIndex = (e.KeyCode == _konamiCode[0]) ? 1 : 0;
+            }
+        }
+
+        private void Reset()
+        {
+            DialogResult result = MessageBox.Show("Reset de high score ?", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (result == DialogResult.Yes)
+            {
+                File.WriteAllText(Config.HIGHSCOREPATH, "0");
+                RefeshHighScore();
+            }
+        }
+
+        private void RefeshHighScore()
+        {
+            highScore = File.ReadAllText(Config.HIGHSCOREPATH);
+            lblHighScore.Text = "Best Score\n" + highScore;
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {

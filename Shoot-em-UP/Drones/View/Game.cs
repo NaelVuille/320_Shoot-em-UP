@@ -120,10 +120,10 @@ namespace shootEmUp
 
             if (_enemiesSpawn >= 50)
             {
-                _numberEnnemis = MathHelpers.alea.Next(1, 5);
+                _numberEnnemis = MathHelpers.alea.Next(2, 5);
 
                 _x = (Helpers.Config.WIDTH - Ennemie.ENNEMIESIZE) / _numberEnnemis + 10;
-                _x += (_x / 2);
+                _x += (_x / 4);
                 for (int i = 0; i < _numberEnnemis; i++)
                 {
                     _enemies.Add(new Ennemie(_x * i, -Ennemie.ENNEMIESIZE, Config.ENEMIESMAXLIFE, bullets));

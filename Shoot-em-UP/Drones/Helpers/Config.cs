@@ -9,5 +9,7 @@
         public const int HEIGHT = 720;
         public static bool play = true;
         public const int ENEMIESMAXLIFE = 2;
+
+        public const string HIGHSCOREPATH = @"..\..\..\Resources\HighScore.txt";
     }
 }
