@@ -197,7 +197,7 @@ namespace Shoot_em_up.Helpers
 
         }
 
-        public static (int, int) VerifEnemyBullet(int x, int y, List<Protection> protections, EnemyBullet enemyBullet, List<EnemyBullet> enemyBullets, int incrX, int incrY, Joueur joueurs, List<Ennemie> enemies, Ennemie shooter)
+        public static (int, int) VerifEnemyBullet(int x, int y, List<Protection> protections, EnemyBullet enemyBullet, List<EnemyBullet> enemyBullets, int incrX, int incrY, Joueur joueur, List<Ennemie> enemies, Ennemie shooter)
         {
             bool CanMove = true;
 
@@ -252,12 +252,12 @@ namespace Shoot_em_up.Helpers
             verifY = y;
 
 
-            int size = Joueur.PLAYERSIZE;
+            int size = joueur.PLAYERSIZE;
 
-            int playerLeft = Joueur.X;
-            int playerRight = Joueur.X + size;
-            int playerTop = Joueur.Y;
-            int playerBottom = Joueur.Y + size;
+            int playerLeft = joueur.X;
+            int playerRight = joueur.X + size;
+            int playerTop = joueur.Y;
+            int playerBottom = joueur.Y + size;
 
 
             for (int i = 0; i < 2; i++)
@@ -266,7 +266,7 @@ namespace Shoot_em_up.Helpers
                     verifY >= playerTop && verifY <= playerBottom)
                 {
                     CanMove = false;
-                    Joueur.Vie--;
+                    joueur.Vie--;
                     break;
                 }
                 verifX = x + incrX / 2;

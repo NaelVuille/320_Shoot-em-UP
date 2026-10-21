@@ -20,8 +20,8 @@ namespace Shoot_em_up.Model
         private int _incrX;
         private int _incrY;
         private const int _BULLETSIZE = 20;
-        private static int _targetX = Joueur.X + Joueur.PLAYERSIZE / 2;
-        private static int _targetY = Joueur.Y + Joueur.PLAYERSIZE / 2;
+        private static int _targetX;
+        private static int _targetY;
         private Ennemie _shooter;
 
         public int X { get => _x; set => _x = value; }
@@ -29,7 +29,7 @@ namespace Shoot_em_up.Model
 
         public static int BULLETSIZE => _BULLETSIZE;
 
-        public EnemyBullet(int x, int y, int interval,int timer,Ennemie shooter)
+        public EnemyBullet(int x, int y, int interval,int timer,Ennemie shooter,Joueur joueur)
         {
             _x = x;
             _y = y;
@@ -37,8 +37,8 @@ namespace Shoot_em_up.Model
 
             if (timer == 20)
             {
-                _targetX = Joueur.X + Joueur.PLAYERSIZE / 2;
-                _targetY = Joueur.Y + Joueur.PLAYERSIZE / 2;
+                _targetX = joueur.X + joueur.PLAYERSIZE / 2;
+                _targetY = joueur.Y + joueur.PLAYERSIZE / 2;
             }
 
             int bulletCenterX = _x + EnemyBullet.BULLETSIZE / 2;

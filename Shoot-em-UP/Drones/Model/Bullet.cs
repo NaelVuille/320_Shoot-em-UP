@@ -42,7 +42,7 @@ namespace Shoot_em_up.Model
             _timer++;
             if(_timer >= 3)
             {
-                bullets.Clear();
+                bullets.Remove(this);
                 return;
             }
 

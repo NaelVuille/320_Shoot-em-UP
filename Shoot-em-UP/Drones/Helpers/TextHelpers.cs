@@ -9,9 +9,9 @@ namespace Joueurs.Helpers
     internal static class TextHelpers
     {
         private static PrivateFontCollection pfc = new PrivateFontCollection();
-        public static Font BigFont;
-        public static Font MediumFont;
-        public static Font SmallFont;
+        public static Font BigFont = null!;
+        public static Font MediumFont = null!;
+        public static Font SmallFont = null!;
         public static void Init()
         {
             string fontPath = Path.Combine(Application.StartupPath, "Resources", "game_over.ttf");

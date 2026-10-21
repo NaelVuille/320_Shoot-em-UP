@@ -14,32 +14,34 @@ namespace Joueurs
     {
         private const int _PLAYERSIZE = 125;
 
-        private static int _x;                                 // Position en X depuis la gauche de l'affichage
-        private static int _y;                                 // Position en Y depuis le haut de l'affichage
+        private int _x;                                 // Position en X depuis la gauche de l'affichage
+        private int _y;                                 // Position en Y depuis le haut de l'affichage
         private float _angle = 0;                     // Variable pour stocker l'angle
-        private static int _vie = 3;
+        private int _vie = 3;
+        private int _score;
+        public int X { get => _x; set => _x = value; }
+        public int Y { get => _y; set => _y = value; }
 
-        public static int X { get => _x; set => _x = value; }
-        public static int Y { get => _y; set => _y = value; }
+        public int PLAYERSIZE => _PLAYERSIZE;
 
-        public static int PLAYERSIZE => _PLAYERSIZE;
-
-        public static int Vie { get => _vie; set => _vie = value; }
+        public int Vie { get => _vie; set => _vie = value; }
+        public int Score { get => _score; set => _score = value; }
 
         // Constructeur
-        public Joueur(int x, int y)
+        public Joueur(int x, int y,int vie)
         {
             _x = x;
             _y = y;
-            _vie = 3;
-
+            _vie = vie;
         }
 
 
         // Cette méthode calcule le nouvel état dans lequel le joueur se trouve après
         // que 'interval' millisecondes se sont écoulées
-        public void Update(int interval, Point mousePos)
+        public void Update(int interval, Point mousePos,int score)
         {
+            _score = score;
+
             // Vecteur entre le centre du joueur et la souris
             float dx = mousePos.X - (_x + _PLAYERSIZE/2);
             float dy = mousePos.Y - (_y + _PLAYERSIZE / 2);
@@ -48,7 +50,7 @@ namespace Joueurs
             _angle = (float)(Math.Atan2(dy, dx) * 180.0 / Math.PI);
         }
 
-        public void Shoot(List<Bullet> bullets, int interval)
+        public void Shoot(List<Bullet> bullets, int interval, Joueur joueur)
         { 
             float distanceDuCanon = 45.0f;
 
@@ -62,8 +64,8 @@ namespace Joueurs
                 double offsetX = Math.Cos(angleRadians) * distanceDuCanon;
                 double offsetY = Math.Sin(angleRadians) * distanceDuCanon;
 
-                int pointDepartX = (int)(_x + Joueur.PLAYERSIZE /2 + offsetX);
-                int pointDepartY = (int)(_y  + Joueur.PLAYERSIZE/2 + offsetY);
+                int pointDepartX = (int)(_x + joueur.PLAYERSIZE /2 + offsetX);
+                int pointDepartY = (int)(_y  + joueur.PLAYERSIZE/2 + offsetY);
 
                 bullets.Add(new Bullet(pointDepartX, pointDepartY, bulletAngle, interval));
                 
@@ -72,7 +74,7 @@ namespace Joueurs
         }
 
         // déplacement
-        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, int interval, List<Protection> protections)
+        public void Action(object sender, KeyEventArgs e, List<Bullet> bullet, int interval, List<Protection> protections,Joueur joueur,int timer)
         {
  
             switch (e.KeyCode)
@@ -98,10 +100,10 @@ namespace Joueurs
                     break;
 
                 case Keys.Space:
-                    if (Game.Timer >= 10)
+                    if (timer >= 10)
                     {
-                        Game.Timer = 0;
-                        Shoot(bullet, interval);
+                        timer = 0;
+                        Shoot(bullet, interval, joueur);
                     }
                     break;
             }

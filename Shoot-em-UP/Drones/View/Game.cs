@@ -16,21 +16,18 @@ namespace Joueurs
         // Récupère la position de la souris relative à la fenêtre active
         Point mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
 
-        public static readonly int WIDTH = Helpers.Config.WIDTH;        // Dimensions
-        public static readonly int HEIGHT = Helpers.Config.HEIGHT;
-
         // La flotte est l'ensemble des drones qui évoluent dans notre espace aérien
         private Joueur _joueur;
 
-        private static int _score = 0;
+        private int _score = 0;
 
-        private static List<Bullet> _bullets = new List<Bullet>();
+        private List<Bullet> _bullets;
 
-        private static int _timer = 10;
+        private int _timer = 10;
 
         private static int _numberEnnemis = 1;
 
-        private static int _enemiesSpawn = 30;
+        private static int _enemiesSpawn = 0;
 
         private List<Ennemie> _enemies = new List<Ennemie>();
 
@@ -38,25 +35,30 @@ namespace Joueurs
 
         private List<Protection> _protections = new List<Protection>();
 
+        private int _x = 0;
+
         BufferedGraphicsContext currentContext;
         BufferedGraphics game;
 
-        public static int Timer { get => _timer; set => _timer = value; }
-        public static List<Bullet> bullets { get => _bullets; set => _bullets = value; }
-        public static int Score { get => _score; set => _score = value; }
-
-
-
         // Initialisation de l'espace aérien avec un certain nombre de drones
-        public Game(Joueur joueur)
+        public Game(Joueur joueur,List<Bullet>bullets)
         {
             InitializeComponent();
-            ClientSize = new Size(WIDTH, HEIGHT);
+            ClientSize = new Size(Helpers.Config.WIDTH, Helpers.Config.HEIGHT); 
 
             lblScore.Font = TextHelpers.MediumFont;
             lblScore.Text = "Score: \n" + _score;
 
-            lblLife.Location = new Point(WIDTH-20-lblLife.Size.Width/2, 5);
+            _numberEnnemis = 10;
+
+            _x = (Helpers.Config.WIDTH - Ennemie.ENNEMIESIZE) / _numberEnnemis + 10;
+            
+            for (int i = 0; i < _numberEnnemis; i++)
+            {
+                _enemies.Add(new Ennemie(_x * i , Ennemie.ENNEMIESIZE, Config.ENEMIESMAXLIFE, bullets));
+            }
+            
+            lblLife.Location = new Point(Helpers.Config.WIDTH - 20 - lblLife.Size.Width / 2, 5);
 
             _score = 0;
 
@@ -65,14 +67,17 @@ namespace Joueurs
             // Creates a BufferedGraphics instance associated with this form, and with
             // dimensions the same size as the drawing surface of the form.
             game = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
-            _joueur = new Joueur(WIDTH / 2, HEIGHT - 30 - Joueur.PLAYERSIZE);
+            
+            _joueur = joueur;
+            _bullets = bullets;
+            
 
             const int _NOMBREPROTECTION = 5;
-            for (int i = 0;i < _NOMBREPROTECTION; i++)
+            for (int i = 0; i < _NOMBREPROTECTION; i++)
             {
-                _protections.Add(new Protection(125 +WIDTH/_NOMBREPROTECTION*i, 450));
+                _protections.Add(new Protection(125 + Helpers.Config.WIDTH / _NOMBREPROTECTION * i, 450));
             }
-            
+
         }
 
         // Affichage de la situation actuelle
@@ -83,11 +88,7 @@ namespace Joueurs
             for (int i = 0; i < _enemies.Count; i++)
             {
                 _enemies[i].Render(game);
-                if (_enemies[i].Vie <= 0)
-                {
-                    _enemies.RemoveAt(i);
-                    _score += 125;
-                }
+
             }
 
             foreach (Bullet bullet in _bullets)
@@ -112,39 +113,45 @@ namespace Joueurs
         }
 
         // Calcul du nouvel état après que 'interval' millisecondes se sont écoulées
-        private void Update(int interval)
+        private void Update(int interval,Joueur joueur, List<Bullet> bullets)
         {
             lblScore.Text = "Score: " + _score;
-            lblLife.Text = string.Concat(Enumerable.Repeat("♥", Joueur.Vie));
+            lblLife.Text = string.Concat(Enumerable.Repeat("♥", joueur.Vie));
 
             _timer++;
             _enemiesSpawn++;
 
-           
-            if(_enemiesSpawn >= 50)
+
+            if (_enemiesSpawn >= 50)
             {
-                _numberEnnemis = MathHelpers.alea.Next(1, 3);
-                for (int i = 1; i <=_numberEnnemis; i++)
-                    _enemies.Add(new Ennemie(MathHelpers.alea.Next(-Ennemie.ENNEMIESIZE, WIDTH)/_numberEnnemis * i, -Ennemie.ENNEMIESIZE, 2));
+                _numberEnnemis = MathHelpers.alea.Next(1, 5);
+                
+                _x = (MathHelpers.alea.Next(Helpers.Config.WIDTH - Ennemie.ENNEMIESIZE) / _numberEnnemis + Ennemie.ENNEMIESIZE);
+                if (_x < Ennemie.ENNEMIESIZE + 20) _x = Ennemie.ENNEMIESIZE + 20;
+                for (int i = 0; i < _numberEnnemis; i++)
+                {
+                    _enemies.Add(new Ennemie(_x * i, -Ennemie.ENNEMIESIZE, Config.ENEMIESMAXLIFE, bullets));
+                }
                 _enemiesSpawn = 0;
             }
 
-            for (int i = 0; i < _enemies.Count; i++)
+
+            for (int i = _enemiesbullets.Count - 1; i >= 0; i--)
             {
-                _enemies[i].Update(interval, _enemies,_protections,_enemiesbullets);
+                _enemiesbullets[i].Update(_enemiesbullets, _protections, _joueur, _enemies);
             }
 
-            for (int i = 0; i < _enemiesbullets.Count; i++) 
+            _joueur.Update(interval, mousePos, _score);
+
+
+            for (int i = _bullets.Count - 1; i >= 0; i--)
             {
-                _enemiesbullets[i].Update(_enemiesbullets, _protections, _joueur,_enemies);
+                _bullets[i].Update(_bullets, _protections, _enemies);
             }
 
-            _joueur.Update(interval, mousePos);
-
-
-            for (int i = 0;i < _bullets.Count;i++)
+            for (int i = _enemies.Count - 1; i >= 0; i--)
             {
-                _bullets[i].Update(_bullets,_protections,_enemies);
+                _score = _enemies[i].Update(interval, _enemies, _protections, _enemiesbullets, _score, joueur);
             }
 
         }
@@ -152,32 +159,33 @@ namespace Joueurs
         // Méthode appelée à chaque frame
         private void NewFrame(object sender, EventArgs e)
         {
-            if (Joueur.Vie <= 0)
+            if (_joueur.Vie <= 0)
             {
+
                 this.Close();
             }
             else
             {
                 mousePos = Form.ActiveForm != null ? Form.ActiveForm.PointToClient(Cursor.Position) : Cursor.Position;
-                this.Update(ticker.Interval);
+                this.Update(ticker.Interval, _joueur,_bullets);
                 this.Render();
             }
-            
+
 
         }
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            _joueur.Action(sender, e, _bullets, ticker.Interval,_protections);
+            _joueur.Action(sender, e, _bullets, ticker.Interval, _protections,_joueur, _timer);
 
         }
         private void Game_MouseDown(object sender, MouseEventArgs e)
         {
-            
+
             if (_timer >= 10)
             {
                 _timer = 0;
-                _joueur.Shoot(_bullets, ticker.Interval);
+                _joueur.Shoot(_bullets, ticker.Interval,_joueur);
             }
 
         }
