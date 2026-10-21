@@ -1,19 +1,7 @@
-﻿using Ennemie_name;
-using Joueurs;
-using Joueurs.Helpers;
-using Shoot_em_up.Model;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+﻿using shootEmUp.Model;
 
-namespace Shoot_em_up.Helpers
+
+namespace shootEmUp.Helpers
 {
 
     public static class CollisionHelpers

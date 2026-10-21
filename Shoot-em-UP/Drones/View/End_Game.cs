@@ -1,22 +1,12 @@
-﻿using Joueurs;
-using Joueurs.Helpers;
-using Shoot_em_up.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using shootEmUp.Helpers;
 
-namespace Shoot_em_up.View
+
+namespace shootEmUp.View
 {
     public partial class End_Game : Form
     {
-        public static readonly int WIDTH = Joueurs.Helpers.Config.WIDTH;        // Dimensions
-        public static readonly int HEIGHT = Joueurs.Helpers.Config.HEIGHT;
+        public static readonly int WIDTH = shootEmUp.Helpers.Config.WIDTH;        // Dimensions
+        public static readonly int HEIGHT = shootEmUp.Helpers.Config.HEIGHT;
 
         string BestScorePath = @"..\..\..\Resources\BestScore.txt";
         int BestScore;

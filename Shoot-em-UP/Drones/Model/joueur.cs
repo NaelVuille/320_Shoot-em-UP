@@ -1,14 +1,7 @@
-﻿using Joueurs.Helpers;
-using Shoot_em_up.Helpers;
-using Shoot_em_up.Model;
-using Shoot_em_up.Properties;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Security.Policy;
-using System.Threading;
+﻿using shootEmUp.Helpers;
+using shootEmUp.Properties;
 
-namespace Joueurs
+namespace shootEmUp.Model
 {
     public class Joueur
     {

@@ -1,6 +1,6 @@
 ﻿using System.Drawing.Text;
 
-namespace Drones.View
+namespace shootEmUp.View
 {
     partial class Accueil
     {
@@ -56,7 +56,7 @@ namespace Drones.View
             // 
             btnPlay.Anchor = AnchorStyles.Top;
             btnPlay.BackColor = SystemColors.ActiveCaptionText;
-            btnPlay.BackgroundImage = Shoot_em_up.Properties.Resources.contour_bouton;
+            btnPlay.BackgroundImage = shootEmUp.Properties.Resources.contour_bouton;
             btnPlay.BackgroundImageLayout = ImageLayout.Zoom;
             btnPlay.FlatStyle = FlatStyle.Popup;
             btnPlay.ForeColor = SystemColors.ControlLightLight;
@@ -73,7 +73,7 @@ namespace Drones.View
             // btnQuit
             // 
             btnQuit.Anchor = AnchorStyles.Top;
-            btnQuit.BackgroundImage = Shoot_em_up.Properties.Resources.contour_bouton;
+            btnQuit.BackgroundImage = shootEmUp.Properties.Resources.contour_bouton;
             btnQuit.BackgroundImageLayout = ImageLayout.Zoom;
             btnQuit.FlatStyle = FlatStyle.Popup;
             btnQuit.ForeColor = SystemColors.ControlLightLight;

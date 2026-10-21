@@ -1,15 +1,8 @@
-﻿using Joueurs.Helpers;
-using Shoot_em_up.Properties;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using Shoot_em_up.Helpers;
-using Ennemie_name;
+﻿using shootEmUp.Helpers;
+using shootEmUp.Properties;
 
-namespace Shoot_em_up.Model
+
+namespace shootEmUp.Model
 {
     public class Bullet
     {

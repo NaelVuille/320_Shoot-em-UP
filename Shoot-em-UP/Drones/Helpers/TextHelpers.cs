@@ -1,9 +1,6 @@
 ﻿using System.Drawing.Text;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using Drones.View;
 
-namespace Joueurs.Helpers
+namespace shootEmUp.Helpers
 {
     // Outils pour écrire du texte dans un environnement graphique
     internal static class TextHelpers

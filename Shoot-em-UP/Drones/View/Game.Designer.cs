@@ -1,4 +1,4 @@
-﻿namespace Joueurs
+﻿namespace shootEmUp
 {
     partial class Game
     {
@@ -45,7 +45,7 @@
             lblScore.BackColor = Color.Transparent;
             lblScore.FlatStyle = FlatStyle.Flat;
             lblScore.ForeColor = Color.White;
-            lblScore.Image = Shoot_em_up.Properties.Resources.contour_bouton;
+            lblScore.Image = shootEmUp.Properties.Resources.contour_bouton;
             lblScore.Location = new Point(20, 20);
             lblScore.Name = "lblScore";
             lblScore.Size = new Size(48, 15);

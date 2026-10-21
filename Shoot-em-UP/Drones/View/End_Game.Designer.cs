@@ -1,4 +1,4 @@
-﻿namespace Shoot_em_up.View
+﻿namespace shootEmUp.View
 {
     partial class End_Game
     {

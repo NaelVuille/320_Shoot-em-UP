@@ -1,17 +1,7 @@
-﻿using Joueurs.Helpers;
-using Shoot_em_up.Properties;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using Shoot_em_up.Helpers;
-using Joueurs;
-using Shoot_em_up.Model;
-using System.Drawing;
+﻿using shootEmUp.Helpers;
+using shootEmUp.Properties;
 
-namespace Ennemie_name
+namespace shootEmUp.Model
 {
     public class Ennemie
     {

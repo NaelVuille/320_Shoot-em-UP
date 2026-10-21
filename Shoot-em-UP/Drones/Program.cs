@@ -1,9 +1,8 @@
-using Drones.View;
-using Shoot_em_up.Model;
-using Shoot_em_up.View;
-using System.Security.Cryptography.X509Certificates;
+using shootEmUp.Model;
+using shootEmUp.View;
 
-namespace Joueurs
+
+namespace shootEmUp
 {
     internal static class Program
     {

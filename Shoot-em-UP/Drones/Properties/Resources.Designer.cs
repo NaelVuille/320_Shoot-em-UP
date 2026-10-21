@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Shoot_em_up.Properties {
+namespace shootEmUp.Properties {
     using System;
     
     

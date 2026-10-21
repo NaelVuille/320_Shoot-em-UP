@@ -1,14 +1,4 @@
-﻿using Ennemie_name;
-using Shoot_em_up.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace Shoot_em_up.Helpers
+﻿namespace shootEmUp.Helpers
 {
     // Outils pour des calculs mathématiques
     public static class MathHelpers

@@ -1,11 +1,7 @@
-﻿using Ennemie_name;
-using Joueurs.Helpers;
-using Shoot_em_up.Helpers;
-using Shoot_em_up.Model;
-using Shoot_em_up.View;
-using System.Windows.Forms;
+﻿using shootEmUp.Model;
+using shootEmUp.Helpers;
 
-namespace Joueurs
+namespace shootEmUp
 {
     // La classe AirSpace représente le territoire au dessus duquel les drones peuvent voler
     // Il s'agit d'un formulaire (une fenêtre) qui montre une vue 2D depuis en dessus
@@ -125,9 +121,9 @@ namespace Joueurs
             if (_enemiesSpawn >= 50)
             {
                 _numberEnnemis = MathHelpers.alea.Next(1, 5);
-                
-                _x = (MathHelpers.alea.Next(Helpers.Config.WIDTH - Ennemie.ENNEMIESIZE) / _numberEnnemis + Ennemie.ENNEMIESIZE);
-                if (_x < Ennemie.ENNEMIESIZE + 20) _x = Ennemie.ENNEMIESIZE + 20;
+
+                _x = (Helpers.Config.WIDTH - Ennemie.ENNEMIESIZE) / _numberEnnemis + 10;
+                _x += (_x / 2);
                 for (int i = 0; i < _numberEnnemis; i++)
                 {
                     _enemies.Add(new Ennemie(_x * i, -Ennemie.ENNEMIESIZE, Config.ENEMIESMAXLIFE, bullets));
