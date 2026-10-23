@@ -69,16 +69,6 @@ namespace shootEmUp.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-		
-		/// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap selectButtonFrame {
-            get {
-                object obj = ResourceManager.GetObject("selectButtonFrame", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
         
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
@@ -109,7 +99,7 @@ namespace shootEmUp.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-		
+        
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
@@ -121,15 +111,15 @@ namespace shootEmUp.Properties {
         }
         
         /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        ///   Recherche une ressource localisée de type System.Byte[].
         /// </summary>
-        public static System.Drawing.Bitmap protection {
+        public static byte[] gameOver {
             get {
-                object obj = ResourceManager.GetObject("protection", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("gameOver", resourceCulture);
+                return ((byte[])(obj));
             }
         }
-		
+        
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
@@ -146,6 +136,26 @@ namespace shootEmUp.Properties {
         public static System.Drawing.Bitmap player {
             get {
                 object obj = ResourceManager.GetObject("player", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap protection {
+            get {
+                object obj = ResourceManager.GetObject("protection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap selectButtonFrame {
+            get {
+                object obj = ResourceManager.GetObject("selectButtonFrame", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

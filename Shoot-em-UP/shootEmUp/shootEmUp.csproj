@@ -10,26 +10,28 @@
 
   <ItemGroup>
     <None Remove="Resources\bullet.png" />
+    <None Remove="Resources\buttonFrame.png" />
+    <None Remove="Resources\enemy.png" />
     <None Remove="Resources\enemyBullet.png" />
+    <None Remove="Resources\enemyLifeHeart.png" />
     <None Remove="Resources\gameOver.ttf" />
+    <None Remove="Resources\lifeHeart.png" />
+    <None Remove="Resources\player.png" />
     <None Remove="Resources\protection.png" />
+    <None Remove="Resources\selectButtonFrame.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="Resources\gameOver.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+
+
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Bullet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\enemyBullet.png" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <EmbeddedResource Include="Resources\buttonFrame.png" />
+    <EmbeddedResource Include="Resources\enemy.png" />
+    <EmbeddedResource Include="Resources\enemyLifeHeart.png" />
+    <EmbeddedResource Include="Resources\lifeHeart.png" />
+    <EmbeddedResource Include="Resources\player.png" />
     <EmbeddedResource Include="Resources\protection.png" />
+    <EmbeddedResource Include="Resources\selectButtonFrame.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +40,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +52,13 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

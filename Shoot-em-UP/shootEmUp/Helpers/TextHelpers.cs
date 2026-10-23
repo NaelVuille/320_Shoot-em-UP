@@ -1,4 +1,6 @@
-﻿using System.Drawing.Text;
+﻿using shootEmUp.Properties;
+using System.Drawing.Text;
+using System.Text;
 
 namespace shootEmUp.Helpers
 {
@@ -11,15 +13,25 @@ namespace shootEmUp.Helpers
         public static Font SmallFont = null!;
         public static void Init()
         {
-            string fontPath = Path.Combine(Application.StartupPath, "Resources", "gameOver.ttf");
+            string tempPath = Path.Combine(Path.GetTempPath(), "gameOver.ttf");
 
-            if (File.Exists(fontPath))
+            
+            if (!File.Exists(tempPath))
             {
-                pfc.AddFontFile(fontPath);
-                BigFont = new Font(pfc.Families[0], 148F, FontStyle.Regular, GraphicsUnit.Point);
-                MediumFont = new Font(pfc.Families[0], 100F, FontStyle.Regular, GraphicsUnit.Point);
-                SmallFont = new Font(pfc.Families[0], 50F, FontStyle.Regular, GraphicsUnit.Point);
+                try
+                {
+                    File.WriteAllBytes(tempPath, shootEmUp.Properties.Resources.gameOver);
+                }
+                catch (IOException)
+                {
+                }
             }
+
+            pfc.AddFontFile(tempPath);
+            BigFont = new Font(pfc.Families[0], 148F, FontStyle.Regular, GraphicsUnit.Point);
+            MediumFont = new Font(pfc.Families[0], 100F, FontStyle.Regular, GraphicsUnit.Point);
+            SmallFont = new Font(pfc.Families[0], 50F, FontStyle.Regular, GraphicsUnit.Point);
+            
         }
     }
 }

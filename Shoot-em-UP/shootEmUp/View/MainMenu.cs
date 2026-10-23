@@ -4,8 +4,8 @@ namespace shootEmUp.View
 {
     public partial class MainMenu : Form
     {
-        
-        string highScore = "0";
+       
+        int highScore = 0;
 
         private readonly Keys[] _konamiCode = new Keys[]
         {
@@ -70,14 +70,15 @@ namespace shootEmUp.View
             DialogResult result = MessageBox.Show("Reset high score?", "Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (result == DialogResult.Yes)
             {
-                File.WriteAllText(Config.HIGHSCOREPATH, "0");
+                Properties.Settings.Default.HighScore = 0;
+                Properties.Settings.Default.Save();
                 RefreshHighScore();
             }
         }
 
         private void RefreshHighScore()
         {
-            highScore = File.ReadAllText(Config.HIGHSCOREPATH);
+            highScore = Config.HIGHSCORE;
             lblHighScore.Text = "Best Score\n" + highScore;
         }
 

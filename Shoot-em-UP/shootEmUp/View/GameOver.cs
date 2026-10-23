@@ -5,11 +5,11 @@ namespace shootEmUp.View
 {
     public partial class GameOver : Form
     {
-        int highScore;
+        int highScore = Config.HIGHSCORE;
 
         public GameOver(int score)
         {
-            if (!int.TryParse(File.ReadAllText(Config.HIGHSCOREPATH), out highScore)) highScore = 0;
+            
 
             Config.play = false;
 
@@ -28,7 +28,8 @@ namespace shootEmUp.View
             if (score > highScore)
             {
                 lblFinalScore.Text = "NEW HIGH SCORE!\n" + score;
-                File.WriteAllText(Config.HIGHSCOREPATH, $"{score}");
+                Properties.Settings.Default.HighScore = score;
+                Properties.Settings.Default.Save();
             }
             else { lblFinalScore.Text = "FINAL SCORE!\n" + score; }
         }

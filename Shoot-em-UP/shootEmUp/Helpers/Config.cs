@@ -1,4 +1,7 @@
-﻿namespace shootEmUp.Helpers
+﻿using shootEmUp.Properties;
+using System.Text;
+
+namespace shootEmUp.Helpers
 {
     // Outils pour écrire du texte dans un environnement graphique
     public static class Config
@@ -10,6 +13,6 @@
         public static bool play = true;
         public const int ENEMIESMAXLIFE = 2;
 
-        public const string HIGHSCOREPATH = @"..\..\..\Resources\HighScore.txt";
+        public static int HIGHSCORE => Properties.Settings.Default.HighScore;
     }
 }
