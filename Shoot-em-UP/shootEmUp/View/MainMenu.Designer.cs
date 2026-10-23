@@ -56,14 +56,14 @@ namespace shootEmUp.View
             // 
             btnPlay.Anchor = AnchorStyles.Top;
             btnPlay.BackColor = SystemColors.ActiveCaptionText;
-            btnPlay.BackgroundImage = shootEmUp.Properties.Resources.buttonFrame;
+            btnPlay.BackgroundImage = Properties.Resources.buttonFrame;
             btnPlay.BackgroundImageLayout = ImageLayout.Zoom;
             btnPlay.FlatStyle = FlatStyle.Popup;
             btnPlay.ForeColor = SystemColors.ControlLightLight;
-            btnPlay.Location = new Point(164, 224);
+            btnPlay.Location = new Point(164, 225);
             btnPlay.Margin = new Padding(10);
             btnPlay.Name = "btnPlay";
-            btnPlay.Size = new Size(400, 100);
+            btnPlay.Size = new Size(342, 100);
             btnPlay.TabIndex = 4;
             btnPlay.Text = "PLAY";
             btnPlay.UseMnemonic = false;
@@ -73,14 +73,14 @@ namespace shootEmUp.View
             // btnQuit
             // 
             btnQuit.Anchor = AnchorStyles.Top;
-            btnQuit.BackgroundImage = shootEmUp.Properties.Resources.buttonFrame;
+            btnQuit.BackgroundImage = Properties.Resources.buttonFrame;
             btnQuit.BackgroundImageLayout = ImageLayout.Zoom;
             btnQuit.FlatStyle = FlatStyle.Popup;
             btnQuit.ForeColor = SystemColors.ControlLightLight;
-            btnQuit.Location = new Point(164, 353);
+            btnQuit.Location = new Point(164, 345);
             btnQuit.Margin = new Padding(10);
             btnQuit.Name = "btnQuit";
-            btnQuit.Size = new Size(400, 100);
+            btnQuit.Size = new Size(342, 100);
             btnQuit.TabIndex = 5;
             btnQuit.Text = "QUIT";
             btnQuit.UseMnemonic = false;
@@ -93,7 +93,7 @@ namespace shootEmUp.View
             lblHighScore.AutoSize = true;
             lblHighScore.Font = new Font("Segoe UI", 30F);
             lblHighScore.ForeColor = Color.White;
-            lblHighScore.Location = new Point(109, 225);
+            lblHighScore.Location = new Point(254, 24);
             lblHighScore.Margin = new Padding(0);
             lblHighScore.Name = "lblHighScore";
             lblHighScore.Size = new Size(217, 162);
@@ -101,7 +101,7 @@ namespace shootEmUp.View
             lblHighScore.Text = "Best Score\nPlayer1\nScore : 000";
             lblHighScore.TextAlign = ContentAlignment.TopCenter;
             // 
-            // Accueil
+            // MainMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -111,7 +111,7 @@ namespace shootEmUp.View
             Controls.Add(btnQuit);
             Controls.Add(btnPlay);
             Controls.Add(lblTitle);
-            Name = "Accueil";
+            Name = "MainMenu";
             Text = "Accueil";
             Load += Accueil_Load;
             ResumeLayout(false);
