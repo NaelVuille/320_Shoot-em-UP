@@ -151,6 +151,19 @@
       "description": "passé de 2 sec a 0.3 sec car ct trop long",
       "duration": 26,
       "status": "DONE"
+    },
+    {
+      "id": "c1edae0e-fda9-4c2a-8a8e-aab5cd1d2e69",
+      "type": "commitpatch",
+      "sha": "10f58ad68eef0785588c2e227466a5ea433585ee",
+      "url": "https://github.com/NaelVuille/320_Shoot-em-UP/commit/10f58ad68eef0785588c2e227466a5ea433585ee",
+      "author": "NaelVuille",
+      "patch": true,
+      "date": "2026-10-21T20:58:00.000Z",
+      "name": "refactore(UI): changement du moyen d'affichage, vie et score",
+      "description": "",
+      "duration": 37,
+      "status": "DONE"
     }
   ]
 }
