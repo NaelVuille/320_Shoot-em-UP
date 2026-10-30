@@ -68,7 +68,7 @@ namespace TestShootEmUp
         public void TestPlayerMovementRespectsCollisionWithScreen()
         {
             // Arrange
-            Player player = new Player(100, Config.HEIGHT, 3);
+            Player player = new Player(100, Config.height, 3);
             List<Protection> protections = new List<Protection>();
             int initialX = player.X;
             int deltaX = 10;

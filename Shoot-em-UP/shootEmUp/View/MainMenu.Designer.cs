@@ -35,6 +35,7 @@ namespace shootEmUp.View
             btnPlay = new Button();
             btnQuit = new Button();
             lblHighScore = new Label();
+            btnSizeWindows = new Button();
             SuspendLayout();
             // 
             // lblTitle
@@ -101,12 +102,27 @@ namespace shootEmUp.View
             lblHighScore.Text = "Best Score\nPlayer1\nScore : 000";
             lblHighScore.TextAlign = ContentAlignment.TopCenter;
             // 
+            // btnSizeWindows
+            // 
+            btnSizeWindows.BackgroundImage = Properties.Resources.buttonFrame;
+            btnSizeWindows.BackgroundImageLayout = ImageLayout.Zoom;
+            btnSizeWindows.FlatStyle = FlatStyle.Popup;
+            btnSizeWindows.ForeColor = SystemColors.ControlLightLight;
+            btnSizeWindows.Location = new Point(542, 56);
+            btnSizeWindows.Name = "btnSizeWindows";
+            btnSizeWindows.Size = new Size(200, 70);
+            btnSizeWindows.TabIndex = 7;
+            btnSizeWindows.Text = "Big";
+            btnSizeWindows.UseVisualStyleBackColor = true;
+            btnSizeWindows.Click += btnSizeWindows_Click;
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(684, 504);
+            Controls.Add(btnSizeWindows);
             Controls.Add(lblHighScore);
             Controls.Add(btnQuit);
             Controls.Add(btnPlay);
@@ -123,5 +139,6 @@ namespace shootEmUp.View
         private Button btnPlay;
         private Button btnQuit;
         private Label lblHighScore;
+        private Button btnSizeWindows;
     }
 }

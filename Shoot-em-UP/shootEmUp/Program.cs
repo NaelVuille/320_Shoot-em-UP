@@ -24,7 +24,7 @@ namespace shootEmUp
             while (Helpers.Config.play)
             {
                 Player player;
-                Application.Run(new Game(player = new Player(Helpers.Config.WIDTH / 2, Helpers.Config.HEIGHT - 150, 3), new List<Bullet>()));
+                Application.Run(new Game(player = new Player(Helpers.Config.width / 2, Helpers.Config.height - 150, 3), new List<Bullet>()));
                 Application.Run(new GameOver(player.Score));
             }
 

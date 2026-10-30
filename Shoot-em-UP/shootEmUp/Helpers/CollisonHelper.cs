@@ -264,8 +264,8 @@ namespace shootEmUp.Helpers
             verifX = x;
             verifY = y;
             
-            if(verifX >= Config.WIDTH || verifX <= 0 ||
-               verifY >= Config.HEIGHT || verifY <= 0)
+            if(verifX >= Config.width || verifX <= 0 ||
+               verifY >= Config.height || verifY <= 0)
             {
                 CanMove = false;
             }

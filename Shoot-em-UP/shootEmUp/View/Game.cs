@@ -42,14 +42,14 @@ namespace shootEmUp
         public Game(Player player,List<Bullet>bullets)
         {
             InitializeComponent();
-            ClientSize = new Size(Helpers.Config.WIDTH, Helpers.Config.HEIGHT); 
+            ClientSize = new Size(Helpers.Config.width, Helpers.Config.height); 
 
             //lblScore.Font = TextHelpers.MediumFont;
            // lblScore.Text = "Score: \n" + _score;
 
             _numberOfEnemies = 10;
 
-            _x = (Helpers.Config.WIDTH - Enemy.ENEMYSIZE) / _numberOfEnemies + 10;
+            _x = (Helpers.Config.width - Enemy.ENEMYSIZE) / _numberOfEnemies + 10;
             
             for (int i = 0; i < _numberOfEnemies; i++)
             {
@@ -73,7 +73,7 @@ namespace shootEmUp
             const int _NOMBREPROTECTION = 5;
             for (int i = 0; i < _NOMBREPROTECTION; i++)
             {
-                _protections.Add(new Protection(125 + Helpers.Config.WIDTH / _NOMBREPROTECTION * i, 450));
+                _protections.Add(new Protection(125 + Helpers.Config.width / _NOMBREPROTECTION * i, Helpers.Config.height / 3 * 2));
             }
 
         }
@@ -109,7 +109,7 @@ namespace shootEmUp
             int imageSize = 50;
 
             for (int i = 1;i <= _player.Life;i++ )
-                game.Graphics.DrawImage(Resources.lifeHeart, Config.WIDTH - (10 + imageSize)*i, 10, imageSize, imageSize);
+                game.Graphics.DrawImage(Resources.lifeHeart, Config.width - (10 + imageSize)*i, 10, imageSize, imageSize);
             SolidBrush writingBrush = new SolidBrush(Color.White);
             game.Graphics.DrawString($"Score: {_score}", TextHelpers.MediumFont, writingBrush, 10 , -10);
             game.Render();
@@ -128,7 +128,7 @@ namespace shootEmUp
             {
                 _numberOfEnemies = MathHelpers.alea.Next(2, 5);
 
-                _x = (Helpers.Config.WIDTH - Enemy.ENEMYSIZE) / _numberOfEnemies + 10;
+                _x = (Helpers.Config.width - Enemy.ENEMYSIZE) / _numberOfEnemies + 10;
                 _x += (_x / 4);
                 for (int i = 0; i < _numberOfEnemies; i++)
                 {

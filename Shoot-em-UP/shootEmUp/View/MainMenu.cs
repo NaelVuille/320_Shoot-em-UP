@@ -4,7 +4,7 @@ namespace shootEmUp.View
 {
     public partial class MainMenu : Form
     {
-       
+
         int highScore = 0;
 
         private readonly Keys[] _konamiCode = new Keys[]
@@ -32,11 +32,14 @@ namespace shootEmUp.View
             lblHighScore.Font = TextHelpers.MediumFont;
             ButtonHelper.Configure(btnPlay);
             ButtonHelper.Configure(btnQuit);
-            ClientSize = new Size(Helpers.Config.WIDTH, Helpers.Config.HEIGHT);
-            lblTitle.Location = new Point(Config.WIDTH / 2 - lblTitle.Size.Width / 2, 50);
-            lblHighScore.Location = new Point(Config.WIDTH / 2 - lblHighScore.Size.Width / 2, 170);
-            btnPlay.Location = new Point(Config.WIDTH / 2 - btnPlay.Size.Width / 2, 450);
-            btnQuit.Location = new Point(Config.WIDTH / 2 - btnQuit.Size.Width / 2, 560);
+            ButtonHelper.Configure(btnSizeWindows);
+            btnSizeWindows.Font = TextHelpers.SmallFont;
+            ClientSize = new Size(Helpers.Config.width, Helpers.Config.height);
+            lblTitle.Location = new Point(Config.width / 2 - lblTitle.Size.Width / 2, 50);
+            lblHighScore.Location = new Point(Config.width / 2 - lblHighScore.Size.Width / 2, 170);
+            btnPlay.Location = new Point(Config.width / 2 - btnPlay.Size.Width / 2, 450);
+            btnQuit.Location = new Point(Config.width / 2 - btnQuit.Size.Width / 2, 560);
+            btnSizeWindows.Location = new Point(10,Config.height - btnSizeWindows.Size.Height);
 
             RefreshHighScore();
         }
@@ -101,6 +104,24 @@ namespace shootEmUp.View
         private void lblTitle_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnSizeWindows_Click(object sender, EventArgs e)
+        {
+            if (Config.isBig)
+            {
+                Config.isBig = false;
+                Config.height = 720;
+                Config.width = 1280;
+                btnSizeWindows.Text = "Big";
+            }
+            else
+            {
+                Config.isBig = true;
+                Config.height = 1080;
+                Config.width = 1920;
+                btnSizeWindows.Text = "Small";
+            }
         }
     }
 }

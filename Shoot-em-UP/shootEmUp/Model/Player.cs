@@ -111,8 +111,8 @@ namespace shootEmUp.Model
             int nextX = _x + deltaX;
             int nextY = _y + deltaY;
 
-            if (nextX < barrierlu || nextX + _PLAYERSIZE > Helpers.Config.WIDTH - barrierrd) return;
-            if (nextY < barrierlu || nextY + _PLAYERSIZE > Helpers.Config.HEIGHT - barrierrd) return;
+            if (nextX < barrierlu || nextX + _PLAYERSIZE > Helpers.Config.width - barrierrd) return;
+            if (nextY < barrierlu || nextY + _PLAYERSIZE > Helpers.Config.height - barrierrd) return;
 
             (_x,_y)= CollisionHelpers.MovePlayer(_x, _y, deltaX, deltaY, protections, _PLAYERSIZE, nextX, nextY);
         }

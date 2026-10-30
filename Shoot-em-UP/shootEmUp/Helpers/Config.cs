@@ -8,8 +8,9 @@ namespace shootEmUp.Helpers
     {
         public const int SPEED = 10;
 
-        public const int WIDTH = 1280;        // Dimensions
-        public const int HEIGHT = 720;
+        public static bool isBig = false;
+        public static int width = 1280;        // Dimensions
+        public static int height = 720;
         public static bool play = true;
         public const int ENEMIESMAXLIFE = 2;
 

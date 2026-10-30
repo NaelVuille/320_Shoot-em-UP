@@ -164,6 +164,16 @@
       "description": "",
       "duration": 37,
       "status": "DONE"
+    },
+    {
+      "id": "6487b1b8-00d5-4d51-a64f-ac6c80427ba0",
+      "type": "commitless",
+      "author": "NaelVuille",
+      "date": "2026-10-30T13:36:00.000Z",
+      "name": "Chore(Doc): ajout du diagramme de classe",
+      "description": "",
+      "duration": 56,
+      "status": "DONE"
     }
   ]
 }
