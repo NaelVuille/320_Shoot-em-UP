@@ -111,7 +111,7 @@ namespace shootEmUp
             for (int i = 1;i <= _player.Life;i++ )
                 game.Graphics.DrawImage(Resources.lifeHeart, Config.width - (10 + imageSize)*i, 10, imageSize, imageSize);
             SolidBrush writingBrush = new SolidBrush(Color.White);
-            game.Graphics.DrawString($"Score: {_score}", TextHelpers.MediumFont, writingBrush, 10 , -10);
+            game.Graphics.DrawString($"Score: {_score}", TextHelper.MediumFont, writingBrush, 10 , -10);
             game.Render();
         }
 

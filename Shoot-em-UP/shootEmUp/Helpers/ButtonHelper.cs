@@ -8,7 +8,7 @@ namespace shootEmUp.Helpers
             butt.FlatStyle = FlatStyle.Flat;
             butt.FlatAppearance.BorderSize = 0;
 
-            butt.Font = TextHelpers.MediumFont;
+            butt.Font = TextHelper.MediumFont;
 
             Image normalImage = Resources.buttonFrame;
             Image hoverImage = Resources.selectButtonFrame;
