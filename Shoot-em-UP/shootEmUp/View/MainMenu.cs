@@ -27,13 +27,13 @@ namespace shootEmUp.View
             this.KeyPreview = true;
             this.KeyDown += Accueil_KeyDown;
 
-            TextHelpers.Init();
-            lblTitle.Font = TextHelpers.BigFont;
-            lblHighScore.Font = TextHelpers.MediumFont;
+            TextHelper.Init();
+            lblTitle.Font = TextHelper.BigFont;
+            lblHighScore.Font = TextHelper.MediumFont;
             ButtonHelper.Configure(btnPlay);
             ButtonHelper.Configure(btnQuit);
             ButtonHelper.Configure(btnSizeWindows);
-            btnSizeWindows.Font = TextHelpers.SmallFont;
+            btnSizeWindows.Font = TextHelper.SmallFont;
             ClientSize = new Size(Helpers.Config.width, Helpers.Config.height);
             lblTitle.Location = new Point(Config.width / 2 - lblTitle.Size.Width / 2, 50);
             lblHighScore.Location = new Point(Config.width / 2 - lblHighScore.Size.Width / 2, 170);

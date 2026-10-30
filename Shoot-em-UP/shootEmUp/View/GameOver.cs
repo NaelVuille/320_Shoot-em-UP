@@ -14,9 +14,9 @@ namespace shootEmUp.View
             Config.play = false;
 
             InitializeComponent();
-            TextHelpers.Init();
-            lblTitle.Font = TextHelpers.BigFont;
-            lblFinalScore.Font = TextHelpers.MediumFont;
+            TextHelper.Init();
+            lblTitle.Font = TextHelper.BigFont;
+            lblFinalScore.Font = TextHelper.MediumFont;
             ButtonHelper.Configure(btnReplay);
             ButtonHelper.Configure(btnQuit);
             ClientSize = new Size(Helpers.Config.width, Helpers.Config.height);

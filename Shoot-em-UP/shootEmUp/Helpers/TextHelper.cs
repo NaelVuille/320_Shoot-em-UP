@@ -5,7 +5,7 @@ using System.Text;
 namespace shootEmUp.Helpers
 {
     // Outils pour écrire du texte dans un environnement graphique
-    public static class TextHelpers
+    public static class TextHelper
     {
         private static PrivateFontCollection pfc = new PrivateFontCollection();
         public static Font BigFont = null!;
